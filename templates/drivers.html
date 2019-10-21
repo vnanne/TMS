@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TMS | Drivers</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css"> -->
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../static/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../static/css/_all-skins.min.css">
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="javascript:void(0)" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>TMS</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>TMS</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                      page and may cause design problems
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-red"></i> 5 new members joined
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-user text-red"></i> You changed your username
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="../static/img/avatar5.png" class="user-image" alt="User Image">
+              <span class="hidden-xs">Srikanth</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="../static/img/avatar5.png" class="img-circle" alt="User Image">
+
+                <p>
+                  Srikanth - UI Developer
+                  <small>Member since Nov. 2016</small>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Loads</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Customers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Drivers</a>
+                  </div>
+                </div>
+                <!-- /.row -->
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="login.html" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="../static/img/avatar5.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>Srikanth</p>
+          <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li>
+          <a href="dashboard.html">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="newload.html">
+            <i class="fa fa-plus"></i> <span>New Load</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="admin.html">
+            <i class="fa fa-user"></i> <span>Admin</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="drivers.html">
+            <i class="fa fa-ship"></i> <span>Drivers</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="customers.html">
+            <i class="fa fa-users"></i> <span>Customers</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="terminal.html">
+            <i class="fa fa-terminal"></i> <span>Terminal</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="invoice.html">
+            <i class="fa fa-folder"></i> <span>Invoice</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="documents.html">
+            <i class="fa fa-book"></i> <span>Documents</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>Drivers</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-ship"></i> Home</a></li>
+        <li><a href="#">Admin</a></li>
+        <li class="active">Drivers</li>
+      </ol>
+    </section>    
+
+    <section class="content">
+    	<div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
+
+              <div class="box-tools">
+              	<button class="btn btn-amber add-new waves-effect waves-light" data-toggle="modal" data-target="#addnewDriverModal"><i class="fa fa-plus"></i>Add Driver</button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tr>
+                  <th>Driver ID</th>
+			      <th>First Name</th>
+			      <th>Last Name</th>
+			      <th>DateOfBirth</th>
+			      <th>Contact</th>
+			      <th>Email</th>
+			      <th>Address</th>
+			      <th>Driver Licence</th>
+			      <th>Issue Date</th>
+			      <th>Expiry Date</th>
+			      <th>Hazmat</th>
+			      <th>Dual Endors</th>
+			      <th>Tank Endors</th>
+			      <th>TaxID</th>
+			      <th>Action</th>
+                </tr>
+                <tr>
+                  <td scope="row">1</td>
+			      <td>abc</td>
+			      <td>xyz</td>
+			      <td>12-12-1212</td>
+			      <td>123456789</td>
+			      <td>qwer@zxc.com</td>
+			      <td>USA,USA,USA,12344</td>
+			      <td>S4089SM</td>
+			      <td>12-12-1213</td>
+			      <td>12-12-1215</td>
+			      <td>Yes</td>
+			      <td>Yes</td>
+			      <td>No</td>
+			      <td>987654</td>
+			      <td>
+			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+			      </td>
+                </tr>
+                <tr>
+                  <td scope="row">2</td>
+			      <td>abc</td>
+			      <td>xyz</td>
+			      <td>12-12-1212</td>
+			      <td>123456789</td>
+			      <td>qwer@zxc.com</td>
+			      <td>USA,USA,USA,12344</td>
+			      <td>S4089SM</td>
+			      <td>12-12-1213</td>
+			      <td>12-12-1215</td>
+			      <td>Yes</td>
+			      <td>Yes</td>
+			      <td>No</td>
+			      <td>987654</td>
+			      <td>
+			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+			      </td>
+                </tr>
+                <tr>
+                  <td scope="row">3</td>
+			      <td>abc</td>
+			      <td>xyz</td>
+			      <td>12-12-1212</td>
+			      <td>123456789</td>
+			      <td>qwer@zxc.com</td>
+			      <td>USA,USA,USA,12344</td>
+			      <td>S4089SM</td>
+			      <td>12-12-1213</td>
+			      <td>12-12-1215</td>
+			      <td>Yes</td>
+			      <td>Yes</td>
+			      <td>No</td>
+			      <td>987654</td>
+			      <td>
+			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+			      </td>
+                </tr>
+                <tr>
+                  <td scope="row">4</td>
+			      <td>abc</td>
+			      <td>xyz</td>
+			      <td>12-12-1212</td>
+			      <td>123456789</td>
+			      <td>qwer@zxc.com</td>
+			      <td>USA,USA,USA,12344</td>
+			      <td>S4089SM</td>
+			      <td>12-12-1213</td>
+			      <td>12-12-1215</td>
+			      <td>Yes</td>
+			      <td>Yes</td>
+			      <td>No</td>
+			      <td>987654</td>
+			      <td>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+			      </td>
+                </tr>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+    </section>
+
+  <!-- add new driver modal -->
+<div class="modal fade" id="addnewDriverModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Add New Driver</h4>
+      </div>
+      <div class="modal-body">
+
+      	<div class="row">
+			<div class="col-md-6">
+		        <label data-error="wrong" data-success="right" for="defaultForm-email">Display Name</label>
+		        <input type="text" id="display_name" class="form-control">
+            </div>
+            <div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="contact_name">Contact Name</label>
+		          <input type="text" id="contact_name" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+			<div class="col-md-6">
+      			<label data-error="wrong" data-success="right" for="ph_no">Phone Number</label>
+	         	<input type="text" id="ph_no" class="form-control">
+            </div>
+            <div class="col-md-6">
+	          <label data-error="wrong" data-success="right" for="email">EMail</label>
+	          <input type="email" id="email" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+			<div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="street_add_1">Street Address 1</label>
+		          <input type="text" id="street_add_1" class="form-control">
+
+		    </div>
+		    <div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="street_add_2">Street Address 2</label>
+		          <input type="text" id="street_add_2" class="form-control">
+
+		    </div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="City">City</label>
+		          <input type="text" id="City" class="form-control">
+		    </div>
+		    <div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="State">State</label>
+		          <input type="text" id="State" class="form-control">
+		    </div>
+		</div> 
+
+		<div class="row">
+			<div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="ZipCode">Zipcode</label>
+		          <input type="text" id="ZipCode" class="form-control">
+		    </div>
+		    <div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="Country">Country</label>
+		          <input type="text" id="Country" class="form-control">
+		    </div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="t_id">Tax ID</label>
+		          <input type="text" id="t_id" class="form-control">
+		    </div>
+		    <div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="driver_lience">Driver Lience</label>
+		          <input type="text" id="driver_lience" class="form-control">
+		    </div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="dl_issue_date">Driver Lience Issue Date</label>
+		          <div class="input-group">
+	                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+	                  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                </div>
+		    </div>
+		    <div class="col-md-6">
+		          <label data-error="wrong" data-success="right" for="dl_exp_date">Driver Lience Expiry Date</label>
+		          <div class="input-group">
+	                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+	                  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                </div>
+		    </div>
+		</div>
+		
+
+		<div class="text-center" style="margin-top: 10px;">
+	        <button class="btn btn-default">Add Now</button>
+	      </div>
+
+      </div>      
+    </div>
+  </div>
+</div>
+
+
+
+	<div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script> -->
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../static/js/adminlte.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- <script src="../static/js/pages/dashboard.js"></script> -->
+<!-- AdminLTE for demo purposes -->
+<script src="../static/js/demo.js"></script>
+
+</body>
+</html>
+
+
+<!-- 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script> -->
