@@ -120,3 +120,43 @@ class PostUpdateView(UpdateView):
         post.updated_at = timezone.now()
         post.save()
         return redirect('topic_posts', pk=post.topic.board.pk, topic_pk=post.topic.pk)
+
+class NewLoadListView(ListView):
+    #model = Board
+    #context_object_name = 'boards'
+    template_name = 'newload.html'
+
+class AdminListView(ListView):
+    #model = Board
+    #context_object_name = 'boards'
+    template_name = 'admin.html'
+
+class DriversListView(ListView):
+    #model = Board
+    #context_object_name = 'boards'
+    template_name = 'drivers.html'
+
+class CustomersListView(ListView):
+    #model = Board
+    #context_object_name = 'boards'
+    template_name = 'customers.html'
+
+class TerminalListView(ListView):
+    #model = Board
+    #context_object_name = 'boards'
+    template_name = 'terminal.html'
+
+class InvoiceListView(ListView):
+    #model = Board
+    #context_object_name = 'boards'
+    template_name = 'invoice.html'
+
+class DocumentsListView(ListView):
+    #model = Board
+    #context_object_name = 'boards'
+    template_name = 'documents.html'
+    
+class DashboardListView(ListView):
+    #model = Board
+    #context_object_name = 'boards'
+    template_name = 'dashboard.html'

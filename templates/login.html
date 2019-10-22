@@ -3,51 +3,27 @@
 {% block title %}Log in to TMS {% endblock %}
 
 {% block content %}
-
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="javascript:void(0)"><b>TMS</b></a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
-
-	<form method="post" novalidate>
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Log in</h3>
+          <form method="post" novalidate>
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
             {% include 'includes/form.html' %}
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
-    </form>
-    <div class="col-xs-4">
-          <a type="button" href="{% url 'signup' %} class="btn btn-primary btn-block btn-flat">Sign In</a>
+          </form>
         </div>
-        <!-- /.col -->
+        <div class="card-footer text-muted text-center">
+          New to TMS? <a href="{% url 'signup' %}">Sign up</a>
+        </div>
       </div>
-	<a href="{% url 'password_reset' %}" class="text-muted">Forgot your password?</a><br>
-    <!-- <a href="register.html" class="text-center">Register a new membership</a> -->
-
+      <div class="text-center py-2">
+        <small>
+          <a href="{% url 'password_reset' %}" class="text-muted">Forgot your password?</a>
+        </small>
+      </div>
+    </div>
   </div>
-  <!-- /.login-box-body -->
-</div>
-
-  
-  <!-- /.login-box -->
-
-<!-- jQuery 3 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-  });
-</script>
-  
 {% endblock %}
