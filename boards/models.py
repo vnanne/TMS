@@ -25,8 +25,8 @@ class Board(models.Model):
 class Topic(models.Model):
     subject = models.CharField(max_length=255)
     last_updated = models.DateTimeField(auto_now_add=True)
-    board = models.ForeignKey(Board, related_name='topics')
-    starter = models.ForeignKey(User, related_name='topics')
+    board = models.ForeignKey(Board, related_name='topics',on_delete=False)
+    starter = models.ForeignKey(User, related_name='topics',on_delete=False)
     views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
@@ -54,11 +54,11 @@ class Topic(models.Model):
 
 class Post(models.Model):
     message = models.TextField(max_length=4000)
-    topic = models.ForeignKey(Topic, related_name='posts')
+    topic = models.ForeignKey(Topic, related_name='posts',on_delete=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
-    created_by = models.ForeignKey(User, related_name='posts')
-    updated_by = models.ForeignKey(User, null=True, related_name='+')
+    created_by = models.ForeignKey(User, related_name='posts',on_delete=False)
+    updated_by = models.ForeignKey(User, null=True, related_name='+',on_delete=False)
 
     def __str__(self):
         truncated_message = Truncator(self.message)
@@ -166,3 +166,62 @@ class Export(models.Model):
 
     def __str__(self):
         return self.id
+
+class Driver(models.Model):
+    driver_id=models.IntegerField()
+    driver_name=models.CharField(max_length=250)
+    address_id=models.IntegerField()
+    licence=models.CharField(max_length=250)
+    hazmat_endorsement=models.CharField(max_length=250)
+    dual_endorsemt=models.CharField(max_length=250)
+    tank_endorsment=models.CharField(max_length=250)
+    dob=models.DateField()
+    licence_issue_date=models.DateField()
+    licence_expiry_date=models.DateField()
+    ssn_tax_id=models.CharField(max_length=250)
+    email=models.EmailField()
+    telephone=models.IntegerField()
+    
+    def __str__(self):
+        return self.driver_id
+        
+        
+class Chassis_provide(models.Model):
+    chassis_provider_id= models.IntegerField()
+    chassis_provide_name=models.CharField(max_length=250)
+    email=models.EmailField()
+    telephone=models.IntegerField()
+    contact=models.IntegerField()
+    address_id=models.IntegerField()
+    addresstype_id=models.IntegerField()
+    
+    def __str__(self):
+        return self.chassis_provider_id
+
+class Rate(models.Model):
+    rate_id= models.IntegerField()
+    rate_description=models.CharField(max_length=250)
+    rate_type_id=models.IntegerField()
+    amount=models.IntegerField()
+    distance_in_miles=models.IntegerField()
+    city =models.CharField(max_length=250)
+    customer_id=models.ForeignKey(Customer,on_delete=False,related_name='customer_names')
+    driver_id=models.ForeignKey(driver,on_delete=False,related_name='driver_names')
+        
+    def __str__(self):
+        return self.rate_id
+
+
+class Documents(models.Model):
+    document_id= models.IntegerField()
+    document_type_id=models.CharField(max_length=250)
+    document_type_id=models.CharField(max_length=250)
+    load_id=models.CharField(max_length=250)
+    
+          
+    def __str__(self):
+        return self.document_id
+
+
+
+
