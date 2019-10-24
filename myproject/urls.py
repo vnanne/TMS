@@ -7,11 +7,20 @@ from boards import views
 
 
 urlpatterns = [
-    #url(r'^$', views.BoardListView.as_view(), name='home'),
-    url(r'^signup/$', accounts_views.signup, name='signup'),
-    url(r'^$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 
+	url(r'^home$', views.BoardListView.as_view(), name='home'),
+	url(r'^$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+	url(r'^newload/$', views.NewLoadListView.as_view(), name='newload'),
+	url(r'^admin/$', views.AdminListView.as_view(), name='admin'),
+	url(r'^drivers/$', views.DriversListView.as_view(), name='drivers'),
+	url(r'^customers/$', views.CustomersListView.as_view(), name='customers'),
+	url(r'^terminal/$', views.TerminalListView.as_view(), name='terminal'),
+	url(r'^invoice/$', views.InvoiceListView.as_view(), name='invoice'),
+	url(r'^documents/$', views.DocumentsListView.as_view(), name='documents'),
+	url(r'^signup/$', accounts_views.signup, name='signup'),
+	url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+	url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^adddriver/$', views.Adddriver, name='adddriver'),
     url(r'^reset/$',
         auth_views.PasswordResetView.as_view(
             template_name='password_reset.html',

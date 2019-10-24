@@ -101,8 +101,8 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'admin'
+LOGOUT_REDIRECT_URL = 'login'
 
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = config('EMAIL_HOST', default='')
@@ -111,8 +111,8 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
-DEFAULT_FROM_EMAIL = 'Django Boards <noreply@djangoboards.com>'
-EMAIL_SUBJECT_PREFIX = '[Django Boards] '
+DEFAULT_FROM_EMAIL = 'Dispatch <noreply@dispatch.com>'
+EMAIL_SUBJECT_PREFIX = '[Dispatch]'
 
 
 SECURE_CONTENT_TYPE_NOSNIFF = True
