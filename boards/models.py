@@ -173,8 +173,8 @@ class Driver(models.Model):
     address_id=models.IntegerField()
     licence=models.CharField(max_length=250)
     hazmat_endorsement=models.CharField(max_length=250)
-    dual_endorsemt=models.CharField(max_length=250)
-    tank_endorsment=models.CharField(max_length=250)
+    dual_endorsement=models.CharField(max_length=250)
+    tank_endorsement=models.CharField(max_length=250)
     dob=models.DateField()
     licence_issue_date=models.DateField()
     licence_expiry_date=models.DateField()
@@ -206,7 +206,7 @@ class Rate(models.Model):
     distance_in_miles=models.IntegerField()
     city =models.CharField(max_length=250)
     customer_id=models.ForeignKey(Customer,on_delete=False,related_name='customer_names')
-    driver_id=models.ForeignKey(driver,on_delete=False,related_name='driver_names')
+    driver_id=models.ForeignKey(Driver,on_delete=False,related_name='driver_names')
         
     def __str__(self):
         return self.rate_id

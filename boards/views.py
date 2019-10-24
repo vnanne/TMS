@@ -8,7 +8,8 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse
 
 from .forms import NewTopicForm, PostForm
-from .models import Board, Post, Topic
+from .models import Board,Topic,Post,Driver, Customer,Workorder,Address,Address_Type,Receiver,Terminals,Import,Export,Chassis_provide,Rate,Documents
+
 
 
 class BoardListView(ListView):
@@ -132,18 +133,21 @@ class AdminListView(ListView):
     template_name = 'admin.html'
 
 class DriversListView(ListView):
-    model = Board
-    context_object_name = 'boards'
+    model = Driver
+    context_object_name = 'drivers'
     template_name = 'drivers.html'
 
+
+	
+
 class CustomersListView(ListView):
-    model = Board
-    context_object_name = 'boards'
+    model = Customer
+    context_object_name = 'customers'
     template_name = 'customers.html'
 
 class TerminalListView(ListView):
-    model = Board
-    context_object_name = 'boards'
+    model = Terminals
+    context_object_name = 'terminals'
     template_name = 'terminal.html'
 
 class InvoiceListView(ListView):
@@ -161,3 +165,9 @@ class DashboardListView(ListView):
     context_object_name = 'boards'
     template_name = 'dashboard.html'
     
+def Adddriver(request):
+    data=request.POST
+    print('data' ,data)
+    Driver.objects.create(driver_name=data['contact_name'], telephone=data['ph_no'],email=data['email'],tax_id=data['t_id'], lience=data['driver_lience'],lience_issue_date=data['lience_issue_date'], lience_expiry_date=data['lience_expiry_date'])
+    drivers=Driver.objects.all()
+    return render(request,'drivers.html',{'drivers':drivers})
