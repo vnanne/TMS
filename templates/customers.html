@@ -225,71 +225,29 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
+                  {% for customer in customers %}
                 <tr>
 			      <th scope="col">Customer ID</th>
 			      <th scope="col">Customer Name</th>
 			      <th scope="col">Contact Person</th>
 			      <th scope="col">Email</th>
 			      <th scope="col">Address</th>
-			      <th scope="col">Credit Limit</th>
 			      <th scope="col">TaxID</th>
 			      <th scope="col">Action</th>
 			    </tr>
                 <tr>
-                  <td scope="row">1</td>
-			      <td>USA</td>
-			      <td>Apple Inc, Microsoft</td>
-			      <td>abc@apple.com</td>
-			      <td>USA</td>
-			      <td>12345678</td>
-			      <td>98765</td>
+                  <td scope="row">{{ customer.customer_id }}</td>
+			      <td>{{ customer.customer_name }}</td>
+			      <td>{{ customer.telephone }}</td>
+			      <td>{{ customer.email }}</td>
+			      <td>{{ customer.address_id }}</td>
+			      <td>{{ customer.tax_id }}</td>
 			      <td>
 			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
                     <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
 			      </td>
                 </tr>
-
-                <tr>
-                  <td scope="row">2</td>
-			      <td>USA</td>
-			      <td>Apple Inc, Microsoft</td>
-			      <td>abc@apple.com</td>
-			      <td>USA</td>
-			      <td>12345678</td>
-			      <td>98765</td>
-			      <td>
-			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-			      </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">3</td>
-			      <td>USA</td>
-			      <td>Apple Inc, Microsoft</td>
-			      <td>abc@apple.com</td>
-			      <td>USA</td>
-			      <td>12345678</td>
-			      <td>98765</td>
-			      <td>
-			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-			      </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">4</td>
-			      <td>USA</td>
-			      <td>Apple Inc, Microsoft</td>
-			      <td>abc@apple.com</td>
-			      <td>USA</td>
-			      <td>12345678</td>
-			      <td>98765</td>
-			      <td>
-			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-			      </td>
-                </tr>
+                {% endfor %}
               </table>
             </div>
             <!-- /.box-body -->

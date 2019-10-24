@@ -21,6 +21,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">
@@ -228,8 +229,7 @@
               <table class="table table-hover">
                 <tr>
                   <th>Driver ID</th>
-			      <th>First Name</th>
-			      <th>Last Name</th>
+			      <th>Name</th>
 			      <th>DateOfBirth</th>
 			      <th>Contact</th>
 			      <th>Email</th>
@@ -244,86 +244,27 @@
 			      <th>Action</th>
                 </tr>
                 <tr>
-                  <td scope="row">1</td>
-			      <td>abc</td>
-			      <td>xyz</td>
-			      <td>12-12-1212</td>
-			      <td>123456789</td>
-			      <td>qwer@zxc.com</td>
-			      <td>USA,USA,USA,12344</td>
-			      <td>S4089SM</td>
-			      <td>12-12-1213</td>
-			      <td>12-12-1215</td>
-			      <td>Yes</td>
-			      <td>Yes</td>
-			      <td>No</td>
-			      <td>987654</td>
+				{% for driver in drivers %}
+                  <td scope="row">{{ driver.driver_id}}</td>
+			      <td>{{ driver.driver_name}}</td>
+			      <td>{{ driver.dob }}</td>
+			      <td>{{ driver.telephone}}</td>
+			      <td>{{ driver.email}}</td>
+			      <td>{{ driver.address_id}}</td>
+			      <td>{{ driver.licence}}</td>
+			      <td>{{ driver.licence_issue_date }}</td>
+			      <td>{{ driver.licence_expiry_date }}</td>
+			      <td>{{ driver.hazmat_endorsement}}</td>
+			      <td>{{ driver.dual_endorsement}}</td>
+			      <td>{{ driver.tank_endorsement}}</td>
+			      <td>{{ driver.ssn_tax_id}}</td>
 			      <td>
 			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
                     <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
 			      </td>
                 </tr>
-                <tr>
-                  <td scope="row">2</td>
-			      <td>abc</td>
-			      <td>xyz</td>
-			      <td>12-12-1212</td>
-			      <td>123456789</td>
-			      <td>qwer@zxc.com</td>
-			      <td>USA,USA,USA,12344</td>
-			      <td>S4089SM</td>
-			      <td>12-12-1213</td>
-			      <td>12-12-1215</td>
-			      <td>Yes</td>
-			      <td>Yes</td>
-			      <td>No</td>
-			      <td>987654</td>
-			      <td>
-			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-			      </td>
-                </tr>
-                <tr>
-                  <td scope="row">3</td>
-			      <td>abc</td>
-			      <td>xyz</td>
-			      <td>12-12-1212</td>
-			      <td>123456789</td>
-			      <td>qwer@zxc.com</td>
-			      <td>USA,USA,USA,12344</td>
-			      <td>S4089SM</td>
-			      <td>12-12-1213</td>
-			      <td>12-12-1215</td>
-			      <td>Yes</td>
-			      <td>Yes</td>
-			      <td>No</td>
-			      <td>987654</td>
-			      <td>
-			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-			      </td>
-                </tr>
-                <tr>
-                  <td scope="row">4</td>
-			      <td>abc</td>
-			      <td>xyz</td>
-			      <td>12-12-1212</td>
-			      <td>123456789</td>
-			      <td>qwer@zxc.com</td>
-			      <td>USA,USA,USA,12344</td>
-			      <td>S4089SM</td>
-			      <td>12-12-1213</td>
-			      <td>12-12-1215</td>
-			      <td>Yes</td>
-			      <td>Yes</td>
-			      <td>No</td>
-			      <td>987654</td>
-			      <td>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-			      </td>
-                </tr>
-              </table>
+				{% endfor %}
+                </table>
             </div>
             <!-- /.box-body -->
           </div>
@@ -333,6 +274,7 @@
     </section>
 
   <!-- add new driver modal -->
+
 <div class="modal fade" id="addnewDriverModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -342,6 +284,8 @@
           <span aria-hidden="true">×</span></button>
         <h4 class="modal-title">Add New Driver</h4>
       </div>
+	  <form action="/adddriver/" method="post" >
+       {% csrf_token %}
       <div class="modal-body">
 
       	<div class="row">
@@ -417,24 +361,25 @@
 		          <label data-error="wrong" data-success="right" for="dl_issue_date">Driver Lience Issue Date</label>
 		          <div class="input-group">
 	                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-	                  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+	                  <input type="text" id="lience_issue_date" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="">
                 </div>
 		    </div>
 		    <div class="col-md-6">
 		          <label data-error="wrong" data-success="right" for="dl_exp_date">Driver Lience Expiry Date</label>
 		          <div class="input-group">
 	                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-	                  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+	                  <input type="text" id="lience_expiry_date" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="">
                 </div>
 		    </div>
 		</div>
 		
 
 		<div class="text-center" style="margin-top: 10px;">
-	        <button class="btn btn-default">Add Now</button>
-	      </div>
-
-      </div>      
+			<input class="btn btn-default" type="submit" value="Add Now">
+		</div>
+	
+     </div>  
+	</form>	 
     </div>
   </div>
 </div>
@@ -443,6 +388,7 @@
 
 	<div class="control-sidebar-bg"></div>
 </div>
+
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
