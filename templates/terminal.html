@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TMS | Terminal</title>
+  <title>TMS | Customers</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -20,6 +20,75 @@
   <link rel="stylesheet" href="../static/css/_all-skins.min.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style type="text/css">
+      .modal-confirm .modal-content {
+       padding: 20px;
+       border-radius: 5px;
+       border: none;
+       text-align: center;
+       font-size: 14px;
+    }
+    .modal-confirm .modal-header {
+       border-bottom: none;
+       position: relative;
+    }
+    .modal-confirm .icon-box {
+       width: 80px;
+       height: 80px;
+       margin: 0 auto;
+       border-radius: 50%;
+       z-index: 9;
+       text-align: center;
+    }
+    .modal-confirm .warning_icon-box{
+        border: 3px solid #f15e5e;
+    }
+    .modal-confirm .warning_icon-box{
+        color: #f15e5e;
+    }
+    .modal-confirm .icon-box i {
+       font-size: 46px;
+       display: inline-block;
+       margin-top: 13px;
+    }
+    .modal-confirm .response_icon-box {
+       border: 3px solid #1d9a71;
+    }
+    .modal-confirm .response_icon-box i {
+       color: #1d9a71;
+    }
+    .modal-confirm h4 {
+       text-align: center;
+       font-size: 26px;
+       margin: 30px 0 -10px;
+    }
+    .modal-confirm .close {
+       position: absolute;
+       top: -5px;
+       right: -2px;
+    }
+    .modal-confirm .modal-body {
+       color: #999;
+    }
+    .modal-confirm .modal-footer {
+       border: none;
+       text-align: center;
+       border-radius: 5px;
+       font-size: 13px;
+       padding: 10px 15px 25px;
+    }
+    .modal-confirm .btn-info {
+       background: #c1c1c1;
+    }
+    .modal-footer .btn+.btn {
+       margin-bottom: 0;
+       margin-left: 5px;
+    }
+    .modal-confirm .btn-danger {
+       background: #f15e5e;
+    }
+     </style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -155,43 +224,43 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li>
-          <a href="dashboard.html">
+        <li class="active">
+          <a href="/dashboard">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
         <li class="">
-          <a href="newload.html">
+          <a href="/newload">
             <i class="fa fa-plus"></i> <span>New Load</span>
           </a>
         </li>
         <li class="">
-          <a href="admin.html">
+          <a href="/admin">
             <i class="fa fa-user"></i> <span>Admin</span>
           </a>
         </li>
         <li class="">
-          <a href="drivers.html">
+          <a href="/drivers">
             <i class="fa fa-ship"></i> <span>Drivers</span>
           </a>
         </li>
         <li class="">
-          <a href="customers.html">
+          <a href="/customers">
             <i class="fa fa-users"></i> <span>Customers</span>
           </a>
         </li>
-        <li class="active">
-          <a href="terminal.html">
+        <li class="">
+          <a href="/terminal">
             <i class="fa fa-terminal"></i> <span>Terminal</span>
           </a>
         </li>
         <li class="">
-          <a href="invoice.html">
+          <a href="/invoice">
             <i class="fa fa-folder"></i> <span>Invoice</span>
           </a>
         </li>
         <li class="">
-          <a href="documents.html">
+          <a href="/documents">
             <i class="fa fa-book"></i> <span>Documents</span>
           </a>
         </li>
@@ -208,7 +277,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-terminal"></i> Home</a></li>
         <li><a href="#">Admin</a></li>
-        <li class="active">Customers</li>
+        <li class="active">Terminal</li>
       </ol>
     </section>    
 
@@ -220,28 +289,29 @@
               <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
               <div class="box-tools">
-              	<button class="btn btn-amber add-new waves-effect waves-light" data-toggle="modal" data-target="#addnewCustmrModal"><i class="fa fa-plus"></i>Add Terminal</button>
+              	<button class="btn btn-amber add-new waves-effect waves-light" data-toggle="modal" data-target="#addnewTerminalModal"><i class="fa fa-plus"></i>Add Terminal</button>
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
-                {% for terminal in terminals %}
                 <tr>
       			      <th scope="col">Terminal ID</th>
       			      <th scope="col">Terminal Name</th>
-      			      <th scope="col">Address </th>
-      			      <th scope="col">Address type </th>
+      			      <th scope="col">Phone </th>
+      			      <th scope="col">Email </th>
       			      <th scope="col">Action</th>
-      			    </tr>
+                </tr>
+                 {% for terminal in terminals %}
                 <tr>
-                  <td scope="row">{{ terminal.terminal_id }}</td>
-      			      <td>{{ terminal.terminal_name }}</td>
-      			      <td>{{terminal.address_id}}</td>
-      			      <td>{{terminal.address_type_id}}</td>
+                      <td class="terminal_id">{{ terminal.id }}</td>
+      			      <td class="terminal_name">{{ terminal.terminal_name }}</td>
+      			      <td class="terminal_phone">{{terminal.telephone}}</td>
+      			      <td class="terminal_email">{{terminal.email}}</td>
+                      <td class="terminal_address" style="display:none;">{{ terminal.get_terminal_address }}</td>
       			      <td>
-      			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+      			      	<a class="edit edit_terminal" title="Edit"><i class="fa fa-edit"></i></a>
+                        <a class="delete delete_terminal" title="Delete"><i class="fa fa-trash-o"></i></a>
       			      </td>
                 </tr>
               {%  endfor %}
@@ -254,84 +324,86 @@
       </div>
     </section>
 
-  
-
-
-
-
-
-
-
-<div class="modal fade" id="addnewCustmrModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<form action="/addterminal/" method="post">
+  {% csrf_token %}
+<div class="modal fade" id="addnewTerminalModal" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_modal">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Terminal</h4>
+        <h4 class="modal-title">Add Terminal</h4>
       </div>
       <div class="modal-body">
-
       	<div class="row">
-			<div class="col-md-6">
-		        <label data-error="wrong" data-success="right" for="defaultForm-email">Company Name</label>
-		        <input type="text" id="company_name" class="form-control">
+			<!--<div class="col-md-6">
+		        <label data-error="wrong" data-success="right" for="addterminal_id">Terminal ID</label>
+		        <input type="text" name="terminal_id" id="addterminal_id" class="form-control">
             </div>
             <div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="contact_name">Contact Name</label>
-		          <input type="text" id="contact_name" class="form-control">
+		          <label data-error="wrong" data-success="right" for="addterminalName">Terminal Name</label>
+		          <input type="text" name="terminal_name" id="addterminalName" class="form-control">
+            </div>-->
+              <div class="row form-group" style="margin-right:10px; margin-left:10px";>
+                  <div class="col-md-4">
+                    <label class="control-label">Terminal Name</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input class="form-control"  type="text" name="terminal_name" id="addterminalName">
+                    <input type="hidden" name="terminal_Id" id="terminal_Id">
+                  </div>
             </div>
         </div>
 
         <div class="row">
 			<div class="col-md-6">
-		        <label data-error="wrong" data-success="right" for="ph_no">Phone Number</label>
-		        <input type="text" id="ph_no" class="form-control">
+		        <label data-error="wrong" data-success="right" for="addTerminal_ph">Phone Number</label>
+		        <input type="text" name="ph_no" id="addTerminal_ph" class="form-control">
             </div>
             <div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="email">EMail</label>
-		          <input type="text" id="email" class="form-control">
+		          <label data-error="wrong" data-success="right" for="addTerminal_email">EMail</label>
+		          <input type="text" name="email" id="addTerminal_email" class="form-control">
             </div>
         </div>
 
         <div class="row">
 			<div class="col-md-6">
-		        <label data-error="wrong" data-success="right" for="street_add_1">Street Address 1</label>
-		        <input type="text" id="street_add_1" class="form-control">
+		        <label data-error="wrong" data-success="right" for="addStreet_1">H.No</label>
+		        <input type="text" name="street_add_1" id="addStreet_1" class="form-control">
             </div>
             <div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="street_add_2">Street Address 2</label>
-		          <input type="text" id="street_add_2" class="form-control">
+		          <label data-error="wrong" data-success="right" for="addStreet_2">Street Address</label>
+		          <input type="text" name="street_add_2" id="addStreet_2" class="form-control">
             </div>
         </div>
 
         <div class="row">
 			<div class="col-md-6">
-		        <label data-error="wrong" data-success="right" for="City">City</label>
-		        <input type="text" id="City" class="form-control">
+		        <label data-error="wrong" data-success="right" for="addCity">City</label>
+		        <input type="text" name="City" id="addCity" class="form-control">
             </div>
             <div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="State">State</label>
-		          <input type="text" id="State" class="form-control">
+		          <label data-error="wrong" data-success="right" for="addState">State</label>
+		          <input type="text" name="State" id="addState" class="form-control">
             </div>
         </div>
 
         <div class="row">
 			   <div class="col-md-6">
-		        <label data-error="wrong" data-success="right" for="Zipcode">Zipcode</label>
-		        <input type="text" id="Zipcode" class="form-control">
+		        <label data-error="wrong" data-success="right" for="add_zipcode">Zipcode</label>
+		        <input type="text" name="Zipcode" id="add_zipcode" class="form-control">
             </div>
             <div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="Country">Country</label>
-		          <input type="text" id="Country" class="form-control">
+		          <label data-error="wrong" data-success="right" for="add_country">Country</label>
+		          <input type="text" name="Country" id="add_country" class="form-control">
             </div>
         </div>
 
-        <div class="row">
+        <!--<div class="row">
          <div class="col-md-6">
             <label data-error="wrong" data-success="right" for="Zipcode">Weight</label>
-            <input type="text" id="Zipcode" class="form-control">
+            <input type="text" name="Zipcode" class="form-control">
             </div>
             <div class="col-md-6">
               <label data-error="wrong" data-success="right" for="Country">Import/Export</label>
@@ -345,27 +417,66 @@
         <div class="row">
 			<div class="col-md-6">
 		        <label data-error="wrong" data-success="right" for="t_id">Tax ID</label>
-		        <input type="text" id="t_id" class="form-control">
+		        <input type="text" name="t_id" class="form-control">
             </div>
             <div class="col-md-6">
 		          <label data-error="wrong" data-success="right" for="Carrier">Motor Carrier</label>
-		          <input type="text" id="Carrier" class="form-control">
+		          <input type="text" name="Carrier" class="form-control">
             </div>
+        </div>-->
+
+		<div class="text-center" style="margin-top: 10px; display: flex; justify-content: center;">
+	        <button class="btn btn-default" id="addNewTerminal">Add Now</button>
+            <button class="btn btn-default" id="updateTerminal" style="display:none;">Update Now</button>
         </div>
 
-		<div class="text-center"  style="margin-top: 10px;">
-	        <button class="btn btn-default">Add Now</button>
-	      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 
-      </div>      
+<div id="Del_WarningModal" class="modal">
+  <div class="modal-dialog modal-confirm modal-sm">
+    <div class="modal-content">
+    <div class="modal-header">
+    <div class="icon-box warning_icon-box">
+    <i class="fa fa-times"></i>
+    </div>
+    <h4 class="modal-title">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+    <span style="display: none;" id="del_terminal_id"></span>
+    <p>Do you really want to delete these records? This process cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-danger deleteConfirm">Delete</button>
+    </div>
     </div>
   </div>
 </div>
 
 
-
-	<div class="control-sidebar-bg"></div>
+  <div class="modal" id="deleteConfirmModal">
+        <div class="modal-dialog modal-confirm modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box response_icon-box" id="icon-box">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <h4 class="modal-title" id="response_msg"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="del_response_close">×</button>
+                </div>
+            </div>
+        </div>
+  </div>
+    <center>{% include 'includes/pagination.html' %}</center>
+    <div class="control-sidebar-bg"></div>
 </div>
+</div>
+
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -387,6 +498,7 @@
 <!-- FastClick -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
 <!-- AdminLTE App -->
+<script src="../static/js/terminal.js"></script>
 <script src="../static/js/adminlte.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="../static/js/pages/dashboard.js"></script> -->

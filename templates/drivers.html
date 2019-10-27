@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TMS | Drivers</title>
+  <title>TMS | Customers</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
   <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css"> -->
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -20,8 +21,217 @@
   <link rel="stylesheet" href="../static/css/_all-skins.min.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-</head>
+    <style>
+       /* Switch Flat
+       ==========================*/
+       .switch {
+       position: relative;
+       display: block;
+       vertical-align: top;
+       width: 133px;
+       height: 30px;
+       padding: 3px;
+       margin: 0 10px 10px 0;
+       background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+       background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+       border-radius: 18px;
+       box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+       cursor: pointer;
+       box-sizing:content-box;
+    }
+    .switch-input {
+       position: absolute;
+       top: 0;
+       left: 0;
+       opacity: 0;
+       box-sizing:content-box;
+    }
+    .switch-label {
+       position: relative;
+       display: block;
+       height: inherit;
+       font-size: 10px;
+       text-transform: uppercase;
+       background: #eceeef;
+       border-radius: inherit;
+       box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+       box-sizing:content-box;
+    }
+    .switch-label:before, .switch-label:after {
+       position: absolute;
+       top: 50%;
+       margin-top: -.5em;
+       line-height: 1;
+       -webkit-transition: inherit;
+       -moz-transition: inherit;
+       -o-transition: inherit;
+       transition: inherit;
+       box-sizing:content-box;
+    }
+    .switch-label:before {
+       content: attr(data-off);
+       right: 11px;
+       color: #aaaaaa;
+       text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+    }
+    .switch-label:after {
+       content: attr(data-on);
+       left: 11px;
+       color: #FFFFFF;
+       text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+       opacity: 0;
+    }
+    .switch-input:checked ~ .switch-label {
+       background: #E1B42B;
+       box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+    .switch-input:checked ~ .switch-label:before {
+       opacity: 0;
+    }
+    .switch-input:checked ~ .switch-label:after {
+       opacity: 1;
+    }
+    .switch-handle {
+       position: absolute;
+       top: 4px;
+       left: 4px;
+       width: 28px;
+       height: 28px;
+       background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+       background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+       border-radius: 100%;
+       box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+    .switch-handle:before {
+       content: "";
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       margin: -6px 0 0 -6px;
+       width: 12px;
+       height: 12px;
+       background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+       background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+       border-radius: 6px;
+       box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+    }
+    .switch-input:checked ~ .switch-handle {
+       left: 127px;
+       box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
 
+    /* Transition
+    ========================== */
+    .switch-label, .switch-handle {
+       transition: All 0.3s ease;
+       -webkit-transition: All 0.3s ease;
+       -moz-transition: All 0.3s ease;
+       -o-transition: All 0.3s ease;
+    }
+       .switch-flat {
+          padding: 0;
+          background: #FFF;
+          background-image: none;
+       }
+       .switch-flat .switch-label {
+          background: #FFF;
+          border: solid 2px #eceeef;
+          box-shadow: none;
+       }
+       .switch-flat .switch-label:after {
+          color: #0088cc;
+       }
+       .switch-flat .switch-handle {
+          top: 6px;
+          left: 6px;
+          background: #dadada;
+          width: 22px;
+          height: 22px;
+          box-shadow: none;
+       }
+       .switch-flat .switch-handle:before {
+          background: #eceeef;
+       }
+       .switch-flat .switch-input:checked ~ .switch-label {
+          background: #FFF;
+          border-color: #0088cc;
+       }
+       .switch-flat .switch-input:checked ~ .switch-handle {
+          left: 90px;
+          background: #0088cc;
+          box-shadow: none;
+       }
+    </style>
+    <style type="text/css">
+          .modal-confirm .modal-content {
+           padding: 20px;
+           border-radius: 5px;
+           border: none;
+           text-align: center;
+           font-size: 14px;
+        }
+        .modal-confirm .modal-header {
+           border-bottom: none;
+           position: relative;
+        }
+        .modal-confirm .icon-box {
+           width: 80px;
+           height: 80px;
+           margin: 0 auto;
+           border-radius: 50%;
+           z-index: 9;
+           text-align: center;
+        }
+        .modal-confirm .warning_icon-box{
+            border: 3px solid #f15e5e;
+        }
+        .modal-confirm .warning_icon-box{
+            color: #f15e5e;
+        }
+        .modal-confirm .icon-box i {
+           font-size: 46px;
+           display: inline-block;
+           margin-top: 13px;
+        }
+        .modal-confirm .response_icon-box {
+           border: 3px solid #1d9a71;
+        }
+        .modal-confirm .response_icon-box i {
+           color: #1d9a71;
+        }
+        .modal-confirm h4 {
+           text-align: center;
+           font-size: 26px;
+           margin: 30px 0 -10px;
+        }
+        .modal-confirm .close {
+           position: absolute;
+           top: -5px;
+           right: -2px;
+        }
+        .modal-confirm .modal-body {
+           color: #999;
+        }
+        .modal-confirm .modal-footer {
+           border: none;
+           text-align: center;
+           border-radius: 5px;
+           font-size: 13px;
+           padding: 10px 15px 25px;
+        }
+        .modal-confirm .btn-info {
+           background: #c1c1c1;
+        }
+        .modal-footer .btn+.btn {
+           margin-bottom: 0;
+           margin-left: 5px;
+        }
+        .modal-confirm .btn-danger {
+           background: #f15e5e;
+        }
+     </style>
+
+</head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">
@@ -84,10 +294,11 @@
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
+          {% if user.is_authenticated %}
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../static/img/avatar5.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Srikanth</span>
+              <span class="hidden-xs">{{ user.username }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -95,21 +306,21 @@
                 <img src="../static/img/avatar5.png" class="img-circle" alt="User Image">
 
                 <p>
-                  Srikanth - UI Developer
-                  <small>Member since Nov. 2016</small>
+                  {{ user.username }}
+                  <small>{{ user.date_joined }}</small>
                 </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
-                    <a href="#">Loads</a>
+                    <a href="/newload/">Loads</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="#">Customers</a>
+                    <a href="/customers/">Customers</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="#">Drivers</a>
+                    <a href="/drivers/">Drivers</a>
                   </div>
                 </div>
                 <!-- /.row -->
@@ -117,12 +328,16 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a  class="btn btn-default btn-sm btn-flat" href="{% url 'my_account' %}" >Profile</a>
                 </div>
-                <div class="pull-right">
-                  <a href="login.html" class="btn btn-default btn-flat">Sign out</a>
+                <div class="pull-left">
+                  <a  class="btn btn-default btn-sm btn-flat" href="{% url 'password_change' %}">Change password</a>
+                </div>
+                <div class="pull-left">
+                  <a href="{% url 'logout' %}" class="btn btn-default btn-sm btn-flat">Sign out</a>
                 </div>
               </li>
+                {% endif %}
             </ul>
           </li>
         </ul>
@@ -139,8 +354,10 @@
           <img src="../static/img/avatar5.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Srikanth</p>
+          {% if user.is_authenticated %}
+          <p>  {{ user.username }}</p>
           <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
+          {% endif %}
         </div>
       </div>
       <!-- search form -->
@@ -196,10 +413,10 @@
             <i class="fa fa-book"></i> <span>Documents</span>
           </a>
         </li>
-      </ul>
-    </section>
+      </ul>    </section>
     <!-- /.sidebar -->
   </aside>
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -211,13 +428,13 @@
         <li><a href="#">Admin</a></li>
         <li class="active">Drivers</li>
       </ol>
-    </section>    
+    </section>
 
     <section class="content">
     	<div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
+           <div class="box-header">
               <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
               <div class="box-tools">
@@ -240,27 +457,29 @@
 			      <th>Hazmat</th>
 			      <th>Dual Endors</th>
 			      <th>Tank Endors</th>
+			      <th>Active</th>
 			      <th>TaxID</th>
 			      <th>Action</th>
                 </tr>
                 <tr>
 				{% for driver in drivers %}
-                  <td scope="row">{{ driver.driver_id}}</td>
-			      <td>{{ driver.driver_name}}</td>
-			      <td>{{ driver.dob }}</td>
-			      <td>{{ driver.telephone}}</td>
-			      <td>{{ driver.email}}</td>
-			      <td>{{ driver.address_id}}</td>
-			      <td>{{ driver.licence}}</td>
-			      <td>{{ driver.licence_issue_date }}</td>
-			      <td>{{ driver.licence_expiry_date }}</td>
-			      <td>{{ driver.hazmat_endorsement}}</td>
-			      <td>{{ driver.dual_endorsement}}</td>
-			      <td>{{ driver.tank_endorsement}}</td>
-			      <td>{{ driver.ssn_tax_id}}</td>
+                  <td class="driver_id">{{ driver.id}}</td>
+			      <td class="driver_name">{{ driver.driver_name}}</td>
+			      <td class="driver_dob">{{ driver.dob|safe }}</td>
+			      <td class="driver_phone">{{ driver.telephone}}</td>
+			      <td class="driver_email">{{ driver.email}}</td>
+			      <td class="driver_address">{{ driver.get_driver_address}}</td>
+			      <td class="driver_licence">{{ driver.licence}}</td>
+			      <td class="driver_l_issue">{{ driver.licence_issue_date|safe }}</td>
+			      <td class="driver_l_expiry">{{ driver.licence_expiry_date|safe }}</td>
+			      <td class="driver_hazmat">{{ driver.hazmat_endorsement}}</td>
+			      <td class="driver_dual">{{ driver.dual_endorsement}}</td>
+			      <td class="driver_tank">{{ driver.tank_endorsement}}</td>
+			      <td class="driver_active">{{ driver.is_active}}</td>
+			      <td class="driver_ssn_tax_id">{{ driver.ssn_tax_id}}</td>
 			      <td>
-			      	<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit"></i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+			      	<a class="edit edit_driver" title="Edit"><i class="fa fa-edit"></i></a>
+                    <a class="delete delete_driver" title="Delete"><i class="fa fa-trash-o"></i></a>
 			      </td>
                 </tr>
 				{% endfor %}
@@ -275,134 +494,214 @@
 
   <!-- add new driver modal -->
 
-<div class="modal fade" id="addnewDriverModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<form action="/adddriver/" method="post" >
+{% csrf_token %}
+<div class="modal fade" id="addnewDriverModal" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="cloe" data-dismiss="modal" aria-label="Close" id="close_modal">
           <span aria-hidden="true">×</span></button>
         <h4 class="modal-title">Add New Driver</h4>
       </div>
-	  <form action="/adddriver/" method="post" >
-       {% csrf_token %}
-      <div class="modal-body">
 
+      <div class="modal-body">
       	<div class="row">
 			<div class="col-md-6">
-		        <label data-error="wrong" data-success="right" for="defaultForm-email">Display Name</label>
-		        <input type="text" id="display_name" class="form-control">
+		        <label data-error="wrong" data-success="right" for="contact_name">Contact Name</label>
+		        <input type="text" name="display_name" class="form-control" id="contact_name">
             </div>
             <div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="contact_name">Contact Name</label>
-		          <input type="text" id="contact_name" class="form-control">
+                <div class="form-group">
+                    <label>Date of birth</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" name="dob" id="dob">
+                    </div>
+                </div>
             </div>
+            <input type="hidden" name="driver_Id" id="driver_Id">
         </div>
 
         <div class="row">
 			<div class="col-md-6">
       			<label data-error="wrong" data-success="right" for="ph_no">Phone Number</label>
-	         	<input type="text" id="ph_no" class="form-control">
+	         	<input type="text" name="ph_no" class="form-control" id="ph_no">
             </div>
             <div class="col-md-6">
 	          <label data-error="wrong" data-success="right" for="email">EMail</label>
-	          <input type="email" id="email" class="form-control">
+	          <input type="email" name="email" class="form-control" id="email">
             </div>
         </div>
 
         <div class="row">
 			<div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="street_add_1">Street Address 1</label>
-		          <input type="text" id="street_add_1" class="form-control">
-
+		          <label data-error="wrong" data-success="right" for="street_add_1">H.No</label>
+		          <input type="text" name="street_add_1" class="form-control" id="street_add_1">
 		    </div>
 		    <div class="col-md-6">
 		          <label data-error="wrong" data-success="right" for="street_add_2">Street Address 2</label>
-		          <input type="text" id="street_add_2" class="form-control">
-
+		          <input type="text" name="street_add_2" class="form-control" id="street_add_2">
 		    </div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6">
 		          <label data-error="wrong" data-success="right" for="City">City</label>
-		          <input type="text" id="City" class="form-control">
+		          <input type="text" name="City" class="form-control" id="city">
 		    </div>
 		    <div class="col-md-6">
 		          <label data-error="wrong" data-success="right" for="State">State</label>
-		          <input type="text" id="State" class="form-control">
+		          <input type="text" name="State" class="form-control" id="state">
 		    </div>
-		</div> 
+		</div>
 
 		<div class="row">
 			<div class="col-md-6">
 		          <label data-error="wrong" data-success="right" for="ZipCode">Zipcode</label>
-		          <input type="text" id="ZipCode" class="form-control">
+		          <input type="text" name="Zipcode" class="form-control" id="zipcode">
 		    </div>
 		    <div class="col-md-6">
 		          <label data-error="wrong" data-success="right" for="Country">Country</label>
-		          <input type="text" id="Country" class="form-control">
+		          <input type="text" name="Country" class="form-control" id="country">
 		    </div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="t_id">Tax ID</label>
-		          <input type="text" id="t_id" class="form-control">
+		          <label data-error="wrong" data-success="right" for="tax_ID">Tax ID</label>
+		          <input type="text" name="t_id" class="form-control" id="tax_ID">
 		    </div>
 		    <div class="col-md-6">
 		          <label data-error="wrong" data-success="right" for="driver_lience">Driver Lience</label>
-		          <input type="text" id="driver_lience" class="form-control">
+		          <input type="text" name="driver_lience" class="form-control" id="driver_lience">
 		    </div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="dl_issue_date">Driver Lience Issue Date</label>
-		          <div class="input-group">
-	                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-	                  <input type="text" id="lience_issue_date" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="">
+                <div class="form-group">
+                    <label>Driver Licence Issue Date</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" name="licence_issue_date" id="licence_issue">
+                    </div>
                 </div>
 		    </div>
 		    <div class="col-md-6">
-		          <label data-error="wrong" data-success="right" for="dl_exp_date">Driver Lience Expiry Date</label>
-		          <div class="input-group">
-	                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-	                  <input type="text" id="lience_expiry_date" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="">
+                <div class="form-group">
+                    <label>Driver Licence Expiry Date</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" name="licence_expiry_date" id="licence_expiry">
+                    </div>
                 </div>
 		    </div>
 		</div>
-		
 
-		<div class="text-center" style="margin-top: 10px;">
-			<input class="btn btn-default" type="submit" value="Add Now">
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-3">
+              <label class="switch switch-flat">
+                  <input class="switch-input" type="checkbox"  id="haz_tgl"/>
+                  <span class="switch-label" data-on="HAZ YES" data-off="HAZ NO"></span>
+                  <span class="switch-handle"></span>
+                  <input type="hidden" name="haz_switch" id="haz_switch">
+               </label>
+            </div>
+            <div class="col-md-3">
+              <label class="switch switch-flat">
+                  <input class="switch-input" type="checkbox" id="tank_tgl"/>
+                  <span class="switch-label" data-on="Tank YES" data-off="Tank NO"></span>
+                  <span class="switch-handle"></span>
+                  <input type="hidden" name="tank_switch" id="tank_switch">
+               </label>
+            </div>
+            <div class="col-md-3">
+              <label class="switch switch-flat">
+                  <input class="switch-input" type="checkbox" id="dual_E_tgl" />
+                  <span class="switch-label" data-on="Dual Endors YES" data-off="Dual Endors NO"></span>
+                  <span class="switch-handle"></span>
+                  <input type="hidden" name="dual_endors_switch" id="dual_endors_switch">
+               </label>
+            </div>
+            <div class="col-md-3">
+              <label class="switch switch-flat">
+                  <input class="switch-input" type="checkbox" id="active_tgl" />
+                  <span class="switch-label" data-on="Active YES" data-off="Active NO"></span>
+                  <span class="switch-handle"></span>
+                  <input type="hidden" name="active_switch" id="active_switch">
+               </label>
+            </div>
+        </div>
+
+
+		<div class="text-center" style="margin-top: 10px; display: flex; justify-content: center;">
+            <button class="btn btn-default" id="addNewDriver">Add Now</button>
+            <button class="btn btn-default" id="updateDriver" style="display:none;">Update Now</button>
 		</div>
-	
-     </div>  
-	</form>	 
+     </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+<div id="Del_WarningModal" class="modal">
+  <div class="modal-dialog modal-confirm modal-sm">
+    <div class="modal-content">
+    <div class="modal-header">
+    <div class="icon-box warning_icon-box">
+    <i class="fa fa-times"></i>
+    </div>
+    <h4 class="modal-title">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+    <span style="display: none;" id="del_driver_id"></span>
+    <p>Do you really want to delete these records? This process cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-danger deleteConfirm">Delete</button>
+    </div>
     </div>
   </div>
 </div>
 
+        <div class="modal" id="deleteConfirmModal">
+            <div class="modal-dialog modal-confirm modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="icon-box response_icon-box" id="icon-box">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <h4 class="modal-title" id="response_msg"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="del_response_close">×</button>
+                    </div>
+                </div>
+            </div>
+      </div>
 
 
+
+<center>{% include 'includes/pagination.html' %}</center>
+</div>
 	<div class="control-sidebar-bg"></div>
 </div>
-
-<!-- ./wrapper -->
 
 <!-- jQuery 3 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
-<!-- Bootstrap 3.3.7 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script> -->
-<!-- DataTables -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
 <!-- Slimscroll -->
@@ -410,6 +709,7 @@
 <!-- FastClick -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
 <!-- AdminLTE App -->
+<script src="../static/js/drivers.js"></script>
 <script src="../static/js/adminlte.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="../static/js/pages/dashboard.js"></script> -->
@@ -418,10 +718,3 @@
 
 </body>
 </html>
-
-
-<!-- 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script> -->
