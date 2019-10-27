@@ -70,88 +70,78 @@ class Post(models.Model):
 #########################
 
 class Customer(models.Model):
-    customer_id=models.IntegerField()
-    customer_name=models.CharField(max_length=250)
-    customer_trade_name=models.CharField(max_length=250)
-    address_id=models.IntegerField()
-    email=models.EmailField()
-    contact_person=models.CharField(max_length=250)
-    telephone=models.IntegerField()
-    fax=models.IntegerField()
-    address_type_id=models.CharField(max_length=250)
-    tax_id=models.IntegerField()
+    id=models.IntegerField(primary_key=True)
+    customer_name=models.CharField(max_length=250, blank=True, null=True)
+    customer_trade_name=models.CharField(max_length=250 ,blank=True, null=True)
+    email=models.EmailField(blank=True, null=True)
+    contact_person=models.CharField(max_length=250 , blank=True, null=True)
+    telephone=models.CharField(max_length=250, blank=True, null=True)
+    fax=models.CharField(max_length=250, blank=True, null=True)
+    tax_id=models.IntegerField(blank=True, null=True)
+    motor_carrier=models.CharField(max_length=250,blank=True,null=True)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.customer_id
+        return self.customer_name
 
+    def get_customer_address(self):
+        return Address.objects.get(customer_id=self.id)
 
 class Workorder(models.Model):
-    workorder_id=models.IntegerField(primary_key=True)
+    id=models.IntegerField(primary_key=True)
     customer_id=models.ForeignKey(Customer,on_delete=False,related_name='customer_ids',)
-    receiver_id=models.IntegerField()
-    load_id=models.IntegerField()
-    chassis_provider_id=models.IntegerField()
-    terminal_id=models.IntegerField
-    import_id=models.CharField(max_length=250)
-    export_id=models.CharField(max_length=250)
-    po=models.CharField(max_length=250)
-    product_decription=models.CharField(max_length=250)
-    vessel_name=models.CharField(max_length=250)
-    vessel_eat=models.CharField(max_length=250)
-    lfd=models.CharField(max_length=250)
-    customer_notes=models.CharField(max_length=250)
-    receiver_notes=models.CharField(max_length=250)
+    receiver_id=models.IntegerField(blank=True, null=True)
+    load_id=models.IntegerField(blank=True, null=True)
+    chassis_provider_id=models.IntegerField(blank=True, null=True)
+    terminal_id=models.IntegerField(blank=True, null=True)
+    import_id=models.CharField(max_length=250, blank=True, null=True)
+    export_id=models.CharField(max_length=250 ,blank=True, null=True)
+    po=models.CharField(max_length=250, blank=True, null=True)
+    product_decription=models.CharField(max_length=250 , blank=True, null=True)
+    vessel_name=models.CharField(max_length=250, blank=True, null=True)
+    vessel_eat=models.CharField(max_length=250, blank=True, null=True)
+    lfd=models.CharField(max_length=250, blank=True, null=True)
+    customer_notes=models.CharField(max_length=250, blank=True, null=True)
+    receiver_notes=models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
-        return self.workorder_id
-
-class Address(models.Model):
-    address_id=models.IntegerField()
-    flat=models.CharField(max_length=250)
-    street=models.CharField(max_length=250)
-    address1=models.CharField(max_length=250)
-    address2=models.CharField(max_length=250)
-    state=models.CharField(max_length=250)
-    zipcode=models.IntegerField()
-    addresstype_id=models.IntegerField()
-
-    def __str__(self):
-        return self.address_id
+        return self.id
 
 class Address_Type(models.Model):
-    address_type_id=models.IntegerField()
-    address_type=models.CharField(max_length=250)
+    address_type_id=models.IntegerField(blank=True, null=True)
+    address_type=models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
         return self.address_type_id
 
 class Receiver(models.Model):
-    receiver_id=models.IntegerField()
-    contact_name=models.CharField(max_length=250)
-    address_id=models.IntegerField()
-    email=models.EmailField()
-    telephone=models.IntegerField()
-    address_type_id=models.IntegerField()
+    id=models.IntegerField(primary_key=True)
+    contact_name=models.CharField(max_length=250, blank=True, null=True)
+    email=models.EmailField(blank=True, null=True)
+    telephone=models.CharField(max_length=250, blank=True, null=True)
+    address_type_id=models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
-        return self.receiver_id
+        return self.contact_name
 
 class Terminals(models.Model):
-    terminal_id=models.IntegerField()
-    terminal_name=models.CharField(max_length=250)
-    address_id=models.IntegerField()
-    address_type_id=models.IntegerField()
+    id=models.IntegerField(primary_key=True)
+    terminal_name=models.CharField(max_length=250, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    telephone = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
-        return self.terminal_id
+        return str(self.terminal_name)
 
+    def get_terminal_address(self):
+        return Address.objects.get(terminal_id=self.id)
 
 class Import(models.Model):
     id=models.IntegerField(primary_key=True)
     bill_of_landing_reference=models.CharField(max_length=250)
-    container=models.CharField(max_length=250)
-    container_type_id=models.IntegerField()
-    workorder_id=models.IntegerField()
+    container=models.CharField(max_length=250, blank=True,null=True)
+    container_type_id=models.CharField(max_length=250, blank=True,null=True)
+    workorder_id=models.IntegerField(blank=True,null=True)
 
     def __str__(self):
         return self.id
@@ -159,69 +149,84 @@ class Import(models.Model):
 
 class Export(models.Model):
     id=models.IntegerField(primary_key=True)
-    booking=models.CharField(max_length=250)
-    container=models.CharField(max_length=250)
-    container_type_id=models.IntegerField()
-    workorder_id=models.IntegerField()
+    booking=models.CharField(max_length=250, blank=True,null=True)
+    container=models.CharField(max_length=250, blank=True,null=True)
+    container_type_id=models.CharField(max_length=250, blank=True,null=True)
+    workorder_id=models.IntegerField(blank=True,null=True)
 
     def __str__(self):
         return self.id
 
 class Driver(models.Model):
-    driver_id=models.IntegerField()
-    driver_name=models.CharField(max_length=250)
-    address_id=models.IntegerField()
-    licence=models.CharField(max_length=250)
-    hazmat_endorsement=models.CharField(max_length=250)
-    dual_endorsement=models.CharField(max_length=250)
-    tank_endorsement=models.CharField(max_length=250)
-    dob=models.DateField()
-    licence_issue_date=models.DateField()
-    licence_expiry_date=models.DateField()
-    ssn_tax_id=models.CharField(max_length=250)
-    email=models.EmailField()
-    telephone=models.IntegerField()
+    id=models.IntegerField(primary_key=True)
+    driver_name=models.CharField(max_length=250, blank=True, null=True)
+    licence=models.CharField(max_length=250, blank=True, null=True)
+    hazmat_endorsement=models.BooleanField(default =False)
+    dual_endorsement=models.BooleanField(default=False)
+    tank_endorsement=models.BooleanField(default=False)
+    is_active=models.BooleanField(default=False)
+    dob=models.DateField(blank=True, null=True)
+    licence_issue_date=models.DateField(blank=True, null=True)
+    licence_expiry_date=models.DateField(blank=True, null=True)
+    ssn_tax_id=models.CharField(max_length=250, blank=True, null=True)
+    email=models.EmailField(blank=True, null=True)
+    telephone=models.CharField(max_length=250, blank=True, null=True)
     
     def __str__(self):
-        return self.driver_id
-        
+        return str(self.id)
+
+    def get_driver_address(self):
+        return Address.objects.get(driver_id=self.id)
         
 class Chassis_provide(models.Model):
-    chassis_provider_id= models.IntegerField()
-    chassis_provide_name=models.CharField(max_length=250)
-    email=models.EmailField()
-    telephone=models.IntegerField()
-    contact=models.IntegerField()
-    address_id=models.IntegerField()
-    addresstype_id=models.IntegerField()
+    id=models.IntegerField(primary_key=True)
+    chassis_provide_name=models.CharField(max_length=250, blank=True,null=True)
+    email=models.EmailField(blank=True,null=True)
+    telephone=models.CharField(max_length=250, blank=True,null=True)
+    contact=models.CharField(max_length=250, blank=True,null=True)
+    address_id=models.IntegerField(blank=True,null=True)
+    addresstype_id=models.IntegerField(blank=True,null=True)
     
     def __str__(self):
-        return self.chassis_provider_id
+        return self.id
 
 class Rate(models.Model):
-    rate_id= models.IntegerField()
-    rate_description=models.CharField(max_length=250)
-    rate_type_id=models.IntegerField()
-    amount=models.IntegerField()
-    distance_in_miles=models.IntegerField()
-    city =models.CharField(max_length=250)
+    id= models.IntegerField(primary_key=True)
+    rate_description=models.CharField(max_length=250,blank=True,null=True)
+    rate_type_id=models.IntegerField(blank=True,null=True)
+    amount=models.IntegerField(blank=True,null=True)
+    distance_in_miles=models.IntegerField(blank=True,null=True)
+    city =models.CharField(max_length=250, blank=True,null=True)
     customer_id=models.ForeignKey(Customer,on_delete=False,related_name='customer_names')
     driver_id=models.ForeignKey(Driver,on_delete=False,related_name='driver_names')
         
     def __str__(self):
-        return self.rate_id
+        return self.id
 
 
 class Documents(models.Model):
-    document_id= models.IntegerField()
-    document_type_id=models.CharField(max_length=250)
-    document_type_id=models.CharField(max_length=250)
-    load_id=models.CharField(max_length=250)
-    
-          
+    id= models.IntegerField(primary_key=True)
+    document_type_id=models.CharField(max_length=250, blank=True,null=True)
+    document_name=models.CharField(max_length=250, blank=True,null=True)
+    load_id=models.CharField(max_length=250, blank=True,null=True)
+
     def __str__(self):
-        return self.document_id
+        return self.id
 
 
 
+class Address(models.Model):
+    id=models.IntegerField(primary_key=True)
+    flat=models.CharField(max_length=250, blank=True,null=True)
+    street=models.CharField(max_length=250, blank=True,null=True)
+    city=models.CharField(max_length=250, blank=True,null=True)
+    state=models.CharField(max_length=250, blank=True,null=True)
+    country=models.CharField(max_length=250,blank=True,null=True)
+    zipcode=models.IntegerField(blank=True,null=True)
+    customer_id=models.IntegerField(blank=True, null=True)
+    receiver_id=models.IntegerField(blank=True, null=True)
+    terminal_id=models.IntegerField(blank=True, null=True)
+    driver_id=models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return str(self.flat)+","+str(self.street)+","+str(self.city)+","+str(self.state)+","+str(self.country)+","+str(self.zipcode)

@@ -6,7 +6,8 @@ from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.urls import reverse
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .forms import NewTopicForm, PostForm
 from .models import Board,Topic,Post,Driver, Customer,Workorder,Address,Address_Type,Receiver,Terminals,Import,Export,Chassis_provide,Rate,Documents
 
@@ -122,38 +123,42 @@ class PostUpdateView(UpdateView):
         post.save()
         return redirect('topic_posts', pk=post.topic.board.pk, topic_pk=post.topic.pk)
 
+
 class NewLoadListView(ListView):
     model = Board
     context_object_name = 'boards'
     template_name = 'newload.html'
+    paginate_by = 10
 
 class AdminListView(ListView):
     model = Board
     context_object_name = 'boards'
     template_name = 'admin.html'
+    paginate_by = 10
 
 class DriversListView(ListView):
     model = Driver
     context_object_name = 'drivers'
     template_name = 'drivers.html'
-
-
-	
+    paginate_by = 10
 
 class CustomersListView(ListView):
     model = Customer
     context_object_name = 'customers'
     template_name = 'customers.html'
+    paginate_by = 10
 
 class TerminalListView(ListView):
     model = Terminals
     context_object_name = 'terminals'
     template_name = 'terminal.html'
+    paginate_by = 10
 
 class InvoiceListView(ListView):
     model = Board
     context_object_name = 'boards'
     template_name = 'invoice.html'
+    paginate_by = 10
 
 class DocumentsListView(ListView):
     model = Board
@@ -164,10 +169,116 @@ class DashboardListView(ListView):
     model = Board
     context_object_name = 'boards'
     template_name = 'dashboard.html'
-    
+    paginate_by = 10
+
+
+def Addcustomer(request):
+    data=request.POST
+    print(data)
+    if data['active_switch'] == "true":
+        active_switch = True
+    else:
+        active_switch = False
+
+    if data['customer_Id']:
+        Customer.objects.filter(id=data['customer_Id']).update(customer_name=data['contact_name'],customer_trade_name=data['company_name'],email=data['email'], telephone=data['ph_no'],tax_id=data['t_id'], motor_carrier=data['Carrier'],is_active=active_switch)
+
+        Address.objects.filter(customer_id=data['customer_Id']).update(flat=data['street_add_1'],street=data['street_add_2'], city=data['City'],state=data['State'], country=data['Country'],zipcode=data['Zipcode'] )
+
+    else:
+        Customer.objects.create(customer_name=data['contact_name'], customer_trade_name=data['company_name'],
+                            email=data['email'], telephone=data['ph_no'], tax_id=data['t_id'],motor_carrier=data['Carrier'],is_active=active_switch)
+
+        Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
+                           state=data['State'], country=data['Country'], zipcode=data['Zipcode'],
+                           customer_id=Customer.objects.all().order_by("-id")[0].id)
+    return redirect('customers')
+
+@csrf_exempt
+def DeleteCustomer(request):
+    data=request.POST
+    Customer.objects.filter(id=data['customer_Id']).delete()
+    Address.objects.filter(customer_id=data['customer_Id']).delete()
+    message='Customer ID ', data['customer_Id'],' is Successfully Deleted '
+    return JsonResponse({'msg':message })
+
+def UpdateCustomer(request):
+    data=request.POST
+    if data['active_switch']=="true":
+        active_switch =True
+    else:
+        active_switch=False
+
+    Customer.objects.get(id=data['customer_id']).update(customer_name=data['company_name'], customer_trade_name=data['contact_name'],
+                            email=data['email'], telephone=data['ph_no'], tax_id=data['t_id'],is_active=active_switch)
+
+    Address.objects.filter(customer_id=data['customer_id']).update(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
+                           state=data['State'], country=data['Country'], zipcode=data['Zipcode'])
+    return redirect('customers')
+
+def Addterminal(request):
+    data = request.POST
+    if data['terminal_Id']:
+        Terminals.objects.filter(id=data['terminal_Id']).update(terminal_name=data['terminal_name'],email=data['email'],)
+        Address.objects.filter(terminal_id=data['terminal_Id']).update(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
+                               state=data['State'], country=data['Country'], zipcode=data['Zipcode'])
+    else:
+        Terminals.objects.create(terminal_name=data['terminal_name'],email=data['email'], telephone=data['ph_no'])
+        Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],state=data['State'], country=data['Country'], zipcode=data['Zipcode'],terminal_id=Terminals.objects.all().order_by("-id")[0].id)
+
+    return redirect('terminal')
+
+@csrf_exempt
+def DeleteTerminal(request):
+    data=request.POST
+    Terminals.objects.filter(id=data['terminal_Id']).delete()
+    Address.objects.filter(terminal_id=data['terminal_Id']).delete()
+    message='Terminal ID ', data['terminal_Id'],' is Successfully Deleted '
+    return JsonResponse({'msg':message })
+
 def Adddriver(request):
     data=request.POST
-    print('data' ,data)
-    Driver.objects.create(driver_name=data['contact_name'], telephone=data['ph_no'],email=data['email'],tax_id=data['t_id'], lience=data['driver_lience'],lience_issue_date=data['lience_issue_date'], lience_expiry_date=data['lience_expiry_date'])
-    drivers=Driver.objects.all()
-    return render(request,'drivers.html',{'drivers':drivers})
+    if data['haz_switch']=="true":
+        haz_switch=True
+    else:
+        haz_switch=False
+    if data['dual_endors_switch']=="true":
+        dual_endors_switch=True
+    else:
+        dual_endors_switch=False
+
+    if data['tank_switch']=="true":
+        tank_switch=True
+    else:
+        tank_switch=False
+
+    if data['active_switch']=="true":
+        active_switch =True
+    else:
+        active_switch=False
+
+    if data['driver_Id']:
+        Driver.objects.filter(id=data['driver_Id']).update(driver_name=data['display_name'], telephone=data['ph_no'], email=data['email'],
+                              ssn_tax_id=data['t_id'], licence=data['driver_lience'],
+                              licence_issue_date=data['licence_issue_date'],
+                              licence_expiry_date=data['licence_expiry_date'], hazmat_endorsement=haz_switch,dual_endorsement=dual_endors_switch,tank_endorsement=tank_switch,is_active=active_switch)
+        Address.objects.filter(driver_id=data['driver_Id']).update(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
+                               state=data['State'], country=data['Country'], zipcode=data['Zipcode'])
+
+    else:
+        Driver.objects.create(driver_name=data['display_name'], telephone=data['ph_no'], email=data['email'],
+                          ssn_tax_id=data['t_id'], licence=data['driver_lience'],
+                          licence_issue_date=data['licence_issue_date'], licence_expiry_date=data['licence_expiry_date'], hazmat_endorsement=haz_switch,dual_endorsement=dual_endors_switch,tank_endorsement=tank_switch,is_active=active_switch)
+        Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],state=data['State'], country=data['Country'], zipcode=data['Zipcode'],driver_id=Driver.objects.all().order_by("-id")[0].id)
+    return redirect('drivers')
+
+
+@csrf_exempt
+def DeleteDriver(request):
+    data=request.POST
+    Driver.objects.filter(id=data['driver_Id']).delete()
+    Address.objects.filter(driver_id=data['driver_Id']).delete()
+    message='Driver ID ', data['driver_Id'],' is Successfully Deleted '
+    return JsonResponse({'msg':message })
+
+
