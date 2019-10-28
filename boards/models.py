@@ -70,7 +70,7 @@ class Post(models.Model):
 #########################
 
 class Customer(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     customer_name=models.CharField(max_length=250, blank=True, null=True)
     customer_trade_name=models.CharField(max_length=250 ,blank=True, null=True)
     email=models.EmailField(blank=True, null=True)
@@ -88,7 +88,7 @@ class Customer(models.Model):
         return Address.objects.get(customer_id=self.id)
 
 class Workorder(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     customer_id=models.ForeignKey(Customer,on_delete=False,related_name='customer_ids',)
     receiver_id=models.IntegerField(blank=True, null=True)
     load_id=models.IntegerField(blank=True, null=True)
@@ -115,7 +115,7 @@ class Address_Type(models.Model):
         return self.address_type_id
 
 class Receiver(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     contact_name=models.CharField(max_length=250, blank=True, null=True)
     email=models.EmailField(blank=True, null=True)
     telephone=models.CharField(max_length=250, blank=True, null=True)
@@ -125,7 +125,7 @@ class Receiver(models.Model):
         return self.contact_name
 
 class Terminals(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     terminal_name=models.CharField(max_length=250, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     telephone = models.CharField(max_length=250, blank=True, null=True)
@@ -137,7 +137,7 @@ class Terminals(models.Model):
         return Address.objects.get(terminal_id=self.id)
 
 class Import(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     bill_of_landing_reference=models.CharField(max_length=250)
     container=models.CharField(max_length=250, blank=True,null=True)
     container_type_id=models.CharField(max_length=250, blank=True,null=True)
@@ -148,7 +148,7 @@ class Import(models.Model):
 
 
 class Export(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     booking=models.CharField(max_length=250, blank=True,null=True)
     container=models.CharField(max_length=250, blank=True,null=True)
     container_type_id=models.CharField(max_length=250, blank=True,null=True)
@@ -158,7 +158,7 @@ class Export(models.Model):
         return self.id
 
 class Driver(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     driver_name=models.CharField(max_length=250, blank=True, null=True)
     licence=models.CharField(max_length=250, blank=True, null=True)
     hazmat_endorsement=models.BooleanField(default =False)
@@ -179,7 +179,7 @@ class Driver(models.Model):
         return Address.objects.get(driver_id=self.id)
         
 class Chassis_provide(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     chassis_provide_name=models.CharField(max_length=250, blank=True,null=True)
     email=models.EmailField(blank=True,null=True)
     telephone=models.CharField(max_length=250, blank=True,null=True)
@@ -191,7 +191,7 @@ class Chassis_provide(models.Model):
         return self.id
 
 class Rate(models.Model):
-    id= models.IntegerField(primary_key=True)
+    id= models.AutoField(primary_key=True)
     rate_description=models.CharField(max_length=250,blank=True,null=True)
     rate_type_id=models.IntegerField(blank=True,null=True)
     amount=models.IntegerField(blank=True,null=True)
@@ -205,7 +205,7 @@ class Rate(models.Model):
 
 
 class Documents(models.Model):
-    id= models.IntegerField(primary_key=True)
+    id= models.AutoField(primary_key=True)
     document_type_id=models.CharField(max_length=250, blank=True,null=True)
     document_name=models.CharField(max_length=250, blank=True,null=True)
     load_id=models.CharField(max_length=250, blank=True,null=True)
@@ -216,7 +216,7 @@ class Documents(models.Model):
 
 
 class Address(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     flat=models.CharField(max_length=250, blank=True,null=True)
     street=models.CharField(max_length=250, blank=True,null=True)
     city=models.CharField(max_length=250, blank=True,null=True)

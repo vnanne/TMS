@@ -174,7 +174,6 @@ class DashboardListView(ListView):
 
 def Addcustomer(request):
     data=request.POST
-    print(data)
     if data['active_switch'] == "true":
         active_switch = True
     else:
