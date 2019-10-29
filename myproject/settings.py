@@ -69,23 +69,23 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 #        'PORT': '5432',
 #    }
 #}
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'Dispatch',
-        'USER': 'root',
-        'PASSWORD': '12345678',
-        'HOST': '34.67.166.55',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
-    }
-}
-
 #DATABASES = {
 #    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#        'ENGINE': 'django.db.backends.mysql', 
+#        'NAME': 'Dispatch',
+#        'USER': 'root',
+#        'PASSWORD': '12345678',
+#        'HOST': '34.67.166.55',   # Or an IP Address that your DB is hosted on
+#        'PORT': '3306',
 #    }
 #}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
