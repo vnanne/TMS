@@ -69,22 +69,22 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 #        'PORT': '5432',
 #    }
 #}
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql', 
-#        'NAME': 'Dispatch',
-#        'USER': 'root',
-#        'PASSWORD': '12345678',
-#        'HOST': '34.67.166.55',   # Or an IP Address that your DB is hosted on
-#        'PORT': '3306',
-#    }
-#}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'Dispatch',
+#         'USER': 'root',
+#         'PASSWORD': '12345678',
+#         'HOST': '34.67.166.55',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   }
 }
 
 
@@ -140,3 +140,5 @@ EMAIL_SUBJECT_PREFIX = '[Dispatch]'
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
+
+# AUTH_USER_MODEL = "accounts.User"
