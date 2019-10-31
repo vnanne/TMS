@@ -201,9 +201,9 @@ def Addcustomer(request):
 @csrf_exempt
 def DeleteCustomer(request):
     data=request.POST
-    Customer.objects.filter(id=data['customer_Id']).delete()
-    Address.objects.filter(customer_id=data['customer_Id']).delete()
-    message='Customer ID ', data['customer_Id'],' is Successfully Deleted '
+    Customer.objects.filter(id=data['customer_Id']).update(is_active=False)
+    #Address.objects.filter(customer_id=data['customer_Id']).delete()
+    message='Customer ID ', data['customer_Id'],' is Successfully Inactivted '
     return JsonResponse({'msg':message })
 
 
@@ -227,9 +227,9 @@ def Addterminal(request):
 @csrf_exempt
 def DeleteTerminal(request):
     data=request.POST
-    Terminals.objects.filter(id=data['terminal_Id']).delete()
-    Address.objects.filter(terminal_id=data['terminal_Id']).delete()
-    message='Terminal ID ', data['terminal_Id'],' is Successfully Deleted '
+    Terminals.objects.filter(id=data['terminal_Id']).update(is_active=False)
+    #Address.objects.filter(terminal_id=data['terminal_Id']).delete()
+    message='Terminal ID ', data['terminal_Id'],' is Successfully Inactivted '
     return JsonResponse({'msg':message })
 
 def Adddriver(request):
@@ -278,9 +278,9 @@ def Adddriver(request):
 @csrf_exempt
 def DeleteDriver(request):
     data=request.POST
-    Driver.objects.filter(id=data['driver_Id']).delete()
-    Address.objects.filter(driver_id=data['driver_Id']).delete()
-    message='Driver ID ', data['driver_Id'],' is Successfully Deleted '
+    Driver.objects.filter(id=data['driver_Id']).update(is_active=False)
+    #Address.objects.filter(driver_id=data['driver_Id']).delete()
+    message='Driver ID ', data['driver_Id'],' is Successfully Inactivted '
     return JsonResponse({'msg':message })
 
 
