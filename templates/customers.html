@@ -4,21 +4,15 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>TMS | Customers</title>
-  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css"> -->
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
-  <!-- Theme style -->
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css">
   <link rel="stylesheet" href="../static/css/AdminLTE.min.css">
   <link rel="stylesheet" href="../static/css/_all-skins.min.css">
-  <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <style>
        /* Switch Flat
@@ -228,6 +222,16 @@
     .modal-confirm .btn-danger {
        background: #f15e5e;
     }
+
+    .help-block {
+        color: #dd4b39;
+    }
+    .has-feedback label~.form-control-feedback {
+        right: 10px;
+    }
+    .form-group.has-error .help-block {
+        display: none !important;
+    }
      </style>
 
 </head>
@@ -434,6 +438,13 @@
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
+
+              {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+
             <div class="box-tools">
               <button class="btn btn-amber add-new waves-effect waves-light" data-toggle="modal" data-target="#addnewCustmrModal"><i class="fa fa-plus"></i>Add Customer</button>
               </div>
@@ -442,17 +453,17 @@
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
-     <th scope="col">Customer ID</th>
-     <th scope="col">Customer Name</th>
-     <th scope="col">Company Name</th>
-     <th scope="col">Contact Person</th>
-     <th scope="col">Email</th>
-     <th scope="col">Address</th>
-     <th scope="col">TaxID</th>
-     <th scope="col">Motor Carrier</th>
-     <th scope="col">Active</th>
-     <th scope="col">Action</th>
-   </tr>
+                   <th scope="col">Customer ID</th>
+                   <th scope="col">Customer Name</th>
+                   <th scope="col">Company Name</th>
+                   <th scope="col">Phone Number</th>
+                   <th scope="col">Email</th>
+                   <th scope="col">Address</th>
+                   <th scope="col">TaxID</th>
+                   <th scope="col">Motor Carrier</th>
+                   <th scope="col">Active</th>
+                   <th scope="col">Action</th>
+                 </tr>
                  {% for customer in customers %}
                 <tr>
                     <td class="c_id">{{ customer.id }}</td>
@@ -463,7 +474,12 @@
                      <td class="customer_address">{{ customer.get_customer_address }}</td>
                      <td class="customer_taxID">{{ customer.tax_id }}</td>
                      <td class="customer_motor_c">{{ customer.motor_carrier }}</td>
-                     <td class="customer_active">{{ customer.is_active }}</td>
+                    {% if customer.is_active %}
+                        <td class="customer_active">YES</td>
+                    {% else %}
+                        <td class="customer_active">NO</td>
+                    {% endif %}
+
                      <td>
                           <a class="edit edit_customer" title="Edit"><i class="fa fa-edit"></i></a>
                           <a class="delete delete_customer" title="Delete" ><i class="fa fa-trash-o"></i></a>
@@ -479,7 +495,7 @@
       </div>
     </section>
 
-<form action="/addcustomer/" method="post">
+<form action="/addcustomer/" method="post" id="addCustomerForm">
 {% csrf_token %}
 <div class="modal fade" id="addnewCustmrModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -492,87 +508,87 @@
       </div>
       <div class="modal-body">
 
-      <div class="row">
-    <div class="col-md-6">
-       <label data-error="wrong" data-success="right" for="add_company_name">Company Name</label>
-       <input type="text" name="company_name" class="form-control" id="add_company_name">
-            </div>
-            <div class="col-md-6">
-         <label data-error="wrong" data-success="right" for="add_contact_name">Contact Name</label>
-         <input type="text" name="contact_name" class="form-control" id="add_contact_name">
-         <input type="hidden" name="customer_Id" id="customer_Id">
-            </div>
+        <div class="row">
+          <div class="col-md-6 form-group">
+             <label data-error="wrong" data-success="right" for="add_company_name">Company Name</label>
+             <input type="text" name="company_name" class="form-control" id="add_company_name">
+          </div>
+          <div class="col-md-6 form-group">
+               <label for="add_contact_name">Contact Name</label>
+               <input type="text" name="contact_name" class="form-control" id="add_contact_name">
+               <input type="hidden" name="customer_Id" id="customer_Id">
+          </div>
         </div>
 
         <div class="row">
-<div class="col-md-6">
-       <label data-error="wrong" data-success="right" for="add_phone">Phone Number</label>
-       <input type="text" name="ph_no" class="form-control" id="add_phone">
-            </div>
-            <div class="col-md-6">
-         <label data-error="wrong" data-success="right" for="add_email">EMail</label>
-         <input type="text" name="email" class="form-control" id="add_email">
-            </div>
+          <div class="col-md-6 form-group">
+            <label for="add_phone">Phone Number</label>
+            <input type="text" name="ph_no" class="form-control" id="add_phone">
+          </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_email">EMail</label>
+            <input type="text" name="email" class="form-control" id="add_email">
+          </div>
         </div>
 
         <div class="row">
-<div class="col-md-6">
-       <label data-error="wrong" data-success="right" for="add_street1">H.NO</label>
-       <input type="text" name="street_add_1" class="form-control" id="add_street1">
-            </div>
-            <div class="col-md-6">
-         <label data-error="wrong" data-success="right" for="add_street2">Street Address</label>
-         <input type="text" name="street_add_2" class="form-control" id="add_street2">
-            </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_street1">Street Address1</label>
+            <input type="text" name="street_add_1" class="form-control" id="add_street1">
+          </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_street2">Street Address2</label>
+            <input type="text" name="street_add_2" class="form-control" id="add_street2">
+          </div>
         </div>
 
         <div class="row">
-<div class="col-md-6">
-       <label data-error="wrong" data-success="right" for="add_city">City</label>
-       <input type="text" name="City" class="form-control" id="add_city">
-            </div>
-            <div class="col-md-6">
-         <label data-error="wrong" data-success="right" for="add_state">State</label>
-         <input type="text" name="State" class="form-control" id="add_state">
-            </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_city">City</label>
+            <input type="text" name="City" class="form-control" id="add_city">
+          </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_state">State</label>
+            <input type="text" name="State" class="form-control" id="add_state">
+          </div>
         </div>
 
         <div class="row">
-<div class="col-md-6">
-       <label data-error="wrong" data-success="right" for="add_zipcode">Zipcode</label>
-       <input type="text" name="Zipcode" class="form-control" id="add_zipcode">
-            </div>
-            <div class="col-md-6">
-         <label data-error="wrong" data-success="right" for="add_country">Country</label>
-         <input type="text" name="Country" class="form-control" id="add_country">
-            </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_zipcode">Zipcode</label>
+            <input type="text" name="Zipcode" class="form-control" id="add_zipcode">
+          </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_country">Country</label>
+            <input type="text" name="Country" class="form-control" id="add_country">
+          </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-               <label data-error="wrong" data-success="right" for="add_taxId">Tax ID</label>
-               <input type="text" name="t_id" class="form-control" id="add_taxId">
-            </div>
-            <div class="col-md-6">
-                 <label data-error="wrong" data-success="right" for="add_motor_C">Motor Carrier</label>
-                 <input type="text" name="Carrier" class="form-control" id="add_motor_C">
-            </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_taxId">Tax ID</label>
+            <input type="text" name="t_id" class="form-control" id="add_taxId">
+          </div>
+          <div class="col-md-6 form-group">
+            <label data-error="wrong" data-success="right" for="add_motor_C">Motor Carrier</label>
+            <input type="text" name="Carrier" class="form-control" id="add_motor_C">
+          </div>
         </div>
 
-     <div class="row" style="margin-top:10px; display:flex">
-         <div class="text-left" style="padding-left:35px;">
-             <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" id="active_tgl" />
-                  <span class="switch-label" data-on="Active YES" data-off="Active NO"></span>
-                  <span class="switch-handle"></span>
-                  <input type="hidden" name="active_switch" id="active_switch">
-              </label>
-         </div>
-         <div class="text-right" style="right: 35px;position: fixed">
-             <button class="btn btn-default" id="add_Now">Add Now</button>
-             <button class="btn btn-default" id="update_Now" style="display: none;">Update Now</button>
-         </div>
-     </div>
+        <div class="row" style="margin-top:10px; display:flex">
+          <div class="text-left" style="padding-left:35px;">
+            <label class="switch switch-flat">
+              <input class="switch-input" type="checkbox" id="active_tgl" />
+              <span class="switch-label" data-on="Active YES" data-off="Active NO"></span>
+              <span class="switch-handle"></span>
+              <input type="hidden" name="active_switch" id="active_switch">
+            </label>
+          </div>
+          <div class="text-right" style="right: 35px;position: fixed">
+            <button class="btn btn-default" type="submit" id="add_Now">Add Now</button>
+            <button class="btn btn-default" type="submit" id="update_Now" style="display: none;">Update Now</button>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -621,30 +637,20 @@
 </div>
 <div class="control-sidebar-bg"></div>
 </div>
-<!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<!-- <script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script> -->
-<!-- Bootstrap 3.3.7 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script> -->
-<!-- DataTables -->
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-<!-- Slimscroll -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../static/js/adminlte.min.js"></script>
-<script src="../static/js/customers.js"></script>
-<script src="../static/js/demo.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+<script type="text/javascript" src="../static/js/customers.js"></script>
+<script type="text/javascript" src="../static/js/adminlte.min.js"></script>
+<script type="text/javascript" src="../static/js/demo.js"></script>
 
 </body>
 </html>
