@@ -13,7 +13,7 @@ $("#active_tgl").on('change', function() {
 });
 
 $('#close_modal').on('click', function(){
-$('#customer_Id').val('')
+/*$('#customer_Id').val('')
 $('#add_contact_name').val('')
 $('#add_company_name').val('')
 $('#add_phone').val('')
@@ -25,7 +25,8 @@ $('#add_state').val('')
 $('#add_zipcode').val('')
 $('#add_country').val('')
 $('#add_taxId').val('')
-$('#add_motor_C').val('')
+$('#add_motor_C').val('')*/
+$('#addCustomerForm').bootstrapValidator('resetForm', true);
 $('#add_Now').css('display', 'block')
 $('#update_Now').css('display', 'none');
 })
@@ -60,7 +61,7 @@ $('#add_country').val(this_c_address.split(',')[4])
 $('#add_taxId').val(this_c_taxId)
 $('#add_motor_C').val(this_c_motor_c)
 
-if(customer_active == 'True'){
+if(customer_active == 'YES'){
 $("#active_tgl").prop("checked", true)
 $('#active_switch').val('true');
 }
@@ -132,11 +133,136 @@ console.log("ERROR RES", res)
 $('#del_response_close').click(function(){
 $('#deleteConfirmModal').modal('hide');
 location.reload();
-})
+});
 
 
 
-
-
-
+//Form Validation
+$('#addCustomerForm').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            company_name: {
+                validators: {
+                        stringLength: {
+                        min: 2,
+                    },
+                        notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+             contact_name: {
+                validators: {
+                	stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                    emailAddress: {
+                        message: ''
+                    }
+                }
+            },
+            ph_no: {
+                validators: {
+                    stringLength: {
+                        min: 10,
+                        max: 12
+                    },
+                    integer: {
+                        message: ''
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            street_add_1: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            street_add_2: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            City: {
+                validators: {
+                     stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            State: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            Country: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            Zipcode: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                    stringLength: {
+                        min: 5,
+                        max: 6,
+                    },
+                     integer: {
+                        message: ''
+                    }
+                }
+            },
+            t_id: {
+                validators: {
+                      stringLength: {
+                        min: 4,
+                        message:''
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            Carrier: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function(e) {
+            e.preventDefault();
+            var $form  = $(e.target);
+            $form.bootstrapValidator('resetForm', true);
+    });
 

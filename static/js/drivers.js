@@ -1,15 +1,26 @@
+// Date Pickers
 $('#licence_issue').datepicker({
      autoclose: true,
-     format: 'yyyy-mm-dd'
+     format: 'yyyy-mm-dd',
+     endDate: new Date()
 })
 $('#licence_expiry').datepicker({
      autoclose: true,
-     format: 'yyyy-mm-dd'
+     format: 'yyyy-mm-dd',
+     startDate: new Date()
 })
 $('#dob').datepicker({
      autoclose: true,
-     format: 'yyyy-mm-dd'
-})
+     format: 'yyyy-mm-dd',
+     endDate: '-18y'
+}).on('changeDate', function(){
+    var d = new Date($(this).val());
+    d.setDate(d.getFullYear() + 18);
+    console.log(d)
+    $('#licence_issue').datepicker('setStartDate', d);
+});
+
+// set value for switches
 var switchStatus = false;
 $('#haz_switch').val(switchStatus);
 $('#tank_switch').val(switchStatus);
@@ -63,7 +74,7 @@ $("#active_tgl").on('change', function() {
 });
 
 $('#close_modal').on('click', function(){
-    $('#driver_Id').val('')
+    /*$('#driver_Id').val('')
     $('#contact_name').val('')
     $('#dob').val('')
     $('#ph_no').val('')
@@ -77,7 +88,9 @@ $('#close_modal').on('click', function(){
     $('#tax_ID').val('')
     $('#driver_lience').val('')
     $('#licence_issue').val('')
-    $('#licence_expiry').val('')
+    $('#licence_expiry').val('')*/
+
+    $('#addDriverForm').bootstrapValidator('resetForm', true);
     $('#addNewDriver').css('display', 'block')
     $('#updateDriver').css('display', 'none');
 });
@@ -122,7 +135,7 @@ $('#haz_switch').val(switchStatus);
 $('#tank_switch').val(switchStatus);
 $('#dual_endors_switch').val(switchStatus);
 $('#active_switch').val(switchStatus);
-if(driver_hazmat == 'True'){
+if(driver_hazmat == 'YES'){
 $("#haz_tgl").prop("checked", true)
 $('#haz_switch').val('true');
 }
@@ -130,7 +143,7 @@ else{
 $("#haz_tgl").prop("checked", false);
 $('#haz_switch').val('false');
 }
-if(driver_tank == 'True'){
+if(driver_tank == 'YES'){
 $("#tank_tgl").prop("checked", true)
 $('#tank_switch').val('true');
 }
@@ -139,7 +152,7 @@ $("#tank_tgl").prop("checked", false);
 $('#tank_switch').val('false');
 }
 
-if(driver_dual == 'True'){
+if(driver_dual == 'YES'){
 $("#dual_E_tgl").prop("checked", true)
 $('#dual_endors_switch').val('true');
 }
@@ -148,7 +161,7 @@ $("#dual_E_tgl").prop("checked", false);
 $('#dual_endors_switch').val('false');
 }
 
-if(driver_active == 'True'){
+if(driver_active == 'YES'){
 $("#active_tgl").prop("checked", true)
 $('#active_switch').val('true');
 }
@@ -191,3 +204,154 @@ $('#del_response_close').click(function(){
 $('#deleteConfirmModal').modal('hide');
 location.reload();
 })
+
+
+
+
+//Form Validation
+$('#addDriverForm').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            display_name: {
+                validators: {
+                        stringLength: {
+                        min: 2,
+                    },
+                        notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+             dob: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                    date: {
+                       format: 'yyyy-mm-dd',
+                       message: ''
+                     }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                    emailAddress: {
+                        message: ''
+                    }
+                }
+            },
+            ph_no: {
+                validators: {
+                    stringLength: {
+                        min: 10,
+                        max: 12
+                    },
+                    integer: {
+                        message: ''
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            street_add_1: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            street_add_2: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            City: {
+                validators: {
+                     stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            State: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            Country: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            Zipcode: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                    stringLength: {
+                        min: 5,
+                        max: 6,
+                    },
+                     integer: {
+                        message: ''
+                    }
+                }
+            },
+            t_id: {
+                validators: {
+                      stringLength: {
+                        min: 4,
+                        message:''
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            driver_lience: {
+                validators: {
+                      stringLength: {
+                        min: 4,
+                        message:''
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            licence_issue_date: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            licence_expiry_date: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function(e) {
+        e.preventDefault();
+        var $form  = $(e.target);
+        $form.bootstrapValidator('resetForm', true);
+    });

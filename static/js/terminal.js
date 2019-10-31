@@ -1,5 +1,5 @@
 $('#close_modal').on('click', function(){
-$('#addterminalName').val('')
+/*$('#addterminalName').val('')
 $('#addTerminal_ph').val('')
 $('#addTerminal_email').val('')
 $('#addStreet_1').val('')
@@ -7,7 +7,9 @@ $('#addStreet_2').val('')
 $('#addCity').val('')
 $('#addState').val('')
 $('#add_zipcode').val('')
-$('#add_country').val('')
+$('#add_country').val('')*/
+
+$('#addTerminalForm').bootstrapValidator('resetForm', true);
 $('#addNewTerminal').css('display', 'block')
 $('#updateTerminal').css('display', 'none');
 });
@@ -66,3 +68,105 @@ $('#del_response_close').click(function(){
 $('#deleteConfirmModal').modal('hide');
 location.reload();
 })
+
+
+//Form Validation
+$('#addTerminalForm').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            terminal_name: {
+                validators: {
+                        stringLength: {
+                        min: 2,
+                    },
+                        notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                    emailAddress: {
+                        message: ''
+                    }
+                }
+            },
+            ph_no: {
+                validators: {
+                    stringLength: {
+                        min: 10,
+                        max: 12
+                    },
+                    integer: {
+                        message: ''
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            street_add_1: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            street_add_2: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            City: {
+                validators: {
+                     stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            State: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            Country: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    }
+                }
+            },
+            Zipcode: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+/*                    stringLength: {
+                        min: 5,
+                        max: 6,
+                    },
+                     integer: {
+                        message: ''
+                    }*/
+                }
+            }
+        }
+    }).on('success.form.bv', function(e) {
+            e.preventDefault();
+            var $form  = $(e.target);
+            $form.bootstrapValidator('resetForm', true);
+    });
