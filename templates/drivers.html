@@ -441,9 +441,9 @@
            <div class="box-header">
               <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
-              {% if messages %}
+               {% if messages %}
                 {% for message in messages %}
-                    <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+              <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"><b style="color:#000000; ">{{ message }}</b></div>
                 {% endfor %}
               {% endif %}
 

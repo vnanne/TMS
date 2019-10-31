@@ -300,7 +300,7 @@
 
               {% if messages %}
                 {% for message in messages %}
-                    <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+              <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"><b style="color:#000000; ">{{ message }}</b></div>
                 {% endfor %}
               {% endif %}
 
@@ -327,7 +327,7 @@
                       <td class="terminal_address" style="display:none;">{{ terminal.get_terminal_address }}</td>
       			      <td>
       			      	<a class="edit edit_terminal" title="Edit"><i class="fa fa-edit"></i></a>
-                        <a class="delete delete_terminal" title="Delete"><i class="fa fa-trash-o"></i></a>
+                        <!--<a class="delete delete_terminal" title="Delete"><i class="fa fa-trash-o"></i></a>-->
       			      </td>
                 </tr>
               {%  endfor %}
