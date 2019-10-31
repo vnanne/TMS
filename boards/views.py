@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import NewTopicForm, PostForm
 from .models import Board,Topic,Post,Driver, Customer,Workorder,Address,Address_Type,Receiver,Terminals,Import,Export,Chassis_provide,Rate,Documents
+from django.contrib import messages
 
 
 
@@ -183,6 +184,8 @@ def Addcustomer(request):
         Customer.objects.filter(id=data['customer_Id']).update(customer_name=data['contact_name'],customer_trade_name=data['company_name'],email=data['email'], telephone=data['ph_no'],tax_id=data['t_id'], motor_carrier=data['Carrier'],is_active=active_switch)
 
         Address.objects.filter(customer_id=data['customer_Id']).update(flat=data['street_add_1'],street=data['street_add_2'], city=data['City'],state=data['State'], country=data['Country'],zipcode=data['Zipcode'] )
+        msg = str(data['contact_name'])+str(' Changes updated successfully ')
+        messages.success(request, msg)
 
     else:
         Customer.objects.create(customer_name=data['contact_name'], customer_trade_name=data['company_name'],
@@ -191,6 +194,8 @@ def Addcustomer(request):
         Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
                            state=data['State'], country=data['Country'], zipcode=data['Zipcode'],
                            customer_id=Customer.objects.all().order_by("-id")[0].id)
+        msg = str(data['contact_name'])+ str(' added successfully ')
+        messages.success(request, msg)
     return redirect('customers')
 
 @csrf_exempt
@@ -201,19 +206,6 @@ def DeleteCustomer(request):
     message='Customer ID ', data['customer_Id'],' is Successfully Deleted '
     return JsonResponse({'msg':message })
 
-def UpdateCustomer(request):
-    data=request.POST
-    if data['active_switch']=="true":
-        active_switch =True
-    else:
-        active_switch=False
-
-    Customer.objects.get(id=data['customer_id']).update(customer_name=data['company_name'], customer_trade_name=data['contact_name'],
-                            email=data['email'], telephone=data['ph_no'], tax_id=data['t_id'],is_active=active_switch)
-
-    Address.objects.filter(customer_id=data['customer_id']).update(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
-                           state=data['State'], country=data['Country'], zipcode=data['Zipcode'])
-    return redirect('customers')
 
 def Addterminal(request):
     data = request.POST
@@ -221,9 +213,14 @@ def Addterminal(request):
         Terminals.objects.filter(id=data['terminal_Id']).update(terminal_name=data['terminal_name'],email=data['email'],)
         Address.objects.filter(terminal_id=data['terminal_Id']).update(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
                                state=data['State'], country=data['Country'], zipcode=data['Zipcode'])
+        msg=str(data['terminal_name'])+ str(' Changes updated successfully ')
+        messages.success(request, msg)
+
     else:
         Terminals.objects.create(terminal_name=data['terminal_name'],email=data['email'], telephone=data['ph_no'])
         Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],state=data['State'], country=data['Country'], zipcode=data['Zipcode'],terminal_id=Terminals.objects.all().order_by("-id")[0].id)
+        msg = str(data['terminal_name'])+str(' added successfully ')
+        messages.success(request, msg)
 
     return redirect('terminal')
 
@@ -237,6 +234,7 @@ def DeleteTerminal(request):
 
 def Adddriver(request):
     data=request.POST
+    print(data)
     if data['haz_switch']=="true":
         haz_switch=True
     else:
@@ -258,17 +256,22 @@ def Adddriver(request):
 
     if data['driver_Id']:
         Driver.objects.filter(id=data['driver_Id']).update(driver_name=data['display_name'], telephone=data['ph_no'], email=data['email'],
-                              ssn_tax_id=data['t_id'], licence=data['driver_lience'],
+                              ssn_tax_id=data['t_id'], licence=data['driver_lience'],dob=data['dob'],
                               licence_issue_date=data['licence_issue_date'],
                               licence_expiry_date=data['licence_expiry_date'], hazmat_endorsement=haz_switch,dual_endorsement=dual_endors_switch,tank_endorsement=tank_switch,is_active=active_switch)
         Address.objects.filter(driver_id=data['driver_Id']).update(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
                                state=data['State'], country=data['Country'], zipcode=data['Zipcode'])
 
+        msg = str(data['display_name'])+str(' Changes updated successfully ')
+        messages.success(request, msg)
     else:
         Driver.objects.create(driver_name=data['display_name'], telephone=data['ph_no'], email=data['email'],
-                          ssn_tax_id=data['t_id'], licence=data['driver_lience'],
+                          ssn_tax_id=data['t_id'], licence=data['driver_lience'],dob=data['dob'],
                           licence_issue_date=data['licence_issue_date'], licence_expiry_date=data['licence_expiry_date'], hazmat_endorsement=haz_switch,dual_endorsement=dual_endors_switch,tank_endorsement=tank_switch,is_active=active_switch)
         Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],state=data['State'], country=data['Country'], zipcode=data['Zipcode'],driver_id=Driver.objects.all().order_by("-id")[0].id)
+        msg = str(data['display_name'])+str(' added successfully ')
+        messages.success(request, msg)
+
     return redirect('drivers')
 
 

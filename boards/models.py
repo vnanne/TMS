@@ -77,7 +77,7 @@ class Customer(models.Model):
     contact_person=models.CharField(max_length=250 , blank=True, null=True)
     telephone=models.CharField(max_length=250, blank=True, null=True)
     fax=models.CharField(max_length=250, blank=True, null=True)
-    tax_id=models.IntegerField(blank=True, null=True)
+    tax_id=models.CharField(max_length=250, blank=True, null=True)
     motor_carrier=models.CharField(max_length=250,blank=True,null=True)
     is_active = models.BooleanField(default=False)
 
@@ -222,7 +222,7 @@ class Address(models.Model):
     city=models.CharField(max_length=250, blank=True,null=True)
     state=models.CharField(max_length=250, blank=True,null=True)
     country=models.CharField(max_length=250,blank=True,null=True)
-    zipcode=models.IntegerField(blank=True,null=True)
+    zipcode=models.CharField(max_length=250, blank=True,null=True)
     customer_id=models.IntegerField(blank=True, null=True)
     receiver_id=models.IntegerField(blank=True, null=True)
     terminal_id=models.IntegerField(blank=True, null=True)
