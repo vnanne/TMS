@@ -482,10 +482,27 @@
 			      <td class="driver_licence">{{ driver.licence}}</td>
 			      <td class="driver_l_issue">{{ driver.licence_issue_date|safe }}</td>
 			      <td class="driver_l_expiry">{{ driver.licence_expiry_date|safe }}</td>
-			      <td class="driver_hazmat">{{ driver.hazmat_endorsement}}</td>
-			      <td class="driver_dual">{{ driver.dual_endorsement}}</td>
-			      <td class="driver_tank">{{ driver.tank_endorsement}}</td>
-			      <td class="driver_active">{{ driver.is_active}}</td>
+                  {% if driver.hazmat_endorsement %}
+			      <td class="driver_hazmat">YES</td>
+                  {% else %}
+                  <td class="driver_hazmat">NO</td>
+                  {% endif %}
+                  {% if driver.dual_endorsement %}
+			      <td class="driver_dual">YES</td>
+                    {% else %}
+                  <td class="driver_dual">NO</td>
+                    {% endif %}
+                   {% if driver.tank_endorsement %}
+			      <td class="driver_tank">YES</td>
+                     {% else %}
+                  <td class="driver_tank">NO</td>
+                    {% endif %}
+                    {% if driver.is_active %}
+			      <td class="driver_active"> YES</td>
+                       {% else %}
+                  <td class="driver_active">NO</td>
+                    {% endif %}
+
 			      <td class="driver_ssn_tax_id">{{ driver.ssn_tax_id}}</td>
 			     <!--  <td>
 			      	<a class="edit edit_driver" title="Edit"><i class="fa fa-edit"></i></a>
@@ -559,11 +576,11 @@
 
         <div class="row">
 			<div class="col-md-6 form-group">
-		          <label data-error="wrong" data-success="right" for="street_add_1">H.No</label>
+		          <label data-error="wrong" data-success="right" for="street_add_1">Street Address1</label>
 		          <input type="text" name="street_add_1" class="form-control" id="street_add_1" maxlength="50">
 		    </div>
 		    <div class="col-md-6 form-group">
-		          <label data-error="wrong" data-success="right" for="street_add_2">Street Address</label>
+		          <label data-error="wrong" data-success="right" for="street_add_2">Street Address2</label>
 		          <input type="text" name="street_add_2" class="form-control" id="street_add_2" maxlength="50">
 		    </div>
 		</div>

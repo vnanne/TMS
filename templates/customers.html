@@ -467,12 +467,20 @@
                      <td class="customer_address">{{ customer.get_customer_address }}</td>
                      <td class="customer_taxID">{{ customer.tax_id }}</td>
                      <td class="customer_motor_c">{{ customer.motor_carrier }}</td>
-                     <td class="customer_active">{{ customer.is_active }}</td>
+                    {% if customer.is_active %}
+                     <td class="customer_active">YES</td>
+                    {% else %}
+                        <td class="customer_active">NO</td>
+                    {% endif %}
                      <td style="display: inline-flex;">
                           <div class="text-left">
                             <label class="switch switch-flat">
                               <input class="switch-input active_tgl" type="checkbox" />
-                              <span class="switch-label" data-on="Active" data-off="Inactive"></span>
+                               {% if customer.is_active %}
+                              <span class="switch-label" data-on="Inactive" data-off="Inactive"></span>
+                              {% else %}
+                                <span class="switch-label" data-on="Active" data-off="Active"></span>
+                              {% endif %}
                               <span class="switch-handle"></span>
                               <input type="hidden" name="active_switch" class="active_switch">
                             </label>
@@ -527,11 +535,11 @@
 
         <div class="row">
           <div class="col-md-6 form-group">
-            <label data-error="wrong" data-success="right" for="add_street1">H.NO</label>
+            <label data-error="wrong" data-success="right" for="add_street1">Street Address1</label>
             <input type="text" name="street_add_1" class="form-control" id="add_street1" maxlength="50">
           </div>
           <div class="col-md-6 form-group">
-            <label data-error="wrong" data-success="right" for="add_street2">Street Address</label>
+            <label data-error="wrong" data-success="right" for="add_street2">Street Address2</label>
             <input type="text" name="street_add_2" class="form-control" id="add_street2" maxlength="50">
           </div>
         </div>
