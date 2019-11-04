@@ -175,13 +175,9 @@ class DashboardListView(ListView):
 
 def Addcustomer(request):
     data=request.POST
-    if data['active_switch'] == "true":
-        active_switch = True
-    else:
-        active_switch = False
 
     if data['customer_Id']:
-        Customer.objects.filter(id=data['customer_Id']).update(customer_name=data['contact_name'],customer_trade_name=data['company_name'],email=data['email'], telephone=data['ph_no'],tax_id=data['t_id'], motor_carrier=data['Carrier'],is_active=active_switch)
+        Customer.objects.filter(id=data['customer_Id']).update(customer_name=data['contact_name'],customer_trade_name=data['company_name'],email=data['email'], telephone=data['ph_no'],tax_id=data['t_id'], motor_carrier=data['Carrier'])
 
         Address.objects.filter(customer_id=data['customer_Id']).update(flat=data['street_add_1'],street=data['street_add_2'], city=data['City'],state=data['State'], country=data['Country'],zipcode=data['Zipcode'] )
         msg = str(data['contact_name'])+str(' Changes updated successfully ')
@@ -189,7 +185,7 @@ def Addcustomer(request):
 
     else:
         Customer.objects.create(customer_name=data['contact_name'], customer_trade_name=data['company_name'],
-                            email=data['email'], telephone=data['ph_no'], tax_id=data['t_id'],motor_carrier=data['Carrier'],is_active=active_switch)
+                            email=data['email'], telephone=data['ph_no'], tax_id=data['t_id'],motor_carrier=data['Carrier'])
 
         Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
                            state=data['State'], country=data['Country'], zipcode=data['Zipcode'],
@@ -201,9 +197,14 @@ def Addcustomer(request):
 @csrf_exempt
 def DeleteCustomer(request):
     data=request.POST
-    Customer.objects.filter(id=data['customer_Id']).update(is_active=False)
-    #Address.objects.filter(customer_id=data['customer_Id']).delete()
-    message='Customer ID ', data['customer_Id'],' is Successfully Inactivted '
+    if data['actionStr']=='Active':
+        Customer.objects.filter(id=data['customer_Id']).update(is_active=False)
+        # Address.objects.filter(customer_id=data['customer_Id']).delete()
+        message = 'Customer ID ', data['customer_Id'], ' is Successfully InActivted '
+    else:
+        Customer.objects.filter(id=data['customer_Id']).update(is_active=True)
+        #Address.objects.filter(customer_id=data['customer_Id']).delete()
+        message='Customer ID ', data['customer_Id'],' is Successfully Activted '
     return JsonResponse({'msg':message })
 
 
@@ -227,14 +228,13 @@ def Addterminal(request):
 @csrf_exempt
 def DeleteTerminal(request):
     data=request.POST
-    Terminals.objects.filter(id=data['terminal_Id']).update(is_active=False)
-    #Address.objects.filter(terminal_id=data['terminal_Id']).delete()
-    message='Terminal ID ', data['terminal_Id'],' is Successfully Inactivted '
+    Terminals.objects.filter(id=data['terminal_Id']).delete()
+    Address.objects.filter(terminal_id=data['terminal_Id']).delete()
+    message='Terminal ID ', data['terminal_Id'],' is Successfully Deleted '
     return JsonResponse({'msg':message })
 
 def Adddriver(request):
     data=request.POST
-    print(data)
     if data['haz_switch']=="true":
         haz_switch=True
     else:
@@ -249,16 +249,12 @@ def Adddriver(request):
     else:
         tank_switch=False
 
-    if data['active_switch']=="true":
-        active_switch =True
-    else:
-        active_switch=False
 
     if data['driver_Id']:
         Driver.objects.filter(id=data['driver_Id']).update(driver_name=data['display_name'], telephone=data['ph_no'], email=data['email'],
                               ssn_tax_id=data['t_id'], licence=data['driver_lience'],dob=data['dob'],
                               licence_issue_date=data['licence_issue_date'],
-                              licence_expiry_date=data['licence_expiry_date'], hazmat_endorsement=haz_switch,dual_endorsement=dual_endors_switch,tank_endorsement=tank_switch,is_active=active_switch)
+                              licence_expiry_date=data['licence_expiry_date'], hazmat_endorsement=haz_switch,dual_endorsement=dual_endors_switch,tank_endorsement=tank_switch)
         Address.objects.filter(driver_id=data['driver_Id']).update(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
                                state=data['State'], country=data['Country'], zipcode=data['Zipcode'])
 
@@ -267,7 +263,7 @@ def Adddriver(request):
     else:
         Driver.objects.create(driver_name=data['display_name'], telephone=data['ph_no'], email=data['email'],
                           ssn_tax_id=data['t_id'], licence=data['driver_lience'],dob=data['dob'],
-                          licence_issue_date=data['licence_issue_date'], licence_expiry_date=data['licence_expiry_date'], hazmat_endorsement=haz_switch,dual_endorsement=dual_endors_switch,tank_endorsement=tank_switch,is_active=active_switch)
+                          licence_issue_date=data['licence_issue_date'], licence_expiry_date=data['licence_expiry_date'], hazmat_endorsement=haz_switch,dual_endorsement=dual_endors_switch,tank_endorsement=tank_switch)
         Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],state=data['State'], country=data['Country'], zipcode=data['Zipcode'],driver_id=Driver.objects.all().order_by("-id")[0].id)
         msg = str(data['display_name'])+str(' added successfully ')
         messages.success(request, msg)
@@ -278,9 +274,12 @@ def Adddriver(request):
 @csrf_exempt
 def DeleteDriver(request):
     data=request.POST
-    Driver.objects.filter(id=data['driver_Id']).update(is_active=False)
-    #Address.objects.filter(driver_id=data['driver_Id']).delete()
-    message='Driver ID ', data['driver_Id'],' is Successfully Inactivted '
+    if data['actionStr'] == 'Active':
+        Driver.objects.filter(id=data['driver_Id']).update(is_active=False)
+        message = 'Driver ID ', data['driver_Id'], ' is Successfully InActivted '
+    else:
+        Driver.objects.filter(id=data['driver_Id']).update(is_active=True)
+        message='Driver ID ', data['driver_Id'],' is Successfully Activted '
     return JsonResponse({'msg':message })
 
 
