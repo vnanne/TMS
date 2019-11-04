@@ -155,13 +155,13 @@ $('#addTerminalForm').bootstrapValidator({
                     notEmpty: {
                         message: ''
                     },
-/*                    stringLength: {
+                    stringLength: {
                         min: 5,
                         max: 6,
                     },
                      integer: {
                         message: ''
-                    }*/
+                    }
                 }
             }
         }

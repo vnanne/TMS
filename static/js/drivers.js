@@ -15,9 +15,25 @@ $('#dob').datepicker({
      endDate: '-18y'
 }).on('changeDate', function(){
     var d = new Date($(this).val());
-    d.setDate(d.getFullYear() + 18);
-    console.log(d)
-    $('#licence_issue').datepicker('setStartDate', d);
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var day = d.getDate();
+    var setDate = new Date(year + 18, month, day)
+    console.log(setDate)
+    $('#licence_issue').datepicker('setStartDate', setDate);
+});
+
+$("#contact_name").keypress(function(e){
+    var keyCode = e.which;
+    if ( !((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) )&& keyCode != 32 && keyCode != 45) {
+      e.preventDefault();
+    }
+});
+
+$("#ph_no").keypress(function (e) {
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+       e.preventDefault();
+    }
 });
 
 // set value for switches
@@ -62,7 +78,7 @@ $("#dual_E_tgl").on('change', function() {
     }
 });
 
-$("#active_tgl").on('change', function() {
+/*$("#active_tgl").on('change', function() {
     if ($(this).is(':checked')) {
         switchStatus = $(this).is(':checked');
         $('#active_switch').val(switchStatus)
@@ -70,6 +86,24 @@ $("#active_tgl").on('change', function() {
     else {
        switchStatus = $(this).is(':checked');
        $('#active_switch').val(switchStatus)
+    }
+});*/
+$(".active_tgl").on('change', function() {
+    $('#Del_WarningModal').modal('show')
+    var this_tr = $(this).closest('tr');
+    var driver_id = this_tr.find('.driver_id').html();
+    $('#del_driver_id').html(driver_id);
+    if ($(this).is(':checked')) {
+        switchStatus = $(this).is(':checked');
+        $('#warningText').html("Active");
+        $('#actionText').html("ActiveNow");
+        $('.active_switch').val(switchStatus)
+    }
+    else {
+       switchStatus = $(this).is(':checked');
+        $('#warningText').html("Inactive");
+        $('#actionText').html("InactiveNow");
+        $('.active_switch').val(switchStatus)
     }
 });
 
@@ -135,7 +169,7 @@ $('#haz_switch').val(switchStatus);
 $('#tank_switch').val(switchStatus);
 $('#dual_endors_switch').val(switchStatus);
 $('#active_switch').val(switchStatus);
-if(driver_hazmat == 'YES'){
+if(driver_hazmat == 'True'){
 $("#haz_tgl").prop("checked", true)
 $('#haz_switch').val('true');
 }
@@ -143,7 +177,7 @@ else{
 $("#haz_tgl").prop("checked", false);
 $('#haz_switch').val('false');
 }
-if(driver_tank == 'YES'){
+if(driver_tank == 'True'){
 $("#tank_tgl").prop("checked", true)
 $('#tank_switch').val('true');
 }
@@ -152,7 +186,7 @@ $("#tank_tgl").prop("checked", false);
 $('#tank_switch').val('false');
 }
 
-if(driver_dual == 'YES'){
+if(driver_dual == 'True'){
 $("#dual_E_tgl").prop("checked", true)
 $('#dual_endors_switch').val('true');
 }
@@ -161,7 +195,7 @@ $("#dual_E_tgl").prop("checked", false);
 $('#dual_endors_switch').val('false');
 }
 
-if(driver_active == 'YES'){
+if(driver_active == 'True'){
 $("#active_tgl").prop("checked", true)
 $('#active_switch').val('true');
 }
@@ -184,10 +218,14 @@ $('#del_driver_id').html(driver_id);
 
 $('.deleteConfirm').click(function(){
 var del_ID = $('#del_driver_id').html();
+var actionText = $('warningText').html();
 $.ajax({
 type: 'post',
 url:'/deletedriver/',
-data: {'driver_Id': del_ID},
+data: {
+    'driver_Id': del_ID,
+    'actionStr': actionText
+},
 success: function(res){
 $('#Del_WarningModal').modal('hide');
 $('#deleteConfirmModal').modal('show');
@@ -220,6 +258,7 @@ $('#addDriverForm').bootstrapValidator({
                 validators: {
                         stringLength: {
                         min: 2,
+                        max:50
                     },
                         notEmpty: {
                         message: ''
