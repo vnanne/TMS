@@ -79,7 +79,7 @@ class Customer(models.Model):
     fax=models.CharField(max_length=250, blank=True, null=True)
     tax_id=models.CharField(max_length=250, blank=True, null=True)
     motor_carrier=models.CharField(max_length=250,blank=True,null=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.customer_name
@@ -164,7 +164,7 @@ class Driver(models.Model):
     hazmat_endorsement=models.BooleanField(default =False)
     dual_endorsement=models.BooleanField(default=False)
     tank_endorsement=models.BooleanField(default=False)
-    is_active=models.BooleanField(default=False)
+    is_active=models.BooleanField(default=True)
     dob=models.DateField(blank=True, null=True)
     licence_issue_date=models.DateField(blank=True, null=True)
     licence_expiry_date=models.DateField(blank=True, null=True)
