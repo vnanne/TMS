@@ -33,6 +33,9 @@
        cursor: pointer;
        box-sizing:content-box;
     }
+    .switch-active{
+      width: 90px !important;
+    }
     .switch-input {
        position: absolute;
        top: 0;
@@ -154,6 +157,9 @@
           left: 90px;
           background: #0088cc;
           box-shadow: none;
+       }
+       .switch-active .switch-input:checked ~ .switch-handle {
+        left:60px !important;
        }
     </style>
     <style type="text/css">
@@ -441,12 +447,6 @@
            <div class="box-header">
               <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
-               {% if messages %}
-                {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"><b style="color:#000000; ">{{ message }}</b></div>
-                {% endfor %}
-              {% endif %}
-
               <div class="box-tools">
               	<button class="btn btn-amber add-new waves-effect waves-light" data-toggle="modal" data-target="#addnewDriverModal"><i class="fa fa-plus"></i>Add Driver</button>
               </div>
@@ -482,36 +482,26 @@
 			      <td class="driver_licence">{{ driver.licence}}</td>
 			      <td class="driver_l_issue">{{ driver.licence_issue_date|safe }}</td>
 			      <td class="driver_l_expiry">{{ driver.licence_expiry_date|safe }}</td>
-
-                  {% if driver.hazmat_endorsement %}
-                    <td class="driver_hazmat">YES</td>
-                  {% else %}
-                    <td class="driver_hazmat">NO</td>
-                  {% endif %}
-
-                   {% if driver.dual_endorsement %}
-                    <td class="driver_dual">YES</td>
-                  {% else %}
-                    <td class="driver_dual">NO</td>
-                  {% endif %}
-
-                  {% if driver.tank_endorsement %}
-                    <td class="driver_tank">YES</td>
-                  {% else %}
-                    <td class="driver_tank">NO</td>
-                  {% endif %}
-
-                  {% if driver.is_active %}
-                    <td class="driver_active">YES</td>
-                  {% else %}
-                    <td class="driver_active">NO</td>
-                  {% endif %}
-
+			      <td class="driver_hazmat">{{ driver.hazmat_endorsement}}</td>
+			      <td class="driver_dual">{{ driver.dual_endorsement}}</td>
+			      <td class="driver_tank">{{ driver.tank_endorsement}}</td>
+			      <td class="driver_active">{{ driver.is_active}}</td>
 			      <td class="driver_ssn_tax_id">{{ driver.ssn_tax_id}}</td>
-			      <td>
+			     <!--  <td>
 			      	<a class="edit edit_driver" title="Edit"><i class="fa fa-edit"></i></a>
-                    <a class="delete delete_driver" title="Delete"><i class="fa fa-trash-o"></i></a>
-			      </td>
+               <a class="delete delete_driver" title="Delete"><i class="fa fa-trash-o"></i></a>
+			      </td> -->
+            <td style="display: inline-flex;">
+                <div class="text-left">
+                  <label class="switch switch-flat switch-active">
+                    <input class="switch-input active_tgl" type="checkbox" />
+                    <span class="switch-label" data-on="Active" data-off="Inactive"></span>
+                    <span class="switch-handle"></span>
+                    <input type="hidden" name="active_switch" class="active_switch">
+                  </label>
+                </div>
+                <a class="edit edit_driver" title="Edit" style="margin-top: 7px;"><i class="fa fa-edit"></i></a>
+               </td>
                 </tr>
 				{% endfor %}
                 </table>
@@ -527,7 +517,7 @@
 
 <form action="/adddriver/" method="post" id="addDriverForm">
 {% csrf_token %}
-<div class="modal fade" id="addnewDriverModal" role="dialog" aria-hidden="true">
+<div class="modal fade" id="addnewDriverModal" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -540,7 +530,7 @@
       	<div class="row">
 			<div class="col-md-6 form-group">
 		        <label data-error="wrong" data-success="right" for="contact_name">Contact Name</label>
-		        <input type="text" name="display_name" class="form-control" id="contact_name">
+		        <input type="text" name="display_name" class="form-control" id="contact_name" maxlength="50">
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -549,7 +539,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right dob_datepicker" name="dob" id="dob">
+                        <input type="text" class="form-control dob_datepicker" name="dob" id="dob" onkeypress="return false;">
                     </div>
                 </div>
             </div>
@@ -559,7 +549,7 @@
         <div class="row">
 			<div class="col-md-6 form-group">
       			<label data-error="wrong" data-success="right" for="ph_no">Phone Number</label>
-	         	<input type="text" name="ph_no" class="form-control" id="ph_no">
+	         	<input type="text" name="ph_no" class="form-control" id="ph_no" maxlength="12">
             </div>
             <div class="col-md-6 form-group">
 	          <label data-error="wrong" data-success="right" for="email">EMail</label>
@@ -569,45 +559,45 @@
 
         <div class="row">
 			<div class="col-md-6 form-group">
-		          <label data-error="wrong" data-success="right" for="street_add_1">Street Address1</label>
-		          <input type="text" name="street_add_1" class="form-control" id="street_add_1">
+		          <label data-error="wrong" data-success="right" for="street_add_1">H.No</label>
+		          <input type="text" name="street_add_1" class="form-control" id="street_add_1" maxlength="50">
 		    </div>
 		    <div class="col-md-6 form-group">
-		          <label data-error="wrong" data-success="right" for="street_add_2">Street Address2</label>
-		          <input type="text" name="street_add_2" class="form-control" id="street_add_2">
+		          <label data-error="wrong" data-success="right" for="street_add_2">Street Address</label>
+		          <input type="text" name="street_add_2" class="form-control" id="street_add_2" maxlength="50">
 		    </div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 form-group">
 		          <label data-error="wrong" data-success="right" for="City">City</label>
-		          <input type="text" name="City" class="form-control" id="city">
+		          <input type="text" name="City" class="form-control" id="city" maxlength="50">
 		    </div>
 		    <div class="col-md-6 form-group">
 		          <label data-error="wrong" data-success="right" for="State">State</label>
-		          <input type="text" name="State" class="form-control" id="state">
+		          <input type="text" name="State" class="form-control" id="state" maxlength="50">
 		    </div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 form-group">
 		          <label data-error="wrong" data-success="right" for="ZipCode">Zipcode</label>
-		          <input type="text" name="Zipcode" class="form-control" id="zipcode">
+		          <input type="text" name="Zipcode" class="form-control" id="zipcode" maxlength="6">
 		    </div>
 		    <div class="col-md-6 form-group">
 		          <label data-error="wrong" data-success="right" for="Country">Country</label>
-		          <input type="text" name="Country" class="form-control" id="country">
+		          <input type="text" name="Country" class="form-control" id="country" maxlength="50">
 		    </div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 form-group">
 		          <label data-error="wrong" data-success="right" for="tax_ID">Tax ID</label>
-		          <input type="text" name="t_id" class="form-control" id="tax_ID">
+		          <input type="text" name="t_id" class="form-control" id="tax_ID" maxlength="50">
 		    </div>
 		    <div class="col-md-6 form-group">
 		          <label data-error="wrong" data-success="right" for="driver_lience">Driver Lience</label>
-		          <input type="text" name="driver_lience" class="form-control" id="driver_lience">
+		          <input type="text" name="driver_lience" class="form-control" id="driver_lience" maxlength="50">
 		    </div>
 		</div>
 
@@ -619,7 +609,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" name="licence_issue_date" id="licence_issue">
+                        <input type="text" class="form-control pull-right" name="licence_issue_date" id="licence_issue" onkeypress="return false;">
                     </div>
                 </div>
 		    </div>
@@ -630,14 +620,14 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" name="licence_expiry_date" id="licence_expiry">
+                        <input type="text" class="form-control pull-right" name="licence_expiry_date" id="licence_expiry" onkeypress="return false;">
                     </div>
                 </div>
 		    </div>
 		</div>
 
           <div class="row" style="margin-top: 10px;">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="switch switch-flat">
                   <input class="switch-input" type="checkbox"  id="haz_tgl"/>
                   <span class="switch-label" data-on="HAZ YES" data-off="HAZ NO"></span>
@@ -645,7 +635,7 @@
                   <input type="hidden" name="haz_switch" id="haz_switch">
                </label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="switch switch-flat">
                   <input class="switch-input" type="checkbox" id="tank_tgl"/>
                   <span class="switch-label" data-on="Tank YES" data-off="Tank NO"></span>
@@ -653,7 +643,7 @@
                   <input type="hidden" name="tank_switch" id="tank_switch">
                </label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="switch switch-flat">
                   <input class="switch-input" type="checkbox" id="dual_E_tgl" />
                   <span class="switch-label" data-on="Dual Endors YES" data-off="Dual Endors NO"></span>
@@ -661,21 +651,13 @@
                   <input type="hidden" name="dual_endors_switch" id="dual_endors_switch">
                </label>
             </div>
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" id="active_tgl" />
-                  <span class="switch-label" data-on="Active YES" data-off="Active NO"></span>
-                  <span class="switch-handle"></span>
-                  <input type="hidden" name="active_switch" id="active_switch">
-               </label>
-            </div>
         </div>
 
 
-		<div class="text-center" style="margin-top: 10px; display: flex; justify-content: center;">
-            <button type="submit" class="btn btn-default" id="addNewDriver">Add Now</button>
-            <button type="submit" class="btn btn-default" id="updateDriver" style="display:none;">Update Now</button>
-		</div>
+        <div class="text-center" style="margin-top: 10px; display: flex; justify-content: center;">
+          <button type="submit" class="btn btn-default" id="addNewDriver">Add Now</button>
+          <button type="submit" class="btn btn-default" id="updateDriver" style="display:none;">Update Now</button>
+        </div>
      </div>
     </div>
   </div>
@@ -683,7 +665,7 @@
 </form>
 
 
-	<div id="Del_WarningModal" class="modal">
+	<div id="Del_WarningModal" class="modal" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-confirm modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -695,17 +677,17 @@
 				</div>
 				<div class="modal-body">
 					<span style="display: none;" id="del_driver_id"></span>
-					<p>Do you really want to delete these records? This process cannot be undone.</p>
+					<p>Do you really want to <span id="warningText"></span> these records? This process cannot be undone.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-danger deleteConfirm">Delete</button>
+					<button type="button" class="btn btn-danger deleteConfirm" id="actionText"></button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-        <div class="modal" id="deleteConfirmModal">
+        <div class="modal" id="deleteConfirmModal" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-confirm modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">

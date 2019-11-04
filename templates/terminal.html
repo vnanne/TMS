@@ -155,11 +155,10 @@
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
-          {% if user.is_authenticated %}
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../static/img/avatar5.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{ user.username }}</span>
+              <span class="hidden-xs">Srikanth</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -167,21 +166,21 @@
                 <img src="../static/img/avatar5.png" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ user.username }}
-                  <small>{{ user.date_joined }}</small>
+                  Srikanth - UI Developer
+                  <small>Member since Nov. 2016</small>
                 </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
-                    <a href="/newload/">Loads</a>
+                    <a href="#">Loads</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="/customers/">Customers</a>
+                    <a href="#">Customers</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="/drivers/">Drivers</a>
+                    <a href="#">Drivers</a>
                   </div>
                 </div>
                 <!-- /.row -->
@@ -189,17 +188,13 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a  class="btn btn-default btn-sm btn-flat" href="{% url 'my_account' %}" >Profile</a>
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
-                <div class="pull-left">
-                  <a  class="btn btn-default btn-sm btn-flat" href="{% url 'password_change' %}">Change password</a>
-                </div>
-                <div class="pull-left">
-                  <a href="{% url 'logout' %}" class="btn btn-default btn-sm btn-flat">Sign out</a>
+                <div class="pull-right">
+                  <a href="login.html" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
-                {% endif %}
-               </ul>
+            </ul>
           </li>
         </ul>
       </div>
@@ -215,10 +210,8 @@
           <img src="../static/img/avatar5.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-        {% if user.is_authenticated %}
-          <p>  {{ user.username }}</p>
+          <p>Srikanth</p>
           <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
-          {% endif %}
         </div>
       </div>
       <!-- search form -->
@@ -298,12 +291,6 @@
             <div class="box-header">
               <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
-              {% if messages %}
-                {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"><b style="color:#000000; ">{{ message }}</b></div>
-                {% endfor %}
-              {% endif %}
-
               <div class="box-tools">
               	<button class="btn btn-amber add-new waves-effect waves-light" data-toggle="modal" data-target="#addnewTerminalModal"><i class="fa fa-plus"></i>Add Terminal</button>
               </div>
@@ -327,7 +314,7 @@
                       <td class="terminal_address" style="display:none;">{{ terminal.get_terminal_address }}</td>
       			      <td>
       			      	<a class="edit edit_terminal" title="Edit"><i class="fa fa-edit"></i></a>
-                        <!--<a class="delete delete_terminal" title="Delete"><i class="fa fa-trash-o"></i></a>-->
+                        <a class="delete delete_terminal" title="Delete"><i class="fa fa-trash-o"></i></a>
       			      </td>
                 </tr>
               {%  endfor %}
@@ -385,11 +372,11 @@
 
         <div class="row">
           <div class="col-md-6 form-group">
-            <label data-error="wrong" data-success="right" for="addStreet_1">Street Address1</label>
+            <label data-error="wrong" data-success="right" for="addStreet_1">H.No</label>
             <input type="text" name="street_add_1" id="addStreet_1" class="form-control">
           </div>
           <div class="col-md-6 form-group">
-            <label data-error="wrong" data-success="right" for="addStreet_2">Street Address2</label>
+            <label data-error="wrong" data-success="right" for="addStreet_2">Street Address</label>
             <input type="text" name="street_add_2" id="addStreet_2" class="form-control">
           </div>
         </div>
