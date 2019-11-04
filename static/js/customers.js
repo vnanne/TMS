@@ -136,12 +136,12 @@ $('#del_customer_id').html(this_c_ID);
 
 $('.deleteConfirm').click(function(){
 var del_ID = $('#del_customer_id').html();
-var actionText = $('warningText').html();
+var actionText = $('#warningText').html();
 $.ajax({
 type: 'post',
 url:'/deletecustomer/',
 data: {
-    'driver_Id': del_ID,
+    'customer_Id': del_ID,
     'actionStr': actionText
 },
 success: function(res){

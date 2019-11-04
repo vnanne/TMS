@@ -218,13 +218,13 @@ $('#del_driver_id').html(driver_id);
 
 $('.deleteConfirm').click(function(){
 var del_ID = $('#del_driver_id').html();
-var actionText = $('warningText').html();
+var actionText = $('#warningText').html();
 $.ajax({
 type: 'post',
 url:'/deletedriver/',
 data: {
     'driver_Id': del_ID,
-    'actionStr': actionText
+    'actionStr': actionText,
 },
 success: function(res){
 $('#Del_WarningModal').modal('hide');
