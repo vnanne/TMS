@@ -16,21 +16,14 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../static/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../static/css/_all-skins.min.css">
-  <!-- Morris chart -->
-  <!-- <link rel="stylesheet" href="bower_components/morris.js/morris.css"> -->
-  <!-- jvectormap -->
-  <!-- <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css"> -->
-  <!-- Date Picker -->
-  <!-- <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"> -->
-  <!-- Daterange picker -->
-  <!-- <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css"> -->
-  <!-- bootstrap wysihtml5 - text editor -->
-  <!-- <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"> -->
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style type="text/css">
+    .hidden {
+      display: none !important;
+    }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -321,11 +314,11 @@
                 <thead>
                 <tr>
                   <th><input type="checkbox"></th>
-                  <th>Load ID</th>
                   <th>Customer ID</th>
                   <th>Container</th>
                   <th>Container Size</th>
                   <th>Vessel Name100</th>
+                  <th>Pick Up Terminal </th>
                   <th>Return Terminal</th>
                   <th>ERDETA</th>
                   <th>LFD Cut-off</th>
@@ -334,252 +327,69 @@
                   <th>Dispatched</th>
                   <th>Driver</th>
                   <th>Dispach</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
+                  {% for row in dashboard_data %}
                 <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
+                  <td class="tr_check"><input type="checkbox"></td>
+                    <td class="td_cus_name">{{ row.workorder_details.customer_id.customer_name }}</td>
+                    {% if row.import_details.container %}
+                      <td class="td_i_container">{{ row.import_details.container }}</td>
+                      <td class="td_i_container_size"> {{ row.import_details.contains_size }}</td>
+                      <td class="td_i_bill_of hidden">{{ row.import_details.bill_of_landing_reference }}</td>
+                      <td class="td_loadtype hidden">import</td>
+                    {% else %}
+                      <td class="td_e_container">{{ row.export_details.container }}</td>
+                      <td class="td_e_container_size"> {{ row.export_details.contains_size }}</td>
+                      <td class="td_e_booking hidden">{{ row.export_details.booking }}</td>
+                      <td class="td_loadtype hidden">export</td>
+                    {% endif %}
+                    <td class="td_vessel">{{ row.workorder_details.vessel_name }}</td>
+                    <td class="td_pickup_terminal">{{ row.workorder_details.pick_up_terminal_id.terminal_name }}</td>
+                    <td class="td_return_terminal">{{ row.workorder_details.return_terminal_id.terminal_name }}</td>
+                    <td class="td_vessel_eat">{{ row.appointments_details.vessel_eat }}</td>
+                    <td class="td_lfd">{{ row.appointments_details.lfd }}</td>
+                    <td class="td_port_apt">{{ row.appointments_details.port_apt }}</td>
+                    <td class="td_delivert_apt">{{ row.appointments_details.delivert_apt }}</td>
+                    <td class="td_dispached"></td>
+                    <td class="td_driver"></td>
+                    <td class="td_dispach"></td>
+                    <td><button class='btn btn-info btn-xs btn-edit edit_load'>Edit</button></td>
+
+                    <td class="td_details_Id hidden">{{ row.workorder_details.id }}</td>
+                    <td class="td_cus_id hidden">{{ row.workorder_details.customer_id.id }}</td>
+                    <!-- <td class="td_cus_name hidden">{{ row.workorder_details.customer_id.customer_name }}</td> -->
+                    <td class="td_po hidden">{{ row.shipement_details.po }}</td>
+                    <td class="td_weight hidden">{{ row.shipement_details.weight }}</td>
+                    <td class="td_commidty hidden">{{ row.shipement_details.commidty }}</td>
+                    <td class="td_customs_hold hidden">{{ row.shipement_details.customs_hold }}</td>
+                    <td class="td_over_weight hidden">{{ row.shipement_details.over_weight }}</td>
+                    <td class="td_return_terminal_id hidden">{{row.workorder_details.return_terminal_id.id}}</td>
+                    <td class="td_pickup_terminal_id hidden">{{row.workorder_details.pick_up_terminal_id.id}}</td>
+                    <td class="td_tri_axl hidden">{{row.workorders_shipment_specifications.tri_axl }}</td>
+                    <td class="td_hazmat hidden">{{ row.workorders_shipment_specifications.hazmat }}</td>
+                    <td class="td_live hidden">{{ row.workorders_shipment_specifications.live }}</td>
+                    <td class="td_cost hidden">{{ row.workorders_shipment_specifications.cost }}</td>
+                    <td class="td_addition_cost hidden">{{ row.workorders_shipment_specifications.addition_cost }}</td>
+                    <td class="td_remarks hidden">{{ row.workorders_shipment_specifications.remarks }}</td>
+                    <td class="td_drop hidden">{{ row.workorders_shipment_specifications.drop }}</td>
+                    <td class="td_flat hidden">{{ row.workorders_address.flat }}</td>
+                    <td class="td_street hidden">{{ row.workorders_address.street }}</td>
+                    <td class="td_street_1 hidden">{{ row.workorders_address.street_1 }}</td>
+                    <td class="td_city hidden">{{ row.workorders_address.city }}</td>
+                    <td class="td_state hidden">{{ row.workorders_address.state }}</td>
+                    <td class="td_country hidden">{{ row.workorders_address.country }}</td>
+                    <td class="td_zipcode hidden">{{ row.workorders_address.zipcode }}</td>
+                    <td class="td_name hidden">{{ row.receiver_details.contact_nameemail }}</td>
+                    <td class="td_email hidden">{{ row.receiver_details.email }}</td>
+                    <td class="td_tel hidden">{{ row.receiver_details.telephone }}</td>
+                    <td class="td_website hidden">{{ row.receiver_details.website }}</td>
+                    <td class="td_deliveryNotes hidden">{{ row.receiver_details.delivery_notes }}</td>
                 </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 5.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td>5</td>
-                  <td>C</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 5.5
-                  </td>
-                  <td>Win 95+</td>
-                  <td>5.5</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 6
-                  </td>
-                  <td>Win 98+</td>
-                  <td>6</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Trident</td>
-                  <td>Internet Explorer 7</td>
-                  <td>Win XP SP2+</td>
-                  <td>7</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Trident</td>
-                  <td>AOL browser (AOL desktop)</td>
-                  <td>Win XP</td>
-                  <td>6</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Gecko</td>
-                  <td>Firefox 1.0</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.7</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Gecko</td>
-                  <td>Firefox 1.5</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Gecko</td>
-                  <td>Firefox 2.0</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Gecko</td>
-                  <td>Firefox 3.0</td>
-                  <td>Win 2k+ / OSX.3+</td>
-                  <td>1.9</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Gecko</td>
-                  <td>Firefox 3.0</td>
-                  <td>Win 2k+ / OSX.3+</td>
-                  <td>1.9</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Gecko</td>
-                  <td>Firefox 3.0</td>
-                  <td>Win 2k+ / OSX.3+</td>
-                  <td>1.9</td>
-                  <td>A</td>
-                   <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th><input type="checkbox"></th>
-                  <th>Load ID</th>
-                  <th>Customer ID</th>
-                  <th>Container</th>
-                  <th>Container Size</th>
-                  <th>Vessel Name100</th>
-                  <th>Return Terminal</th>
-                  <th>ERDETA</th>
-                  <th>LFD Cut-off</th>
-                  <th>Port pick ADT</th>
-                  <th>Wearhouse APT</th>
-                  <th>Dispatched</th>
-                  <th>Driver</th>
-                  <th>Dispach</th>
-                </tr>
-                </tfoot>
+                {% endfor %} 
+              </tbody>
               </table>
             </div>
             <!-- /.box-body -->
@@ -588,28 +398,8 @@
         </div>
       </div>
       <!-- /.row -->
-
-
-
-
-
-
     </section>
-
-
-
   </div>
-<!--   <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
-    </div>
-    <strong>Copyright &copy; 2019 <a href="javascript:void(0)">TMS</a>.</strong> All rights
-    reserved.
-  </footer> -->
-
-
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
@@ -618,40 +408,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<!-- <script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script> -->
 <!-- Bootstrap 3.3.7 -->
 <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-<!-- Morris.js charts -->
-<!-- <script src="bower_components/raphael/raphael.min.js"></script> -->
-<!-- <script src="bower_components/morris.js/morris.min.js"></script> -->
-<!-- Sparkline -->
-<!-- <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script> -->
-<!-- jvectormap -->
-<!-- <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script> -->
-<!-- <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> -->
-<!-- jQuery Knob Chart -->
-<!-- <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script> -->
-<!-- daterangepicker -->
-<!-- <script src="bower_components/moment/min/moment.min.js"></script> -->
-<!-- <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script> -->
-<!-- datepicker -->
-<!-- <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script> -->
-<!-- Bootstrap WYSIHTML5 -->
-<!-- <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script> -->
-<!-- Slimscroll -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../static/js/adminlte.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- <script src="dist/js/pages/dashboard.js"></script> -->
+<script src="../static/js/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../static/js/demo.js"></script>
 <script>

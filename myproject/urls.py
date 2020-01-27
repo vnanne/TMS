@@ -20,7 +20,7 @@ urlpatterns = [
 	url(r'^signup/$', accounts_views.signup, name='signup'),
 	url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
 	url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    #url(r'^dashboard/$', views.Dashboard, name='dashboard'),
+    url(r'^dashboard/$', views.Dashboard, name='dashboard'),
     url(r'^adddriver/$', views.Adddriver, name='adddriver'),
     url(r'^deletedriver/$', views.DeleteDriver, name='deletedriver'),
     url(r'^addcustomer/$', views.Addcustomer, name='addcustomer'),
@@ -28,6 +28,10 @@ urlpatterns = [
     #url(r'^updatecustomer/$', views.UpdateCustomer  , name='updatecustomer'),
     url(r'^addterminal/$', views.Addterminal, name='addterimal'),
     url(r'^deleteterminal/$', views.DeleteTerminal, name='deleteterminal'),
+    url(r'^addnewload/$', views.Addnewload, name='addnewload'),
+    url(r'^getPickupTerminals/$', views.getPickupTerminals, name='getPickupTerminals'),
+    url(r'^newload/getCustomerId/$', views.getCustomerId, name='getCustomerId'),
+    
     url(r'^reset/$',
         auth_views.PasswordResetView.as_view(
             template_name='password_reset.html',

@@ -155,10 +155,11 @@
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
+         {% if user.is_authenticated %}
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../static/img/avatar5.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Srikanth</span>
+              <span class="hidden-xs">{{ user.username }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -166,10 +167,11 @@
                 <img src="../static/img/avatar5.png" class="img-circle" alt="User Image">
 
                 <p>
-                  Srikanth - UI Developer
-                  <small>Member since Nov. 2016</small>
+                  {{ user.username }}
+                  <small>{{ user.date_joined }}</small>
                 </p>
               </li>
+
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
@@ -195,6 +197,7 @@
                 </div>
               </li>
             </ul>
+        {% endif %}
           </li>
         </ul>
       </div>
@@ -210,8 +213,10 @@
           <img src="../static/img/avatar5.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Srikanth</p>
+         {% if user.is_authenticated %}
+          <p>  {{ user.username }}</p>
           <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
+          {% endif %}
         </div>
       </div>
       <!-- search form -->
@@ -290,6 +295,11 @@
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
+               {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"><b style="color:#000000; ">{{ message }}</b></div>
+                {% endfor %}
+              {% endif %}
 
               <div class="box-tools">
               	<button class="btn btn-amber add-new waves-effect waves-light" data-toggle="modal" data-target="#addnewTerminalModal"><i class="fa fa-plus"></i>Add Terminal</button>

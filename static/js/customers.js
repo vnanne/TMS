@@ -1,6 +1,6 @@
 var switchStatus = false;
 
-$('#active_switch').val(switchStatus);
+$('.active_switch').val(switchStatus);
 
 $(".active_tgl").on('change', function() {
     $('#Del_WarningModal').modal('show')

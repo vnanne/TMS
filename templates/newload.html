@@ -6,56 +6,19 @@
   <title>TMS | NewLoad</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css"> -->
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../static/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="../static/css/style.css">
-  <link rel="stylesheet" href="../static/css/_all-skins.min.css">
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-  <style type="text/css">
-   hr
-   {
-      margin-top: 10px;
-      margin-bottom: 10px;
-   }
-   input:focus {
-       outline: 0;
-       border-color: coral;
-   }
-     .floating-placeholder {
-          padding-top: 15px;
-          margin-bottom: 5px;
-          position: relative;
-          display: inline-block;
-      }
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/AdminLTE.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/_all-skins.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-      .floating-placeholder label {
-          position: absolute;
-          line-height: 20px;
-          left:25px;
-          bottom:8px;
-          opacity: 0;
-          font-size: 12px;
-          font-weight: bold;
-          color: coral;
-          transition: all .2s;
-          pointer-events: none;
-      }
-      .floating-placeholder.float label {
-          bottom: 26px;
-          opacity: 1;
-      }
-  </style>
 
    <style>
    /* Switch Flat
@@ -199,6 +162,23 @@
    }
    </style>
 
+   <style>
+    .result {
+     position: absolute;
+     width: 91%;
+     max-width:870px;
+     cursor: pointer;
+     overflow-y: auto;
+     max-height: 400px;
+     box-sizing: border-box;
+     z-index: 9999;
+    }
+    .link-class:hover{
+     background-color:#f1f1f1;
+    }
+  </style>
+  
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -340,12 +320,12 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="active">
+        <li class="">
           <a href="/dashboard">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="">
+        <li class="active">
           <a href="/newload">
             <i class="fa fa-plus"></i> <span>New Load</span>
           </a>
@@ -388,7 +368,7 @@
   <div class="content-wrapper">
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>New Load</h1>
+      <h1><span id="section_title">Import</span> New Load</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-plus"></i> Home</a></li>
         <li class="active">New Load</li>
@@ -397,566 +377,571 @@
 
     <section class="content">
 
-      <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
-          <div class="btn-group" role="group">
-              <button type="button" id="stars" class="btn btn-primary" href="#Import" data-toggle="tab"><span class="fa fa-download" aria-hidden="true"></span>
-                  <div class="hidden-xs">Import</div>
-              </button>
+      <div class="text-center btn-inline">
+          <div class="btn-group button-fill get_insidetxt" role="group">
+              <a class="btn btn-primary button-text" href="#Import" data-toggle="tab">
+                <span class="fa fa-download" aria-hidden="true"></span>
+                <span class="inside_txt">Import</span>
+              </a>
           </div>
-          <div class="btn-group" role="group">
-              <button type="button" id="favorites" class="btn btn-default" href="#Export" data-toggle="tab"><span class="fa fa-upload" aria-hidden="true"></span>
-                  <div class="hidden-xs">Export</div>
-              </button>
+          <div class="btn-group button-fill get_insidetxt" role="group">
+              <a class="btn btn-default button-text" href="#Export" data-toggle="tab">
+                <span class="fa fa-upload" aria-hidden="true"></span>
+                <span class="inside_txt">Export</span>
+              </a>
           </div>
       </div>
 
         <div class="tab-content newload_tab_content">
+          <!--  Import tab :: START:: -->
           <div role="tabpanel" class="tab-pane fade in active" id="Import">
-            <div class="row">
-              <div class="col-md-4 floating-placeholder">
-                <label data-error="wrong" data-success="right" for="company_name"></label>
-                <input type="text" id="company_name" class="form-control" placeholder="Coustmer ID Name">
+            <form action="/addnewload/" method="post">
+            {% csrf_token %}
+              <div class="row">
+                <div class="col-md-9">
+                  <div class="row">
+                    <div class="col-md-4 floating-placeholder">
+                      <label for="I_customer_id"></label>
+                      <input type="text" id="I_customer_name" class="form-control" placeholder="Customer ID">
+                      <input type="hidden" name="I_customer_id" id="I_customer_id">
+                      <input type="hidden" name="I_load_type" value="import">
+                      <ul class="list-group result" id="I_result"></ul>
+                    </div>
+                    <div class="col-md-4 floating-placeholder">
+                      <label for="I_container_name"></label>
+                      <input type="text" name="I_container_name" id="I_container_name" class="form-control" placeholder="Container">
+                    </div>
+                    <div class="col-md-4 floating-placeholder">
+                      <label for="I_container_size"></label>
+                      <input type="text" name="I_container_size" id="I_container_size" class="form-control" placeholder="Container Size">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-4 floating-placeholder">
+                        <label for="I_bill_of_landing"></label>
+                        <input type="text" name="I_bill_of_landing" id="I_bill_of_landing" class="form-control" placeholder="Bill of Landing">
+                      </div>
+                      <div class="col-md-4 floating-placeholder">
+                          <label for="I_po&ref"></label>
+                          <input type="text" name="I_po&ref" id="I_po&ref" class="form-control" placeholder="Po/Ref">
+                       </div>
+                       <div class="col-md-4 floating-placeholder">
+                         <label for="I_weight"></label>
+                         <input type="text" name="I_weight" id="I_weight" class="form-control" placeholder="Weight">
+                       </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 floating-placeholder">
+                       <label for="I_commodity"></label>
+                       <input type="text" name="I_commodity" id="I_commodity" class="form-control" placeholder="Commodity">
+                    </div>
+                    <div class="col-md-6 floating-placeholder">
+                         <label for="I_vessel_name"></label>
+                         <input type="text" name="I_vessel_name" id="I_vessel_name" class="form-control" placeholder="Vessel Name">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-6 floating-placeholder">
+                         <select class="form-control" name="I_pickup_terminal" id="I_pickup_terminal">
+                            <option>Select Pick-up-Terminal</option>
+                         </select>
+                      </div>
+                      <div class="col-md-6 floating-placeholder">
+                        <select class="form-control" name="I_return_terminal" id="I_return_terminal">
+                         <option>Select Return Terminal</option>
+                        </select>
+                      </div>
+                  </div>
+
+
+                  <div class="row" style="margin-top: 10px;">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <div class="input-group date">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                            <input type="text" name="ETA" id="ETA" class="form-control" placeholder="ETA" onkeypress="return false;">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <div class="input-group date">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                            <input type="text" name="LFD" id="LFD" class="form-control" placeholder="LFD" onkeypress="return false;">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <div class="input-group date">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                            <input type="text" name="I_PortAPT" id="PortAPT" class="form-control" placeholder="PortAPT" onkeypress="return false;">
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3" style="text-align:-webkit-center">
+                      <div style="padding-top:15px; margin-bottom: 5px;">
+                        <label class="switch switch-flat">
+                            <input class="switch-input I_c_hold_tgl" type="checkbox" />
+                            <span class="switch-label" data-on="Customs-Hold YES" data-off="Customs-Hold NO"></span>
+                            <span class="switch-handle"></span>
+                            <input type="hidden" name="I_customs_hold_switch" class="I_customs_hold_switch">
+                         </label>
+                      </div>
+                      <div style="padding-top:15px; margin-bottom: 5px;">
+                        <label class="switch switch-flat">
+                            <input class="switch-input I_tri_axle_tgl" type="checkbox" />
+                            <span class="switch-label" data-on="Tri-axle YES" data-off="Tri-axle NO"></span>
+                            <span class="switch-handle"></span>
+                            <input type="hidden" name="I_tri_axle_switch" class="I_tri_axle_switch">
+                         </label>
+                      </div>
+                      <div style="padding-top:15px; margin-bottom: 5px;">
+                        <label class="switch switch-flat">
+                            <input class="switch-input I_hazmat_tgl" type="checkbox" />
+                            <span class="switch-label" data-on="Hazmat YES" data-off="Hazmat NO"></span>
+                            <span class="switch-handle"></span>
+                            <input type="hidden" name="I_hazmat_switch" class="I_hazmat_switch">
+                         </label>
+                      </div>
+                      <div style="padding-top:15px; margin-bottom: 5px;">
+                        <label class="switch switch-flat">
+                            <input class="switch-input I_over_weight_tgl" type="checkbox" />
+                            <span class="switch-label" data-on="Over-Weight YES" data-off="Over-Weight NO"></span>
+                            <span class="switch-handle"></span>
+                            <input type="hidden" name="I_over_weight_switch" class="I_over_weight_switch">
+                         </label>
+                      </div>
+                </div>
+
               </div>
-              <div class="col-md-4 floating-placeholder">
-                <label data-error="wrong" data-success="right" for="contact_name"></label>
-                <input type="text" id="contact_name" class="form-control" placeholder="Container">
-              </div>
-              <div class="col-md-4 floating-placeholder">
-                <label data-error="wrong" data-success="right" for="ph_no"></label>
-                <input type="text" id="ph_no" class="form-control" placeholder="Container Size">
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="col-md-4 floating-placeholder">
-                <label data-error="wrong" data-success="right" for="email"></label>
-                <input type="text" id="email" class="form-control" placeholder="Bill of Landing">
-              </div>
-              <div class="col-md-4 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="street_add_1"></label>
-                  <input type="text" id="street_add_1" class="form-control" placeholder="Po/Ref">
-               </div>
-               <div class="col-md-4 floating-placeholder">
-                 <label data-error="wrong" data-success="right" for="street_add_2"></label>
-                 <input type="text" id="street_add_2" class="form-control" placeholder="Weight">
-               </div>
-          </div>
-
-        <div class="row">
-            <div class="col-md-6 floating-placeholder">
-               <label data-error="wrong" data-success="right" for="City"></label>
-               <input type="text" id="City" class="form-control" placeholder="Commodity">
-            </div>
-            <div class="col-md-6 floating-placeholder">
-                 <label data-error="wrong" data-success="right" for="State"></label>
-                 <input type="text" id="State" class="form-control" placeholder="Vessel Name">
-            </div>
-         </div>
-
-        <div class="row">
-            <div class="col-md-6 floating-placeholder">
-               <select class="form-control">
-                  <option>Select Pick-up-Terminal</option>
-               </select>
-            </div>
-            <div class="col-md-6 floating-placeholder">
-              <select class="form-control">
-               <option>Select Return Terminal</option>
-              </select>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-4 floating-placeholder">
-              <label data-error="wrong" data-success="right" for="ETA"></label>
-              <input type="text" id="ETA" class="form-control" placeholder="ETA">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-              <label data-error="wrong" data-success="right" for="LFD"></label>
-              <input type="text" id="LFD" class="form-control" placeholder="LFD">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-              <label data-error="wrong" data-success="right" for="PortAPT"></label>
-              <input type="text" id="PortAPT" class="form-control" placeholder="Port APT">
-            </div>
-        </div>
-
-
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" />
-                  <span class="switch-label" data-on="Customs-Hold YES" data-off="Customs-Hold NO"></span>
-                  <span class="switch-handle"></span>
-               </label>
-            </div>
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" />
-                  <span class="switch-label" data-on="Tri-axle YES" data-off="Tri-axle NO"></span>
-                  <span class="switch-handle"></span>
-               </label>
-            </div>
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" />
-                  <span class="switch-label" data-on="Hazmat YES" data-off="Hazmat NO"></span>
-                  <span class="switch-handle"></span>
-               </label>
-            </div>
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" />
-                  <span class="switch-label" data-on="Over-Weight YES" data-off="Over-Weight NO"></span>
-                  <span class="switch-handle"></span>
-               </label>
-            </div>
-        </div>
-
-
-        <hr/>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-6 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="t_id"></label>
-                  <input type="text" id="t_id" class="form-control" placeholder="Delivery Appointment">
-               </div>
-               <div class="col-md-6 floating-placeholder">
-                 <label data-error="wrong" data-success="right" for="Carrier"></label>
-                 <input type="text" id="Carrier" class="form-control" placeholder="Warehouse/Delivery Location">
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-6 floating-placeholder">
-                   <label data-error="wrong" data-success="right" for="street_add_1"></label>
-                   <input type="text" id="street_add_1" class="form-control" placeholder="Street Address 1">
-               </div>
-               <div class="col-md-6 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="street_add_2"></label>
-                  <input type="text" id="street_add_2" class="form-control" placeholder="Street Address 2">
-               </div>
-            </div>
-
-            <div class="row">
-               <div class="col-md-6 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="City"></label>
-                  <input type="text" id="City" class="form-control" placeholder="City">
-               </div>
-               <div class="col-md-6 floating-placeholder">
-                    <label data-error="wrong" data-success="right" for="State"></label>
-                    <input type="text" id="State" class="form-control" placeholder="State">
-               </div>
-            </div>
+              <hr/>
 
               <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <!-- <div class="col-md-6 floating-placeholder">
+                      <label for="I_delivery_Appointment"></label>
+                      <input type="text" name="I_delivery_Appointment" id="I_delivery_Appointment" class="form-control" placeholder="Delivery Appointment">
+                   </div> -->
+                  <div class="col-md-6" style="padding-top: 15px;">
+                    <div class="form-group">
+                      <div class="input-group date">
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                        <input type="text" name="I_delivery_Appointment" id="I_delivery_Appointment" class="form-control" placeholder="Delivery Appointment" onkeypress="return false;">
+                      </div>
+                     </div> 
+                  </div>
+                   <div class="col-md-6 floating-placeholder">
+                     <label for="I_delivery_Location"></label>
+                     <input type="text" name="I_delivery_Location" id="I_delivery_Location" class="form-control" placeholder="Warehouse/Delivery Location">
+                   </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-6 floating-placeholder">
+                       <label  for="I_street_add_1"></label>
+                       <input type="text" name="I_street_add_1" id="I_street_add_1" class="form-control" placeholder="H.NO">
+                   </div>
+                   <div class="col-md-6 floating-placeholder">
+                      <label for="I_street_add_2"></label>
+                      <input type="text" name="I_street_add_2" id="I_street_add_2" class="form-control" placeholder="Street Address 2">
+                   </div>
+                </div>
+
+                <div class="row">
+                   <div class="col-md-6 floating-placeholder">
+                      <label for="I_City"></label>
+                      <input type="text" name="I_city" id="I_city" class="form-control" placeholder="City">
+                   </div>
+                   <div class="col-md-6 floating-placeholder">
+                        <label for="I_State"></label>
+                        <input type="text" name="I_state" id="I_state" class="form-control" placeholder="State">
+                   </div>
+                </div>
+
+                  <div class="row">
+                      <div class="col-md-6 floating-placeholder">
+                         <label for="I_Zipcode"></label>
+                         <input type="text" name="I_zipcode" id="I_zipcode" class="form-control" placeholder="Zipcode">
+                      </div>
+                      <div class="col-md-6 floating-placeholder">
+                        <label for="I_Country"></label>
+                        <input type="I_text" name="I_country" id="I_country" class="form-control" placeholder="Country">
+                      </div>
+                  </div>
+             </div>
+
+              <div class="col-md-6">
+                <div class="row" style="padding-top: 15px; text-align:-webkit-center">
+                   <div class="col-md-6">
+                     <label class="switch switch-flat">
+                         <input class="switch-input I_live_tgl" type="checkbox" />
+                         <span class="switch-label" data-on="Live YES" data-off="Live NO"></span>
+                         <span class="switch-handle"></span>
+                         <input type="hidden" name="I_live_switch" class="I_live_switch">
+                      </label>
+                   </div>
+                   <div class="col-md-6">
+                     <label class="switch switch-flat">
+                         <input class="switch-input I_drop_pick_tgl" type="checkbox" />
+                         <span class="switch-label" data-on="Drop& Pick YES" data-off="Drop& Pick NO"></span>
+                         <span class="switch-handle"></span>
+                         <input type="hidden" name="I_drop_pick_switch" class="I_drop_pick_switch">
+                      </label>
+                   </div>
+                </div>
+
+                <div class="row">
+                      <div class="col-md-6 floating-placeholder">
+                         <label for="I_contact_Name"></label>
+                         <input type="text" name="I_contact_Name" id="I_contact_Name" class="form-control" placeholder="Contact Name">
+                      </div>
+                      <div class="col-md-6 floating-placeholder">
+                        <label for="I_Email"></label>
+                        <input type="I_text" name="I_email" id="I_email" class="form-control" placeholder="Email">
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-6 floating-placeholder">
+                         <label for="I_tel_no"></label>
+                         <input type="text" name="I_tel_no" id="I_tel_no" class="form-control" placeholder="Tel.NO">
+                      </div>
+                      <div class="col-md-6 floating-placeholder">
+                        <label for="I_Website"></label>
+                        <input type="text" name="I_website" id="I_website" class="form-control" placeholder="Website">
+                      </div>
+                  </div>
+                <div class="row">
+                  <div class="col-md-12 floating-placeholder">
+                    <label for="I_delivery_notes"></label>
+                    <input type="text" name="I_delivery_notes" id="I_delivery_notes" class="form-control" placeholder="Delivery Notes">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-md-4 floating-placeholder">
+                 <label></label>
+                <input type="text" class="form-control" placeholder="Cost" name="I_cost">
+              </div>
+              <div class="col-md-4 floating-placeholder">
+                 <label></label>
+                <input type="text" class="form-control" placeholder="Additional Costs" name="I_extra_costs">
+              </div>
+              <div class="col-md-4 floating-placeholder">
+                 <label></label>
+                <input type="text" class="form-control" placeholder="Remarks" name="I_remarks">
+              </div>
+              </div>
+
+              <div class="text-center"  style="margin-top: 10px;">
+                <button class="btn btn-default">Add Now</button>
+              </div>
+            </form>
+          </div>
+          <!----------------------  import tab :: END:: ---------------------->
+
+          <!----------------------  Export tab :: START:: ---------------------->
+          <div role="tabpanel" class="tab-pane fade" id="Export">
+            <form action="/addnewload/" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-9">
+                <div class="row">
+                  <!-- <div class="col-md-4 floating-placeholder">
+                    <label for="customer_id"></label>
+                    <input type="text" name="customer_id" id="customer_id" class="form-control" placeholder="Customer ID">
+                    <input type="hidden" name="load_type" value="export">
+                    <ul class="list-group result" id="E_result"></ul>
+                  </div> -->
+                  <div class="col-md-4 floating-placeholder">
+                      <label for="customer_id"></label>
+                      <input type="text" id="customer_name" class="form-control" placeholder="Customer ID">
+                      <input type="hidden" name="customer_id" id="customer_id">
+                      <input type="hidden" name="I_load_type" value="export">
+                      <ul class="list-group result" id="E_result"></ul>
+                  </div>
+                  <div class="col-md-4 floating-placeholder">
+                    <label for="container_name"></label>
+                    <input type="text" name="container_name" id="container_name" class="form-control" placeholder="Container">
+                  </div>
+                  <div class="col-md-4 floating-placeholder">
+                    <label for="container_size"></label>
+                    <input type="text" name="container_size" id="container_size" class="form-control" placeholder="Container Size">
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 floating-placeholder">
+                      <label for="booking"></label>
+                      <input type="text" name="booking" id="booking" class="form-control" placeholder="Booking">
+                    </div>
+                    <div class="col-md-4 floating-placeholder">
+                        <label for="po&ref"></label>
+                        <input type="text" name="po&ref" id="po&ref" class="form-control" placeholder="Po/Ref">
+                     </div>
+                     <div class="col-md-4 floating-placeholder">
+                       <label for="weight"></label>
+                       <input type="text" name="weight" id="weight" class="form-control" placeholder="Weight">
+                     </div>
+                </div>
+
+                <div class="row">
                   <div class="col-md-6 floating-placeholder">
-                     <label data-error="wrong" data-success="right" for="Zipcode"></label>
-                     <input type="text" id="Zipcode" class="form-control" placeholder="Zipcode">
+                     <label for="commodity"></label>
+                     <input type="text" name="commodity" id="commodity" class="form-control" placeholder="Commodity">
                   </div>
                   <div class="col-md-6 floating-placeholder">
-                    <label data-error="wrong" data-success="right" for="Country"></label>
-                    <input type="text" id="Country" class="form-control" placeholder="Country">
+                       <label for="vessel_name"></label>
+                       <input type="text" name="vessel_name" id="vessel_name" class="form-control" placeholder="Vessel Name">
                   </div>
-              </div>
-         </div>
+                </div>
 
-          <div class="col-md-6">
-
-            <div class="row" style="margin-top: 10px;">
-               <div class="col-md-6">
-                 <label class="switch switch-flat">
-                     <input class="switch-input" type="checkbox" />
-                     <span class="switch-label" data-on="Live YES" data-off="Live NO"></span>
-                     <span class="switch-handle"></span>
-                  </label>
-               </div>
-               <div class="col-md-6">
-                 <label class="switch switch-flat">
-                     <input class="switch-input" type="checkbox" />
-                     <span class="switch-label" data-on="Drop& Pick YES" data-off="Drop& Pick NO"></span>
-                     <span class="switch-handle"></span>
-                  </label>
-               </div>
-            </div>
-
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Contact Name</label>
-              </div>
-              <div class="col-md-8">
-                <input name="first_name" class="form-control"  type="text">
-              </div>
-            </div>
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Email</label>
-              </div>
-              <div class="col-md-8">
-                <input name="first_name" class="form-control"  type="text">
-              </div>
-            </div>
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Tel.NO</label>
-              </div>
-              <div class="col-md-8">
-                <input name="first_name" class="form-control"  type="text">
-              </div>
-            </div>
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Website</label>
-              </div>
-              <div class="col-md-8">
-                <input name="first_name" class="form-control"  type="text">
-              </div>
-            </div>
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Delivery Notes</label>
-              </div>
-              <div class="col-md-8">
-                <textarea name="first_name" class="form-control"></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-
-          <hr/>
-
-          <div class="row">
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Cost" name="">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Additional Costs" name="">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Remarks" name="">
-            </div>
-          </div>
-
-         <div class="text-center"  style="margin-top: 10px;">
-            <button class="btn btn-default">Add Now</button>
-        </div>
-   </div>
-         <!-- :: import tab END:: -->
-        <!-- :: Export tab START:: -->
+                <div class="row">
+                    <div class="col-md-4 floating-placeholder">
+                      <select class="form-control" name="SSL">
+                       <option>SSL</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4 floating-placeholder">
+                       <select class="form-control" name="pickup_terminal" id="pickup_terminal">
+                          <option>Select Pick-up-Terminal</option>
+                       </select>
+                    </div>
+                    <div class="col-md-4 floating-placeholder">
+                      <select class="form-control" name="return_terminal" id="return_terminal">
+                       <option>Select Return Terminal</option>
+                      </select>
+                    </div>
+                </div>
 
 
-         <div role="tabpanel" class="tab-pane" id="Export">
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-4">
+                      <!-- <label for="ETA"></label>
+                      <input type="text" name="ETA" id="ETA" class="form-control" placeholder="ETA"> -->
+                      <div class="form-group">
+                        <!-- <label for="ETA">ETA</label> -->
+                        <div class="input-group date">
+                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                          <input type="text" name="ETD" id="E_ETD" class="form-control" placeholder="ETD" onkeypress="return false;">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <!-- <label for="LFD"></label>
+                      <input type="text" name="LFD" id="LFD" class="form-control" placeholder="LFD"> -->
+                      <div class="form-group">
+                        <!-- <label for="LFD">LFD</label> -->
+                        <div class="input-group date">
+                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                          <input type="text" name="Cut-OFF" id="E_Cut-OFF" class="form-control" placeholder="Cut-OFF" onkeypress="return false;">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <!-- <label for="PortAPT"></label>
+                      <input type="text" name="PortAPT" id="PortAPT" class="form-control" placeholder="Port APT"> -->
+                      <div class="form-group">
+                        <div class="input-group date">
+                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                          <input type="text" name="PortAPT" id="E_PortAPT" class="form-control" placeholder="PortAPT" onkeypress="return false;">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-md-3" style="text-align:-webkit-center">
+                    <div style="padding-top:15px; margin-bottom: 5px;">
+                      <label class="switch switch-flat">
+                          <input class="switch-input c_hold_tgl" type="checkbox" />
+                          <span class="switch-label" data-on="Customs-Hold YES" data-off="Customs-Hold NO"></span>
+                          <span class="switch-handle"></span>
+                          <input type="hidden" name="customs_hold_switch" class="customs_hold_switch">
+                       </label>
+                    </div>
+                    <div style="padding-top:15px; margin-bottom: 5px;">
+                      <label class="switch switch-flat">
+                          <input class="switch-input tri_axle_tgl" type="checkbox" />
+                          <span class="switch-label" data-on="Tri-axle YES" data-off="Tri-axle NO"></span>
+                          <span class="switch-handle"></span>
+                          <input type="hidden" name="tri_axle_switch" class="tri_axle_switch">
+                       </label>
+                    </div>
+                    <div style="padding-top:15px; margin-bottom: 5px;">
+                      <label class="switch switch-flat">
+                          <input class="switch-input hazmat_tgl" type="checkbox" />
+                          <span class="switch-label" data-on="Hazmat YES" data-off="Hazmat NO"></span>
+                          <span class="switch-handle"></span>
+                          <input type="hidden" name="hazmat_switch" class="hazmat_switch">
+                       </label>
+                    </div>
+                    <div style="padding-top:15px; margin-bottom: 5px;">
+                      <label class="switch switch-flat">
+                          <input class="switch-input over_weight_tgl" type="checkbox" />
+                          <span class="switch-label" data-on="Over-Weight YES" data-off="Over-Weight NO"></span>
+                          <span class="switch-handle"></span>
+                          <input type="hidden" name="over_weight_switch" class="over_weight_switch">
+                       </label>
+                    </div>
+              </div>
+            </div>
+            <hr/>
             <div class="row">
-              <div class="col-md-4 floating-placeholder">
-                <label data-error="wrong" data-success="right" for="defaultForm-email"></label>
-                <input type="text" id="company_name" class="form-control" placeholder="Coustmer ID">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6" style="padding-top: 15px;">
+                  <div class="form-group">
+                    <div class="input-group date">
+                      <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                      <input type="text" name="pickup_Appointment" id="pickup_Appointment" class="form-control" placeholder="Pick-Up Appointment" onkeypress="return false;">
+                    </div>
+                  </div>
+                </div>
+                 <div class="col-md-6 floating-placeholder">
+                   <label for="delivery_Location"></label>
+                   <input type="text" name="delivery_Location" id="delivery_Location" class="form-control" placeholder="Warehouse/Delivery Location">
+                 </div>
               </div>
-              <div class="col-md-4 floating-placeholder">
-                <label data-error="wrong" data-success="right" for="contact_name"></label>
-                <input type="text" id="contact_name" class="form-control" placeholder="Container">
+              <div class="row">
+                 <div class="col-md-6 floating-placeholder">
+                     <label  for="street_add_1"></label>
+                     <input type="text" name="street_add_1" id="street_add_1" class="form-control" placeholder="Street Address 1">
+                 </div>
+                 <div class="col-md-6 floating-placeholder">
+                    <label for="street_add_2"></label>
+                    <input type="text" name="street_add_2" id="street_add_2" class="form-control" placeholder="Street Address 2">
+                 </div>
               </div>
-              <div class="col-md-4 floating-placeholder">
-                <label data-error="wrong" data-success="right" for="ph_no"></label>
-                <input type="text" id="ph_no" class="form-control" placeholder="Container Size">
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="col-md-4 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="street_add_1"></label>
-                  <input type="text" id="street_add_1" class="form-control" placeholder="Booking">
-               </div>
-               <div class="col-md-4 floating-placeholder">
-                 <label data-error="wrong" data-success="right" for="street_add_2"></label>
-                 <input type="text" id="street_add_2" class="form-control" placeholder="Po/Ref">
-               </div>
-               <div class="col-md-4 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="City"></label>
-                  <input type="text" id="City" class="form-control" placeholder="Weight">
-               </div>
-          </div>
-
-        <div class="row">
-            <div class="col-md-6 floating-placeholder">
-               <label data-error="wrong" data-success="right" for="City"></label>
-               <input type="text" id="City" class="form-control" placeholder="Commodity">
-            </div>
-            <div class="col-md-6 floating-placeholder">
-                 <label data-error="wrong" data-success="right" for="State"></label>
-                 <input type="text" id="State" class="form-control" placeholder="Vessel Name">
-            </div>
-         </div>
-
-        <div class="row">
-         <div class="col-md-4 floating-placeholder">
-               <select class="form-control">
-                  <option>SSL</option>
-               </select>
-            </div>
-            <div class="col-md-4 floating-placeholder">
-               <select class="form-control">
-                  <option>Select Pick-up-Terminal</option>
-               </select>
-            </div>
-            <div class="col-md-4 floating-placeholder">
-              <select class="form-control">
-               <option>Select Return Terminal</option>
-              </select>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-4 floating-placeholder">
-              <label data-error="wrong" data-success="right" for="ETA"></label>
-              <input type="text" id="ETA" class="form-control" placeholder="ERD">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-              <label data-error="wrong" data-success="right" for="LFD"></label>
-              <input type="text" id="LFD" class="form-control" placeholder="Cut-OFF">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-              <label data-error="wrong" data-success="right" for="PortAPT"></label>
-              <input type="text" id="PortAPT" class="form-control" placeholder="Port APT">
-            </div>
-        </div>
-
-
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" />
-                  <span class="switch-label" data-on="Customs-Hold YES" data-off="Customs-Hold NO"></span>
-                  <span class="switch-handle"></span>
-               </label>
-            </div>
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" />
-                  <span class="switch-label" data-on="Tri-axle YES" data-off="Tri-axle NO"></span>
-                  <span class="switch-handle"></span>
-               </label>
-            </div>
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" />
-                  <span class="switch-label" data-on="Hazmat YES" data-off="Hazmat NO"></span>
-                  <span class="switch-handle"></span>
-               </label>
-            </div>
-            <div class="col-md-3">
-              <label class="switch switch-flat">
-                  <input class="switch-input" type="checkbox" />
-                  <span class="switch-label" data-on="Over-Weight YES" data-off="Over-Weight NO"></span>
-                  <span class="switch-handle"></span>
-               </label>
-            </div>
-        </div>
-
-
-        <hr/>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-6 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="t_id"></label>
-                  <input type="text" id="t_id" class="form-control" placeholder="Pick-Up Appointment">
-               </div>
-               <div class="col-md-6 floating-placeholder">
-                 <label data-error="wrong" data-success="right" for="Carrier"></label>
-                 <input type="text" id="Carrier" class="form-control" placeholder="Warehouse/Delivery Location">
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-6 floating-placeholder">
-                   <label data-error="wrong" data-success="right" for="street_add_1"></label>
-                   <input type="text" id="street_add_1" class="form-control" placeholder="Street Address 1">
-               </div>
-               <div class="col-md-6 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="street_add_2"></label>
-                  <input type="text" id="street_add_2" class="form-control" placeholder="Street Address 2">
-               </div>
-            </div>
-
-            <div class="row">
-               <div class="col-md-6 floating-placeholder">
-                  <label data-error="wrong" data-success="right" for="City"></label>
-                  <input type="text" id="City" class="form-control" placeholder="City">
-               </div>
-               <div class="col-md-6 floating-placeholder">
-                    <label data-error="wrong" data-success="right" for="State"></label>
-                    <input type="text" id="State" class="form-control" placeholder="State">
-               </div>
-            </div>
 
               <div class="row">
-                  <div class="col-md-6 floating-placeholder">
-                     <label data-error="wrong" data-success="right" for="Zipcode"></label>
-                     <input type="text" id="Zipcode" class="form-control" placeholder="Zipcode">
-                  </div>
-                  <div class="col-md-6 floating-placeholder">
-                    <label data-error="wrong" data-success="right" for="Country"></label>
-                    <input type="text" id="Country" class="form-control" placeholder="Country">
-                  </div>
+                 <div class="col-md-6 floating-placeholder">
+                    <label for="City"></label>
+                    <input type="text" name="city" id="city" class="form-control" placeholder="City">
+                 </div>
+                 <div class="col-md-6 floating-placeholder">
+                      <label for="State"></label>
+                      <input type="text" name="state" id="state" class="form-control" placeholder="State">
+                 </div>
               </div>
-         </div>
 
-          <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6 floating-placeholder">
+                       <label for="Zipcode"></label>
+                       <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Zipcode">
+                    </div>
+                    <div class="col-md-6 floating-placeholder">
+                      <label for="Country"></label>
+                      <input type="text" name="country" id="country" class="form-control" placeholder="Country">
+                    </div>
+                </div>
+           </div>
 
-            <div class="row" style="margin-top: 10px;">
-               <div class="col-md-6">
-                 <label class="switch switch-flat">
-                     <input class="switch-input" type="checkbox" />
-                     <span class="switch-label" data-on="Live YES" data-off="Live NO"></span>
-                     <span class="switch-handle"></span>
-                  </label>
-               </div>
-               <div class="col-md-6">
-                 <label class="switch switch-flat">
-                     <input class="switch-input" type="checkbox" />
-                     <span class="switch-label" data-on="Drop& Pick YES" data-off="Drop& Pick NO"></span>
-                     <span class="switch-handle"></span>
-                  </label>
-               </div>
+            <div class="col-md-6">
+
+              <div class="row" style="padding-top: 15px; text-align:-webkit-center">
+                 <div class="col-md-6">
+                   <label class="switch switch-flat">
+                       <input class="switch-input live_tgl" type="checkbox" />
+                       <span class="switch-label" data-on="Live YES" data-off="Live NO"></span>
+                       <span class="switch-handle"></span>
+                       <input type="hidden" name="live_switch" class="live_switch">
+                    </label>
+                 </div>
+                 <div class="col-md-6">
+                   <label class="switch switch-flat">
+                       <input class="switch-input drop_pick_tgl" type="checkbox" />
+                       <span class="switch-label" data-on="Drop&Pick YES" data-off="Drop&Pick NO"></span>
+                       <span class="switch-handle"></span>
+                       <input type="hidden" name="drop_pick_switch" class="drop_pick_switch">
+                    </label>
+                 </div>
+              </div>
+
+              <div class="row">
+                    <div class="col-md-6 floating-placeholder">
+                       <label for="contact_Name"></label>
+                       <input type="text" name="contact_Name" id="contact_Name" class="form-control" placeholder="Contact Name">
+                    </div>
+                    <div class="col-md-6 floating-placeholder">
+                      <label for="Email"></label>
+                      <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 floating-placeholder">
+                       <label for="tel_no"></label>
+                       <input type="text" name="tel_no" id="tel_no" class="form-control" placeholder="Tel.NO">
+                    </div>
+                    <div class="col-md-6 floating-placeholder">
+                      <label for="Website"></label>
+                      <input type="text" name="website" id="website" class="form-control" placeholder="Website">
+                    </div>
+                </div>
+              <div class="row">
+                <div class="col-md-12 floating-placeholder">
+                  <label for="delivery_notes"></label>
+                  <input type="text" name="delivery_notes" id="delivery_notes" class="form-control" placeholder="Delivery Notes">
+                </div>
+              </div>
+            </div>
             </div>
 
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Contact Name</label>
-              </div>
-              <div class="col-md-8">
-                <input name="first_name" class="form-control"  type="text">
-              </div>
+            <hr/>
+
+            <div class="row">
+            <div class="col-md-4 floating-placeholder">
+               <label></label>
+              <input type="text" class="form-control" placeholder="Cost" name="cost">
             </div>
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Email</label>
-              </div>
-              <div class="col-md-8">
-                <input name="first_name" class="form-control"  type="text">
-              </div>
+            <div class="col-md-4 floating-placeholder">
+               <label></label>
+              <input type="text" class="form-control" placeholder="Additional Costs" name="extra_costs">
             </div>
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Tel.NO</label>
-              </div>
-              <div class="col-md-8">
-                <input name="first_name" class="form-control"  type="text">
-              </div>
+            <div class="col-md-4 floating-placeholder">
+               <label></label>
+              <input type="text" class="form-control" placeholder="Remarks" name="remarks">
             </div>
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Website</label>
-              </div>
-              <div class="col-md-8">
-                <input name="first_name" class="form-control"  type="text">
-              </div>
             </div>
-            <div class="row form-group">
-              <div class="col-md-4">
-                <label class="control-label">Delivery Notes</label>
-              </div>
-              <div class="col-md-8">
-                <textarea name="first_name" class="form-control"></textarea>
-              </div>
+
+            <div class="text-center"  style="margin-top: 10px;">
+              <button class="btn btn-default">Add Now</button>
             </div>
-          </div>
+          </form>
         </div>
-
-          <hr/>
-
-          <div class="row">
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Cost" name="">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Additional Costs" name="">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Remarks" name="">
-            </div>
-          </div>
-
-         <div class="text-center"  style="margin-top: 10px;">
-            <button class="btn btn-default">Add Now</button>
-        </div>
-   </div>
+          <!----------------------Export tab :: END -------------------->
+    </div>
+  </section>
 
 
-
-
-          </div>
-    </section>
-
-
-
-   <div class="control-sidebar-bg"></div>
+<div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 </div>
-<!-- jQuery 3 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-<!-- Slimscroll -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../static/js/adminlte.min.js"></script>
-<script src="../static/js/demo.js"></script>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".btn-pref .btn").click(function () {
-        $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-        // $(".tab").addClass("active"); // instead of this do the below
-        $(this).removeClass("btn-default").addClass("btn-primary");
-    });
-
-
-    //form floating
-
-    function initTricks() {
-    var labels = $('.floating-placeholder label');
-    labels.each(function(i) {
-        var ph = $(labels[i])
-            .siblings('input')
-            .first()
-            .attr('placeholder');
-        $(labels[i]).html(ph);
-    });
-}
-
-$(document).ready(function() {
-  $('.floating-placeholder input').keyup(function() {
-    var input = $(this).val();
-    if(input) $(this).parent().addClass('float');
-    else $(this).parent().removeClass('float');
-  });
-
-  /*$('#form').submit(function(e) {
-    e.preventDefault();
-  });*/
-
-  initTricks();
-})
-
-
-  });
-</script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+<script type="text/javascript" src="../static/js/adminlte.min.js"></script>
+<script type="text/javascript" src="../static/js/demo.js"></script>
+<script type="text/javascript" src="../static/js/newload.js"></script>
 
 </body>
 </html>

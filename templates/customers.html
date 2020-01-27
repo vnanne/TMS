@@ -438,6 +438,12 @@
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
+               {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"><b style="color:#000000; ">{{ message }}</b></div>
+                {% endfor %}
+              {% endif %}
+              f
             <div class="box-tools">
               <button class="btn btn-amber add-new waves-effect waves-light" data-toggle="modal" data-target="#addnewCustmrModal"><i class="fa fa-plus"></i>Add Customer</button>
               </div>
