@@ -313,6 +313,11 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Load Data</h3>
+               {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"><b style="color:#000000; ">{{ message }}</b></div>
+                {% endfor %}
+              {% endif %}
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
@@ -393,6 +398,7 @@
                     <td class="td_tel hidden">{{ row.receiver_details.telephone }}</td>
                     <td class="td_website hidden">{{ row.receiver_details.website }}</td>
                     <td class="td_deliveryNotes hidden">{{ row.receiver_details.delivery_notes }}</td>
+
                 </tr>
                 {% endfor %} 
               </tbody>

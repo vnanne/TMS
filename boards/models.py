@@ -4,9 +4,13 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.html import mark_safe
 from django.utils.text import Truncator
-
+from django.core.exceptions import ValidationError
 from markdown import markdown
-
+import re
+email_re = re.compile(
+    r"(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*"  # dot-atom
+    r'|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-011\013\014\016-\177])*"' # quoted-string
+    r')@(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?$', re.IGNORECASE)
 
 class Board(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -105,7 +109,7 @@ class Customer(models.Model):
 class Terminals(models.Model):
     id=models.AutoField(primary_key=True)
     terminal_name=models.CharField(max_length=250, blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
+    email = models.EmailField(max_length=70,blank=True, null= True, unique= True)
     telephone = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
@@ -113,6 +117,16 @@ class Terminals(models.Model):
 
     def get_terminal_address(self):
         return Address.objects.get(terminal_id=self.id)
+
+    def save(self, *args, **kwargs):
+        # ... other things not important here
+        self.email = self.email.lower().strip()  # Hopefully reduces junk to ""
+        if self.email != "":  # If it's not blank
+            if not email_re.match(self.email):  # If it's not an email address
+                raise ValidationError(u'%s is not an email address, dummy!' % self.email)
+        if self.email == "":
+            self.email = None
+        super(Terminals, self).save(*args, **kwargs)
 
     def json(self):
         ret = {}

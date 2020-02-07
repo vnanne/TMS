@@ -49,6 +49,7 @@ $('.edit_load').click(function(){
     var $deliveryNotes =         $row.find(".td_deliveryNotes").text();
 
     var sendTonewload = {
+        workorder_id : $details_Id,
         cus_name : $cus_name,
         i_container: $i_container,
         i_container_size: $i_container_size,
