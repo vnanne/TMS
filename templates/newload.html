@@ -177,7 +177,7 @@
      background-color:#f1f1f1;
     }
   </style>
-  
+
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -379,13 +379,13 @@
 
       <div class="text-center btn-inline">
           <div class="btn-group button-fill get_insidetxt" role="group">
-              <a class="btn btn-primary button-text" href="#Import" data-toggle="tab">
+              <a class="btn btn-primary button-text"  id="imp_link" href="#Import" data-toggle="tab">
                 <span class="fa fa-download" aria-hidden="true"></span>
                 <span class="inside_txt">Import</span>
               </a>
           </div>
           <div class="btn-group button-fill get_insidetxt" role="group">
-              <a class="btn btn-default button-text" href="#Export" data-toggle="tab">
+              <a class="btn btn-default button-text" id="exp_link" href="#Export" data-toggle="tab">
                 <span class="fa fa-upload" aria-hidden="true"></span>
                 <span class="inside_txt">Export</span>
               </a>
@@ -395,70 +395,77 @@
         <div class="tab-content newload_tab_content">
           <!--  Import tab :: START:: -->
           <div role="tabpanel" class="tab-pane fade in active" id="Import">
-            <form action="/addnewload/" method="post">
+            <form action="/addnewload/" method="post" id="importForm">
             {% csrf_token %}
               <div class="row">
                 <div class="col-md-9">
                   <div class="row">
                     <div class="col-md-4 floating-placeholder">
-                      <label for="I_customer_id"></label>
-                      <input type="text" id="I_customer_name" class="form-control" placeholder="Customer ID">
+                      <label for="I_customer_id" class="fieldlabel"></label>
+                      <input type="text" id="I_customer_name" class="form-control" placeholder="Customer ID" required>
                       <input type="hidden" name="I_customer_id" id="I_customer_id">
                       <input type="hidden" name="I_load_type" value="import">
                       <ul class="list-group result" id="I_result"></ul>
                     </div>
                     <div class="col-md-4 floating-placeholder">
-                      <label for="I_container_name"></label>
-                      <input type="text" name="I_container_name" id="I_container_name" class="form-control" placeholder="Container">
+                      <label for="I_container_name" class="fieldlabel"></label>
+                      <input type="text" name="I_container_name" id="I_container_name" class="form-control" maxlength="11" placeholder="Container">
                     </div>
                     <div class="col-md-4 floating-placeholder">
-                      <label for="I_container_size"></label>
-                      <input type="text" name="I_container_size" id="I_container_size" class="form-control" placeholder="Container Size">
+                      <select class="form-control" name="I_container_size" id="I_container_size">
+                        <option value>Select Container Size</option>
+                        <option value="20'ft">20'ft</option>
+                        <option value="20'ft Refer">20'ft Refer</option>
+                        <option value="40'ft STD">40'ft STD</option>
+                        <option value="40'ft Highcobe">40'ft Highcobe</option>
+                        <option value="40'ft Refer">40'ft Refer</option>
+                        <option value="45'ft">45'ft</option>
+                      </select>
                     </div>
                   </div>
 
                   <div class="row">
                       <div class="col-md-4 floating-placeholder">
-                        <label for="I_bill_of_landing"></label>
-                        <input type="text" name="I_bill_of_landing" id="I_bill_of_landing" class="form-control" placeholder="Bill of Landing">
+                        <label for="I_bill_of_landing" class="fieldlabel"></label>
+                        <input type="text" name="I_bill_of_landing" id="I_bill_of_landing" class="form-control" maxlength="30" placeholder="Bill of Landing">
                       </div>
                       <div class="col-md-4 floating-placeholder">
-                          <label for="I_po&ref"></label>
-                          <input type="text" name="I_po&ref" id="I_po&ref" class="form-control" placeholder="Po/Ref">
+                          <label for="I_po_ref" class="fieldlabel"></label>
+                          <input type="text" name="I_po_ref" id="I_po_ref" class="form-control" maxlength="30" placeholder="Po/Ref">
                        </div>
                        <div class="col-md-4 floating-placeholder">
-                         <label for="I_weight"></label>
-                         <input type="text" name="I_weight" id="I_weight" class="form-control" placeholder="Weight">
+                         <label for="I_weight" class="fieldlabel"></label>
+                         <input type="text" name="I_weight" id="I_weight" class="form-control" maxlength="15" placeholder="Weight">
                        </div>
                   </div>
 
                   <div class="row">
                     <div class="col-md-6 floating-placeholder">
-                       <label for="I_commodity"></label>
-                       <input type="text" name="I_commodity" id="I_commodity" class="form-control" placeholder="Commodity">
+                       <label for="I_commodity" class="fieldlabel"></label>
+                       <input type="text" name="I_commodity" id="I_commodity" class="form-control" maxlength="150" placeholder="Commodity">
                     </div>
                     <div class="col-md-6 floating-placeholder">
-                         <label for="I_vessel_name"></label>
-                         <input type="text" name="I_vessel_name" id="I_vessel_name" class="form-control" placeholder="Vessel Name">
+                         <label for="I_vessel_name" class="fieldlabel"></label>
+                         <input type="text" name="I_vessel_name" id="I_vessel_name" class="form-control" maxlength="120" placeholder="Vessel Name">
                     </div>
                   </div>
 
                   <div class="row">
-                      <div class="col-md-6 floating-placeholder">
+                      <div class="col-md-6 floating-placeholder form-group">
                          <select class="form-control" name="I_pickup_terminal" id="I_pickup_terminal">
-                            <option>Select Pick-up-Terminal</option>
+                            <option value>Select Pick-up-Terminal</option>
                          </select>
                       </div>
-                      <div class="col-md-6 floating-placeholder">
+                      <div class="col-md-6 floating-placeholder form-group">
                         <select class="form-control" name="I_return_terminal" id="I_return_terminal">
-                         <option>Select Return Terminal</option>
+                         <option value>Select Return Terminal</option>
                         </select>
                       </div>
                   </div>
 
 
-                  <div class="row" style="margin-top: 10px;">
-                      <div class="col-md-4">
+                  <div class="row">
+                      <div class="col-md-4 floating-placeholder">
                         <div class="form-group">
                           <div class="input-group date">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -466,7 +473,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 floating-placeholder">
                         <div class="form-group">
                           <div class="input-group date">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -474,7 +481,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 floating-placeholder">
                         <div class="form-group">
                           <div class="input-group date">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -530,49 +537,49 @@
                       <label for="I_delivery_Appointment"></label>
                       <input type="text" name="I_delivery_Appointment" id="I_delivery_Appointment" class="form-control" placeholder="Delivery Appointment">
                    </div> -->
-                  <div class="col-md-6" style="padding-top: 15px;">
+                  <div class="col-md-6 floating-placeholder" style="padding-top: 15px;">
                     <div class="form-group">
                       <div class="input-group date">
                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                         <input type="text" name="I_delivery_Appointment" id="I_delivery_Appointment" class="form-control" placeholder="Delivery Appointment" onkeypress="return false;">
                       </div>
-                     </div> 
+                     </div>
                   </div>
                    <div class="col-md-6 floating-placeholder">
-                     <label for="I_delivery_Location"></label>
-                     <input type="text" name="I_delivery_Location" id="I_delivery_Location" class="form-control" placeholder="Warehouse/Delivery Location">
+                     <label for="I_delivery_Location" class="fieldlabel"></label>
+                     <input type="text" name="I_delivery_Location" id="I_delivery_Location" class="form-control" maxlength="50" placeholder="Warehouse/Delivery Location">
                    </div>
                 </div>
                 <div class="row">
                    <div class="col-md-6 floating-placeholder">
-                       <label  for="I_street_add_1"></label>
-                       <input type="text" name="I_street_add_1" id="I_street_add_1" class="form-control" placeholder="H.NO">
+                       <label  for="I_street_add_1" class="fieldlabel"></label>
+                       <input type="text" name="I_street_add_1" id="I_street_add_1" class="form-control" maxlength="50" placeholder="H.NO">
                    </div>
                    <div class="col-md-6 floating-placeholder">
-                      <label for="I_street_add_2"></label>
-                      <input type="text" name="I_street_add_2" id="I_street_add_2" class="form-control" placeholder="Street Address 2">
+                      <label for="I_street_add_2" class="fieldlabel"></label>
+                      <input type="text" name="I_street_add_2" id="I_street_add_2" class="form-control" maxlength="50" placeholder="Street Address">
                    </div>
                 </div>
 
                 <div class="row">
                    <div class="col-md-6 floating-placeholder">
-                      <label for="I_City"></label>
-                      <input type="text" name="I_city" id="I_city" class="form-control" placeholder="City">
+                      <label for="I_City" class="fieldlabel"></label>
+                      <input type="text" name="I_city" id="I_city" class="form-control" maxlength="50" placeholder="City">
                    </div>
                    <div class="col-md-6 floating-placeholder">
-                        <label for="I_State"></label>
-                        <input type="text" name="I_state" id="I_state" class="form-control" placeholder="State">
+                        <label for="I_State" class="fieldlabel"></label>
+                        <input type="text" name="I_state" id="I_state" class="form-control" maxlength="50" placeholder="State">
                    </div>
                 </div>
 
                   <div class="row">
                       <div class="col-md-6 floating-placeholder">
-                         <label for="I_Zipcode"></label>
-                         <input type="text" name="I_zipcode" id="I_zipcode" class="form-control" placeholder="Zipcode">
+                         <label for="I_Zipcode" class="fieldlabel"></label>
+                         <input type="text" name="I_zipcode" id="I_zipcode" class="form-control" maxlength="6" placeholder="Zipcode">
                       </div>
                       <div class="col-md-6 floating-placeholder">
-                        <label for="I_Country"></label>
-                        <input type="I_text" name="I_country" id="I_country" class="form-control" placeholder="Country">
+                        <label for="I_Country" class="fieldlabel"></label>
+                        <input type="I_text" name="I_country" id="I_country" class="form-control" maxlength="50" placeholder="Country">
                       </div>
                   </div>
              </div>
@@ -599,29 +606,29 @@
 
                 <div class="row">
                       <div class="col-md-6 floating-placeholder">
-                         <label for="I_contact_Name"></label>
-                         <input type="text" name="I_contact_Name" id="I_contact_Name" class="form-control" placeholder="Contact Name">
+                         <label for="I_contact_Name" class="fieldlabel"></label>
+                         <input type="text" name="I_contact_Name" id="I_contact_Name" class="form-control" maxlength="20" placeholder="Contact Name">
                       </div>
                       <div class="col-md-6 floating-placeholder">
-                        <label for="I_Email"></label>
-                        <input type="I_text" name="I_email" id="I_email" class="form-control" placeholder="Email">
+                        <label for="I_Email" class="fieldlabel"></label>
+                        <input type="email" name="I_email" id="I_email" class="form-control" maxlength="70" placeholder="Email">
                       </div>
                   </div>
 
                   <div class="row">
                       <div class="col-md-6 floating-placeholder">
-                         <label for="I_tel_no"></label>
-                         <input type="text" name="I_tel_no" id="I_tel_no" class="form-control" placeholder="Tel.NO">
+                         <label for="I_tel_no" class="fieldlabel"></label>
+                         <input type="text" name="I_tel_no" id="I_tel_no" class="form-control" maxlength="12" placeholder="Tel.NO">
                       </div>
                       <div class="col-md-6 floating-placeholder">
-                        <label for="I_Website"></label>
-                        <input type="text" name="I_website" id="I_website" class="form-control" placeholder="Website">
+                        <label for="I_Website" class="fieldlabel"></label>
+                        <input type="url" name="I_website" id="I_website" class="form-control" placeholder="Website">
                       </div>
                   </div>
                 <div class="row">
                   <div class="col-md-12 floating-placeholder">
-                    <label for="I_delivery_notes"></label>
-                    <input type="text" name="I_delivery_notes" id="I_delivery_notes" class="form-control" placeholder="Delivery Notes">
+                    <label for="I_delivery_notes" class="fieldlabel"></label>
+                    <input type="text" name="I_delivery_notes" id="I_delivery_notes" class="form-control" maxlength="250" placeholder="Delivery Notes">
                   </div>
                 </div>
               </div>
@@ -629,16 +636,16 @@
             <hr/>
             <div class="row">
               <div class="col-md-4 floating-placeholder">
-                 <label></label>
-                <input type="text" class="form-control" placeholder="Cost" name="I_cost">
+                 <label class="fieldlabel"></label>
+                <input type="text" class="form-control floatValue" placeholder="Cost" name="I_cost" id="I_cost">
               </div>
               <div class="col-md-4 floating-placeholder">
-                 <label></label>
-                <input type="text" class="form-control" placeholder="Additional Costs" name="I_extra_costs">
+                 <label class="fieldlabel"></label>
+                <input type="text" class="form-control floatValue" placeholder="Additional Costs" name="I_extra_costs" id="I_extra_costs">
               </div>
               <div class="col-md-4 floating-placeholder">
-                 <label></label>
-                <input type="text" class="form-control" placeholder="Remarks" name="I_remarks">
+                 <label class="fieldlabel"></label>
+                <input type="text" class="form-control" maxlength="250" placeholder="Remarks" name="I_remarks" id="I_remarks">
               </div>
               </div>
 
@@ -651,85 +658,84 @@
 
           <!----------------------  Export tab :: START:: ---------------------->
           <div role="tabpanel" class="tab-pane fade" id="Export">
-            <form action="/addnewload/" method="post">
+            <form action="/addnewload/" method="post" id="exportForm">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-9">
                 <div class="row">
-                  <!-- <div class="col-md-4 floating-placeholder">
-                    <label for="customer_id"></label>
-                    <input type="text" name="customer_id" id="customer_id" class="form-control" placeholder="Customer ID">
-                    <input type="hidden" name="load_type" value="export">
-                    <ul class="list-group result" id="E_result"></ul>
-                  </div> -->
                   <div class="col-md-4 floating-placeholder">
-                      <label for="customer_id"></label>
+                      <label for="customer_id" class="fieldlabel"></label>
                       <input type="text" id="customer_name" class="form-control" placeholder="Customer ID">
                       <input type="hidden" name="customer_id" id="customer_id">
                       <input type="hidden" name="I_load_type" value="export">
                       <ul class="list-group result" id="E_result"></ul>
                   </div>
                   <div class="col-md-4 floating-placeholder">
-                    <label for="container_name"></label>
+                    <label for="container_name" class="fieldlabel"></label>
                     <input type="text" name="container_name" id="container_name" class="form-control" placeholder="Container">
                   </div>
                   <div class="col-md-4 floating-placeholder">
-                    <label for="container_size"></label>
-                    <input type="text" name="container_size" id="container_size" class="form-control" placeholder="Container Size">
+                    <label for="container_size"  class="fieldlabel"></label>
+                    <select class="form-control" name="container_size" id="container_size">
+                        <option value>Select Container Size</option>
+                        <option value="20'ft">20'ft</option>
+                        <option value="20'ft Refer">20'ft Refer</option>
+                        <option value="40'ft STD">40'ft STD</option>
+                        <option value="40'ft Highcobe">40'ft Highcobe</option>
+                        <option value="40'ft Refer">40'ft Refer</option>
+                        <option value="45'ft">45'ft</option>
+                    </select>
                   </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 floating-placeholder">
-                      <label for="booking"></label>
+                      <label for="booking" class="fieldlabel"></label>
                       <input type="text" name="booking" id="booking" class="form-control" placeholder="Booking">
                     </div>
                     <div class="col-md-4 floating-placeholder">
-                        <label for="po&ref"></label>
-                        <input type="text" name="po&ref" id="po&ref" class="form-control" placeholder="Po/Ref">
+                        <label for="po&ref" class="fieldlabel"></label>
+                        <input type="text" name="po_ref" id="po_ref" class="form-control" placeholder="Po/Ref">
                      </div>
                      <div class="col-md-4 floating-placeholder">
-                       <label for="weight"></label>
+                       <label for="weight" class="fieldlabel"></label>
                        <input type="text" name="weight" id="weight" class="form-control" placeholder="Weight">
                      </div>
                 </div>
 
                 <div class="row">
                   <div class="col-md-6 floating-placeholder">
-                     <label for="commodity"></label>
+                     <label for="commodity" class="fieldlabel"></label>
                      <input type="text" name="commodity" id="commodity" class="form-control" placeholder="Commodity">
                   </div>
                   <div class="col-md-6 floating-placeholder">
-                       <label for="vessel_name"></label>
+                       <label for="vessel_name" class="fieldlabel"></label>
                        <input type="text" name="vessel_name" id="vessel_name" class="form-control" placeholder="Vessel Name">
                   </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 floating-placeholder">
-                      <select class="form-control" name="SSL">
-                       <option>SSL</option>
+                      <select class="form-control" name="SSL" id="SSL">
+                       <option value>SSL</option>
                       </select>
                     </div>
                     <div class="col-md-4 floating-placeholder">
                        <select class="form-control" name="pickup_terminal" id="pickup_terminal">
-                          <option>Select Pick-up-Terminal</option>
+                          <option value>Select Pick-up-Terminal</option>
                        </select>
                     </div>
                     <div class="col-md-4 floating-placeholder">
                       <select class="form-control" name="return_terminal" id="return_terminal">
-                       <option>Select Return Terminal</option>
+                       <option value>Select Return Terminal</option>
                       </select>
                     </div>
                 </div>
 
 
-                <div class="row" style="margin-top: 10px;">
+                <div class="row">
                     <div class="col-md-4">
-                      <!-- <label for="ETA"></label>
-                      <input type="text" name="ETA" id="ETA" class="form-control" placeholder="ETA"> -->
-                      <div class="form-group">
-                        <!-- <label for="ETA">ETA</label> -->
+                      <div class="form-group floating-placeholder">
                         <div class="input-group date">
                           <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                           <input type="text" name="ETD" id="E_ETD" class="form-control" placeholder="ETD" onkeypress="return false;">
@@ -737,20 +743,15 @@
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <!-- <label for="LFD"></label>
-                      <input type="text" name="LFD" id="LFD" class="form-control" placeholder="LFD"> -->
-                      <div class="form-group">
-                        <!-- <label for="LFD">LFD</label> -->
+                      <div class="form-group floating-placeholder">
                         <div class="input-group date">
                           <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                          <input type="text" name="Cut-OFF" id="E_Cut-OFF" class="form-control" placeholder="Cut-OFF" onkeypress="return false;">
+                          <input type="text" name="Cut_OFF" id="E_Cut-OFF" class="form-control" placeholder="Cut-OFF" onkeypress="return false;">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <!-- <label for="PortAPT"></label>
-                      <input type="text" name="PortAPT" id="PortAPT" class="form-control" placeholder="Port APT"> -->
-                      <div class="form-group">
+                      <div class="form-group floating-placeholder">
                         <div class="input-group date">
                           <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                           <input type="text" name="PortAPT" id="E_PortAPT" class="form-control" placeholder="PortAPT" onkeypress="return false;">
@@ -799,7 +800,7 @@
             <div class="row">
             <div class="col-md-6">
               <div class="row">
-                <div class="col-md-6" style="padding-top: 15px;">
+                <div class="col-md-6 floating-placeholder">
                   <div class="form-group">
                     <div class="input-group date">
                       <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -808,39 +809,39 @@
                   </div>
                 </div>
                  <div class="col-md-6 floating-placeholder">
-                   <label for="delivery_Location"></label>
+                   <label for="delivery_Location" class="fieldlabel"></label>
                    <input type="text" name="delivery_Location" id="delivery_Location" class="form-control" placeholder="Warehouse/Delivery Location">
                  </div>
               </div>
               <div class="row">
                  <div class="col-md-6 floating-placeholder">
-                     <label  for="street_add_1"></label>
-                     <input type="text" name="street_add_1" id="street_add_1" class="form-control" placeholder="Street Address 1">
+                     <label for="street_add_1" class="fieldlabel"></label>
+                     <input type="text" name="street_add_1" id="street_add_1" class="form-control" placeholder="H.NO">
                  </div>
                  <div class="col-md-6 floating-placeholder">
-                    <label for="street_add_2"></label>
-                    <input type="text" name="street_add_2" id="street_add_2" class="form-control" placeholder="Street Address 2">
+                    <label for="street_add_2" class="fieldlabel"></label>
+                    <input type="text" name="street_add_2" id="street_add_2" class="form-control" placeholder="Street Address">
                  </div>
               </div>
 
               <div class="row">
                  <div class="col-md-6 floating-placeholder">
-                    <label for="City"></label>
+                    <label for="City" class="fieldlabel"></label>
                     <input type="text" name="city" id="city" class="form-control" placeholder="City">
                  </div>
                  <div class="col-md-6 floating-placeholder">
-                      <label for="State"></label>
+                      <label for="State" class="fieldlabel"></label>
                       <input type="text" name="state" id="state" class="form-control" placeholder="State">
                  </div>
               </div>
 
                 <div class="row">
                     <div class="col-md-6 floating-placeholder">
-                       <label for="Zipcode"></label>
+                       <label for="Zipcode" class="fieldlabel"></label>
                        <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Zipcode">
                     </div>
                     <div class="col-md-6 floating-placeholder">
-                      <label for="Country"></label>
+                      <label for="Country" class="fieldlabel"></label>
                       <input type="text" name="country" id="country" class="form-control" placeholder="Country">
                     </div>
                 </div>
@@ -869,28 +870,28 @@
 
               <div class="row">
                     <div class="col-md-6 floating-placeholder">
-                       <label for="contact_Name"></label>
+                       <label for="contact_Name" class="fieldlabel"></label>
                        <input type="text" name="contact_Name" id="contact_Name" class="form-control" placeholder="Contact Name">
                     </div>
                     <div class="col-md-6 floating-placeholder">
-                      <label for="Email"></label>
+                      <label for="Email" class="fieldlabel"></label>
                       <input type="text" name="email" id="email" class="form-control" placeholder="Email">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 floating-placeholder">
-                       <label for="tel_no"></label>
+                       <label for="tel_no" class="fieldlabel"></label>
                        <input type="text" name="tel_no" id="tel_no" class="form-control" placeholder="Tel.NO">
                     </div>
                     <div class="col-md-6 floating-placeholder">
-                      <label for="Website"></label>
+                      <label for="Website" class="fieldlabel"></label>
                       <input type="text" name="website" id="website" class="form-control" placeholder="Website">
                     </div>
                 </div>
               <div class="row">
                 <div class="col-md-12 floating-placeholder">
-                  <label for="delivery_notes"></label>
+                  <label for="delivery_notes" class="fieldlabel"></label>
                   <input type="text" name="delivery_notes" id="delivery_notes" class="form-control" placeholder="Delivery Notes">
                 </div>
               </div>
@@ -900,18 +901,18 @@
             <hr/>
 
             <div class="row">
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Cost" name="cost">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Additional Costs" name="extra_costs">
-            </div>
-            <div class="col-md-4 floating-placeholder">
-               <label></label>
-              <input type="text" class="form-control" placeholder="Remarks" name="remarks">
-            </div>
+              <div class="col-md-4 floating-placeholder">
+                 <label for="cost" class="fieldlabel"></label>
+                <input type="text" class="form-control floatValue" placeholder="Cost" name="cost" id="cost">
+              </div>
+              <div class="col-md-4 floating-placeholder">
+                 <label for="extra_costs" class="fieldlabel"></label>
+                <input type="text" class="form-control floatValue" placeholder="Additional Costs" name="extra_costs" id="extra_costs">
+              </div>
+              <div class="col-md-4 floating-placeholder">
+                 <label for="remarks" class="fieldlabel"></label>
+                <input type="text" class="form-control" placeholder="Remarks" name="remarks" id="remarks">
+              </div>
             </div>
 
             <div class="text-center"  style="margin-top: 10px;">
@@ -941,6 +942,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
 <script type="text/javascript" src="../static/js/adminlte.min.js"></script>
 <script type="text/javascript" src="../static/js/demo.js"></script>
+<!-- <script type="text/javascript" src="../static/js/jquery.validate.min.js"></script> -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../static/js/newload.js"></script>
 
 </body>

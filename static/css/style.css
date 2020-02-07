@@ -1,27 +1,3 @@
-
-
-Skip to content
-Using Gmail with screen readers
-
-1 of 2,126
-style.css
-Inbox
-x
-
-sri kanth
-Attachments
-1:13 PM (0 minutes ago)
-to me
-
-
-
---
-------------------------------
-Thank's and Regards
-Srikanth
-Attachments area
-Thanks a lot.Thank you for your mail.Received, thank you.
-
 .newload_tab_content{
 	margin:10px;
 	text-align: center;
@@ -53,13 +29,13 @@ Thanks a lot.Thank you for your mail.Received, thank you.
        border-color: coral;
    }
      .floating-placeholder {
-          padding-top: 15px;
+          padding-top: 13px;
           margin-bottom: 5px;
           position: relative;
           display: inline-block;
       }
 
-      .floating-placeholder label {
+      .floating-placeholder .fieldlabel {
           position: absolute;
           line-height: 20px;
           left:25px;
@@ -71,9 +47,22 @@ Thanks a lot.Thank you for your mail.Received, thank you.
           transition: all .2s;
           pointer-events: none;
       }
-      .floating-placeholder.float label {
+      .floating-placeholder.float .fieldlabel {
           bottom: 26px;
           opacity: 1;
+      }
+      .floating-placeholder label.error {
+        color: #bc6b3c;
+        font-size: 12px;
+        bottom: -21px;
+      }
+      .floating-placeholder .date label.error {
+        position: absolute;
+        left: 20%;
+        margin-bottom: 5px;
+      }
+      .floating-placeholder .form-group{
+        margin-bottom: 0;
       }
 
        /* Switch Flat
@@ -215,5 +204,3 @@ Thanks a lot.Thank you for your mail.Received, thank you.
       background: #0088cc;
       box-shadow: none;
    }
-style.css
-Displaying style.css.

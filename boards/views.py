@@ -351,7 +351,7 @@ def Addnewload(request):
         Workorder.objects.create(customer_id=customer_id, vessel_name=data['I_vessel_name'], pick_up_terminal_id=Terminals.objects.get(id=data['I_pickup_terminal']),return_terminal_id=Terminals.objects.get(id=data['I_return_terminal']))
         workorder_id=Workorder.objects.get(id=Workorder.objects.all().order_by('-id')[0].id)
         Import.objects.create(workorder_id=workorder_id, bill_of_landing_reference=data['I_bill_of_landing'],container=data['I_container_name'] , contains_size=data['I_container_size'])
-        Shipement_Details.objects.create(workorder_id=workorder_id,po=data['I_po&ref'], weight=data['I_weight'], commidty=data['I_commodity'], customs_hold=I_customs_hold_switch, over_weight=I_over_weight_switch)
+        Shipement_Details.objects.create(workorder_id=workorder_id,po=data['I_po_ref'], weight=data['I_weight'], commidty=data['I_commodity'], customs_hold=I_customs_hold_switch, over_weight=I_over_weight_switch)
         Appointments.objects.create(workorder_id=workorder_id, vessel_eat=data['ETA'], lfd=data['LFD'], port_apt=data['I_PortAPT'], delivert_apt=data['I_delivery_Appointment'])
 
         Address.objects.create(flat=data['I_delivery_Location'],street=data['I_street_add_1'], street_1=data['I_street_add_2'], city=data['I_city'],state=data['I_state'], country=data['I_country'], zipcode=data['I_zipcode'], workorder_id=workorder_id)
@@ -388,7 +388,7 @@ def Addnewload(request):
         Workorder.objects.create(customer_id=customer_id, vessel_name=data['vessel_name'], pick_up_terminal_id=Terminals.objects.get(id=data['pickup_terminal']),return_terminal_id=Terminals.objects.get(id=data['return_terminal']))
         workorder_id=Workorder.objects.get(id=Workorder.objects.all().order_by('-id')[0].id)
         Export.objects.create(workorder_id=workorder_id, booking=data['booking'],container=data['container_name'] , contains_size=data['container_size'])
-        Shipement_Details.objects.create(workorder_id=workorder_id,po=data['po&ref'], weight=data['weight'], commidty=data['commodity'], customs_hold=customs_hold_switch, over_weight=over_weight_switch)
+        Shipement_Details.objects.create(workorder_id=workorder_id,po=data['po_ref'], weight=data['weight'], commidty=data['commodity'], customs_hold=customs_hold_switch, over_weight=over_weight_switch)
         Appointments.objects.create(workorder_id=workorder_id, vessel_eat=data['ETD'], lfd=data['Cut-OFF'], port_apt=data['PortAPT'], delivert_apt=data['pickup_Appointment'])
 
         Address.objects.create(flat=data['delivery_Location'],street=data['street_add_1'], street_1=data['street_add_2'], city=data['city'],state=data['state'], country=data['country'], zipcode=data['zipcode'], workorder_id=workorder_id)
