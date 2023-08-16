@@ -2,7 +2,7 @@ from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import UpdateView, ListView
+from django.views.generic import UpdateView, ListView, CreateView
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.urls import reverse
@@ -14,7 +14,7 @@ from .forms import NewTopicForm, PostForm
 from .models import Board, Topic, Post, Driver, Customer, Workorder, Address, Address_Type, Receiver, Terminals, Import, \
     Export, Chassis_provide, Rate, Documents, Shipement_Details, Appointments, Shipment_Specifications
 from django.contrib import messages
-from django.db import transaction
+from django.db import transaction, IntegrityError
 
 
 class BoardListView(ListView):
@@ -215,21 +215,37 @@ def Dashboard(request):
     return render(request, 'dashboard.html', {'dashboard_data': dashboard_data})
 
 
+class Addcustomer(UpdateView):
+    model = Customer
+    context_object_name = 'customers'
+    template_name = 'customers.html'
+    paginate_by = 10
+
+
 def Addcustomer(request):
     data = request.POST
 
     if data['customer_Id']:
-        Customer.objects.filter(id=data['customer_Id']).update(customer_name=data['contact_name'],
-                                                               customer_trade_name=data['company_name'],
-                                                               email=data['email'], telephone=data['ph_no'],
-                                                               tax_id=data['t_id'], motor_carrier=data['Carrier'])
+        try:
+            Customer.objects.filter(id=data['customer_Id']).update(customer_name=data['contact_name'],
+                                                                   customer_trade_name=data['company_name'],
+                                                                   email=data['email'], telephone=data['ph_no'],
+                                                                   tax_id=data['t_id'], motor_carrier=data['Carrier'])
 
-        Address.objects.filter(customer_id=data['customer_Id']).update(flat=data['street_add_1'],
-                                                                       street=data['street_add_2'], city=data['City'],
-                                                                       state=data['State'], country=data['Country'],
-                                                                       zipcode=data['Zipcode'])
-        msg = str(data['contact_name']) + str(' Changes updated successfully ')
-        messages.success(request, msg)
+            Address.objects.filter(customer_id=data['customer_Id']).update(flat=data['street_add_1'],
+                                                                           street=data['street_add_2'],
+                                                                           city=data['City'],
+                                                                           state=data['State'], country=data['Country'],
+                                                                           zipcode=data['Zipcode'])
+            msg = str(data['contact_name']) + str(' Changes updated successfully ')
+            messages.success(request, msg)
+        except IntegrityError as e:
+            msg = str(' Customer details not added due to email duplicate  ')
+            messages.error(request, msg)
+        except Exception as e:
+            print(e)
+            msg = str(' Customer details not added due to some issue  ')
+            messages.error(request, msg)
 
     else:
         try:
@@ -282,7 +298,8 @@ def Addterminal(request):
     else:
         try:
             with transaction.atomic():
-                Terminals.objects.create(terminal_name=data['terminal_name'], email=data['email'], telephone=data['ph_no'])
+                Terminals.objects.create(terminal_name=data['terminal_name'], email=data['email'],
+                                         telephone=data['ph_no'])
                 Address.objects.create(flat=data['street_add_1'], street=data['street_add_2'], city=data['City'],
                                        state=data['State'], country=data['Country'], zipcode=data['Zipcode'],
                                        terminal_id=Terminals.objects.all().order_by("-id")[0].id)
@@ -351,7 +368,7 @@ def Adddriver(request):
                 msg = str(data['display_name']) + str(' added successfully ')
                 messages.success(request, msg)
         except Exception as e:
-            msg = str(' Driver details not added due to data issue  ')+ str(e)
+            msg = str(' Driver details not added due to data issue  ') + str(e)
             messages.error(request, msg)
 
     return redirect('drivers')
@@ -430,30 +447,19 @@ def Addnewload(request):
             msg = str('NewLoad import not successfully due to data issue please check the entered data  ') + str(e)
             messages.error(request, msg)
     else:
+        customs_hold_switch = over_weight_switch = tri_axle_switch = hazmat_switch = live_switch = drop_pick_switch = False
         if data['customs_hold_switch'] == 'true':
             customs_hold_switch = True
-        else:
-            customs_hold_switch = False
         if data['over_weight_switch'] == 'true':
             over_weight_switch = True
-        else:
-            over_weight_switch = False
         if data['tri_axle_switch'] == 'true':
             tri_axle_switch = True
-        else:
-            tri_axle_switch = False
         if data['hazmat_switch'] == 'true':
             hazmat_switch = True
-        else:
-            hazmat_switch = False
         if data['live_switch'] == 'true':
             live_switch = True
-        else:
-            live_switch = False
         if data['drop_pick_switch'] == 'true':
             drop_pick_switch = True
-        else:
-            drop_pick_switch = False
         try:
             with transaction.atomic():
 
@@ -462,7 +468,8 @@ def Addnewload(request):
                                          pick_up_terminal_id=Terminals.objects.get(id=data['pickup_terminal']),
                                          return_terminal_id=Terminals.objects.get(id=data['return_terminal']))
                 workorder_id = Workorder.objects.get(id=Workorder.objects.all().order_by('-id')[0].id)
-                Export.objects.create(workorder_id=workorder_id, booking=data['booking'], container=data['container_name'],
+                Export.objects.create(workorder_id=workorder_id, booking=data['booking'],
+                                      container=data['container_name'],
                                       contains_size=data['container_size'])
                 Shipement_Details.objects.create(workorder_id=workorder_id, po=data['po_ref'], weight=data['weight'],
                                                  commidty=data['commodity'], customs_hold=customs_hold_switch,
@@ -477,7 +484,8 @@ def Addnewload(request):
                                                        addition_cost=data['extra_costs'], remarks=data['remarks'],
                                                        tri_axl=tri_axle_switch, hazmat=hazmat_switch, live=live_switch,
                                                        drop=drop_pick_switch)
-                Receiver.objects.create(contact_name=data['contact_Name'], email=data['email'], telephone=data['tel_no'],
+                Receiver.objects.create(contact_name=data['contact_Name'], email=data['email'],
+                                        telephone=data['tel_no'],
                                         website=data['website'], delivery_notes=data['delivery_notes'],
                                         workorder_id=workorder_id)
                 msg = str(' NewLoad export inserted successfully ')
@@ -500,4 +508,5 @@ def getCustomerId(request):
     query = request.GET['search_keyword']
     customers = [obj.json() for obj in
                  Customer.objects.filter(Q(id__icontains=query) | Q(customer_name__icontains=query))]
+    print(customers)
     return JsonResponse({'res': customers})

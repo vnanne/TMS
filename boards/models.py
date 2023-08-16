@@ -77,7 +77,7 @@ class Customer(models.Model):
     id=models.AutoField(primary_key=True)
     customer_name=models.CharField(max_length=250, blank=True, null=True)
     customer_trade_name=models.CharField(max_length=250 ,blank=True, null=True)
-    email=models.EmailField(blank=True, null=True)
+    email=models.EmailField(blank=True, null=True, unique=True)
     contact_person=models.CharField(max_length=250 , blank=True, null=True)
     telephone=models.CharField(max_length=250, blank=True, null=True)
     fax=models.CharField(max_length=250, blank=True, null=True)
